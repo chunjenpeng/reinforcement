@@ -13,7 +13,7 @@ listFood = []
 listCapsule = []
 gameData = [mazeLength, posPacman, posGhost, listFood, listCapsule]
 
-usedGameStates = {}
+usedGameStates = []
 
 def generateGameData(seed = 0):
     gameData = [mazeLength, posPacman, posGhost, listFood, listCapsule]
@@ -23,9 +23,9 @@ def ghostRule(gameData):
     return True
 
 def generateGameState(gameData):
-    GameState gamestate
-    if gamestate is not in 
-    return gamestate
+    gamestate 
+    if gamestate not in usedGameStates:
+        return gamestate
     
 def generateGameStates():
     randomSeed = 0
