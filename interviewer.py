@@ -1,4 +1,4 @@
-#author Ryan
+#author Daniel & Ryan
 
 from pacman import GameState
 from game import GameStateData
