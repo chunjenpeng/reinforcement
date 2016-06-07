@@ -1,3 +1,5 @@
+#author Ryan
+
 from pacman import GameState
 from game import GameStateData
 from game import Game
