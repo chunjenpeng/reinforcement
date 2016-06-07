@@ -56,8 +56,7 @@ def generateLayout():
 
 def generateGameState(gameData): #  THIS DOES NOT WORK
 
-    gamestate = GameState()
-    gamestate.data.layout = generateLayout()
+    gamestate = GameState(generateLayout())
 
     return gamestate
     
@@ -68,5 +67,5 @@ def generateGameStates():
         if ghostRule(gameData):
             gameState = generateGameState(gameData)
             if gameState not in usedGameStates:
-                print gameState.data.layout
+                print gameState
 generateGameStates()
