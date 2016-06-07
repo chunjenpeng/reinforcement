@@ -28,26 +28,38 @@ def generateLayout():
     layoutText = [None]*(2+mazeHeight)
 
     wall = ""
-
     for k in range(0,(mazeLength+2)):
         wall += "%"
 
-    layoutText[0] = wall
 
+    layoutText[0] = wall
     layoutText[mazeHeight+1] = wall
 
-    print layoutText
+    for x in range(1,(mazeHeight+1)):
+        row = "%"
+
+        for k in range(1,(mazeLength+1)):
+            if k == posPacman:
+                row += "P"
+            elif k == posGhost:
+                row += "G"
+            elif k in listFood:
+                row += "."
+            elif k in listCapsule:
+                row += "o"
+            else:
+                row += " "
+        row += "%"
+        layoutText[x] = row
+
+    return layoutText
 
 def generateGameState(gameData):
-    gamestate = new GameState()
+    gamestate = GameState()
 
-    for k in range(1, mazeLength-1):
+    gamestate = GameState(generateLayout())
 
-        gamestate = new GameState(self.generateLayout())
-
-        if gamestate not in usedGameStates:
-
-            usedGameStates.append(gamestate)
+    return gamestate
     
 def generateGameStates():
     randomSeed = 0
@@ -57,5 +69,4 @@ def generateGameStates():
             gameState = generateGameState(gameData)
             if gameState not in usedGameStates.keys():
                 print gameState
-
-print generateLayout()
+generateGameStates()
