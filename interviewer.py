@@ -55,9 +55,9 @@ def generateLayout():
     return layoutText
 
 def generateGameState(gameData): #  THIS DOES NOT WORK
-    gamestate = GameState()
 
-    gamestate = GameState(generateLayout())
+    gamestate = GameState()
+    gamestate.data.layout = generateLayout()
 
     return gamestate
     
@@ -67,6 +67,6 @@ def generateGameStates():
         gameData = generateGameData(randomSeed)
         if ghostRule(gameData):
             gameState = generateGameState(gameData)
-            if gameState not in usedGameStates.keys():
-                print gameState
+            if gameState not in usedGameStates:
+                print gameState.data.layout
 generateGameStates()
