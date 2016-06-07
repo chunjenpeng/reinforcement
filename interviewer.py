@@ -1,5 +1,5 @@
 #author Daniel & Ryan
-
+import util, layout
 from pacman import GameState
 from game import GameStateData
 from game import Game
@@ -55,10 +55,15 @@ def generateLayout():
     return layoutText
 
 def generateGameState(gameData): #  THIS DOES NOT WORK
-
-    gamestate = GameState(generateLayout())
-
-    return gamestate
+    #gamestate = GameState(generateLayout())
+    #layout = generateLayout(gameData)
+    layoutName = 'test1D' 
+    Layout = layout.getLayout(layoutName) 
+    gameState = GameState()
+    numGhostAgents = 1
+    gameState.initialize(Layout, numGhostAgents)
+    print gameState
+    return gameState
     
 def generateGameStates():
     randomSeed = 0
@@ -68,4 +73,13 @@ def generateGameStates():
             gameState = generateGameState(gameData)
             if gameState not in usedGameStates:
                 print gameState
-generateGameStates()
+
+def getAction(gameState):
+    import pacmanAgents, qlearningAgents
+    pacmanAgent = pacmanAgents.GreedyAgent()
+    action = pacmanAgent.getAction(gameState)
+    return action 
+
+
+print 'Pacman Action: '+getAction(generateGameState(gameData))
+#generateGameStates()
