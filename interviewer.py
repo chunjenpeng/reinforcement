@@ -76,6 +76,7 @@ def generateGameStates():
             gameState = generateGameState(gameData)
             if gameState not in usedGameStates:
                 listGameStates.append(gameState)
+                usedGameStates.append(gameState)
     return listGameStates
 
 def getAction(gameState):
