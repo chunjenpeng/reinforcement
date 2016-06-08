@@ -1,5 +1,6 @@
 #author Daniel & Ryan
-import util, layout
+import util
+from layout import Layout
 from pacman import GameState
 from game import GameStateData
 from game import Game
@@ -52,16 +53,16 @@ def generateLayout():
         row += "%"
         layoutText[x] = row
 
-    return layoutText
+    return Layout(layoutText)
 
 def generateGameState(gameData): 
     #gamestate = GameState(generateLayout())
     #layout = generateLayout(gameData)
     layoutName = 'test1D' 
-    Layout = layout.getLayout(layoutName) 
+    layout = generateLayout()
     gameState = GameState()
     numGhostAgents = 1
-    gameState.initialize(Layout, numGhostAgents)
+    gameState.initialize(layout, numGhostAgents)
     print gameState
     return gameState
     
@@ -81,4 +82,4 @@ def getAction(gameState):
     return action 
 
 print 'Pacman Action: '+getAction(generateGameState(gameData))
-#generateGameStates()
+print generateGameStates()
