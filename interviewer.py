@@ -14,12 +14,13 @@ posGhost = 4
 numLayouts = 10
 listFood = []
 listCapsule = []
+seed = 0
 gameData = dict(mazeLength = mazeLength, posPacman = posPacman, 
-            posGhost = posGhost, listFood = listFood, listCapsule = listCapsule)
+            posGhost = posGhost, listFood = listFood, listCapsule = listCapsule, seed = seed)
 
 usedGameStates = []
 
-def generateGameData(seed = 0):
+def generateGameData(seed):
     gameData = [mazeLength, posPacman, posGhost, listFood, listCapsule]
     return gameData
     
@@ -51,6 +52,7 @@ def generateLayout():
                 row += "o"
             else:
                 row += " "
+
         row += "%"
         layoutText[x] = row
 
@@ -83,7 +85,40 @@ def getAction(gameState):
     import pacmanAgents, qlearningAgents
     pacmanAgent = pacmanAgents.GreedyAgent()
     action = pacmanAgent.getAction(gameState)
-    return action 
+    return action
 
+def readCommand(argv):
+
+    from outparse import OptionParser
+
+    usageStr = ""
+    parser = OptionParser(usageStr)
+
+    parser.add_option('-ml', '--mazeLength', 'mazeLength', type='int', dest= 'mazeLength',
+                      help = default('the length of the maze'), default = 5)
+    parser.add_option('-mh', '--mazeHeight', 'mazeHeight', type='int', dest= 'mazeHeight',
+                      help = default('the height of the maze'), default = 1)
+    parser.add_option('-pp', '--posPacman', 'posPacman', type='int', dest= 'posPacman',
+                      help = default('the position of pacman in a horizontal maze'), default = None)
+    parser.add_option('-pg', '--posGhost', 'posGhost', type='int', dest= 'posGhost',
+                      help = default('the position of the ghost in a horizontal maze'), default = None)
+    parser.add_option('-nl','--numLayouts' ,'numLayouts', type='int', dest= 'numLayouts',
+                      help = default('the number of layouts to be generated'), default = 10 )
+
+    options, otherjunk = parser.parse_args(argv)
+
+    if len(otherjunk) != 0:
+    raise Exception('Command line input not understood: ' + str(otherjunk))
+
+    args = dict()
+
+    args['mazeLength'] = options.mazeLength
+    args['mazeHeight'] = options.mazeHeight
+    args['posPacman'] = options.posPacman
+    args['posGhost'] = options.posGhost
+    args['numLayouts'] = options.numLayouts
+
+    return args
+args = readCommand( sys.argv[1:] )
 for k in range(0,numLayouts):
-    print 'Pacman Action: '+getAction(generateGameState(gameData))
+    print 'Pacman Action: '+getAction(generateGameState(args))
