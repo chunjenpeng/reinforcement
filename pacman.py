@@ -227,7 +227,6 @@ class GameState:
     return hash( self.data )
 
   def __str__( self ):
-
     return str(self.data)
 
   def initialize( self, layout, numGhostAgents=1000 ):
