@@ -17,8 +17,6 @@ numLayouts = 10
 listFood = []
 listCapsule = []
 seed = 0
-gameData = dict(mazeLength = mazeLength, posPacman = posPacman, 
-            posGhost = posGhost, listFood = listFood, listCapsule = listCapsule, seed = seed)
 
 usedGameStates = []
     
@@ -72,7 +70,7 @@ def generateLayout():
 def generateGameState(gameData): 
     #gamestate = GameState(generateLayout())
     #layout = generateLayout(gameData)
-    layoutName = 'test1D' 
+    #layoutName = 'test1D' 
     layout = generateLayout()
     gameState = GameState()
     numGhostAgents = 1
