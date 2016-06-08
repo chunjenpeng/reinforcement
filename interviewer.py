@@ -17,14 +17,8 @@ numLayouts = 10
 listFood = []
 listCapsule = []
 seed = 0
-gameData = dict(mazeLength = mazeLength, posPacman = posPacman, 
-            posGhost = posGhost, listFood = listFood, listCapsule = listCapsule, seed = seed)
 
 usedGameStates = []
-
-def generateGameData(seed):
-    gameData = [mazeLength, posPacman, posGhost, listFood, listCapsule]
-    return gameData
     
 def ghostRule(gameData):
     return True
@@ -76,7 +70,7 @@ def generateLayout():
 def generateGameState(gameData): 
     #gamestate = GameState(generateLayout())
     #layout = generateLayout(gameData)
-    layoutName = 'test1D' 
+    #layoutName = 'test1D' 
     layout = generateLayout()
     gameState = GameState()
     numGhostAgents = 1
@@ -84,11 +78,10 @@ def generateGameState(gameData):
     print gameState
     return gameState
     
-def generateGameStates():
+def generateGameStates(gameData):
     listGameStates = []
     randomSeed = 0
     for repeat in range (0, numLayouts):
-        gameData = generateGameData(randomSeed)
         if ghostRule(gameData):
             gameState = generateGameState(gameData)
             if gameState not in usedGameStates:
