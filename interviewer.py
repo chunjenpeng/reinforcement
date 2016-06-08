@@ -11,6 +11,7 @@ mazeHeight = 1
 mazeLength = 5
 posPacman = 1
 posGhost = 4
+numLayouts = 10
 listFood = []
 listCapsule = []
 gameData = dict(mazeLength = mazeLength, posPacman = posPacman, 
@@ -67,13 +68,15 @@ def generateGameState(gameData):
     return gameState
     
 def generateGameStates():
+    listGameStates = []
     randomSeed = 0
-    for repeat in range (0, 10, 1):
+    for repeat in range (0, numLayouts):
         gameData = generateGameData(randomSeed)
         if ghostRule(gameData):
             gameState = generateGameState(gameData)
             if gameState not in usedGameStates:
-                print gameState
+                listGameStates.append(gameState)
+    return listGameStates
 
 def getAction(gameState):
     import pacmanAgents, qlearningAgents
@@ -81,5 +84,5 @@ def getAction(gameState):
     action = pacmanAgent.getAction(gameState)
     return action 
 
-print 'Pacman Action: '+getAction(generateGameState(gameData))
-print generateGameStates()
+for k in range(0,numLayouts):
+    print 'Pacman Action: '+getAction(generateGameState(gameData))
