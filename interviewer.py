@@ -1,5 +1,5 @@
 #author Daniel & Ryan
-import util
+import util, sys
 from layout import Layout
 from pacman import GameState
 from game import GameStateData
@@ -102,28 +102,31 @@ def getAction(gameState):
     action = pacmanAgent.getAction(gameState)
     return action
 
+def default(str):
+  return str + ' [Default: %default]'
+
 def readCommand(argv):
 
-    from outparse import OptionParser
+    from optparse import OptionParser
 
     usageStr = ""
     parser = OptionParser(usageStr)
 
-    parser.add_option('-ml', '--mazeLength', 'mazeLength', type='int', dest= 'mazeLength',
+    parser.add_option('--mazeLength', dest = 'mazeLength', type='int',
                       help = default('the length of the maze'), default = 5)
-    parser.add_option('-mh', '--mazeHeight', 'mazeHeight', type='int', dest= 'mazeHeight',
+    parser.add_option('--mazeHeight', dest = 'mazeHeight', type='int',
                       help = default('the height of the maze'), default = 1)
-    parser.add_option('-pp', '--posPacman', 'posPacman', type='int', dest= 'posPacman',
+    parser.add_option('--posPacman', dest = 'posPacman', type='int',
                       help = default('the position of pacman in a horizontal maze'), default = None)
-    parser.add_option('-pg', '--posGhost', 'posGhost', type='int', dest= 'posGhost',
+    parser.add_option('--posGhost', dest = 'posGhost', type='int',
                       help = default('the position of the ghost in a horizontal maze'), default = None)
-    parser.add_option('-nl','--numLayouts' ,'numLayouts', type='int', dest= 'numLayouts',
+    parser.add_option('--numLayouts' ,dest = 'numLayouts', type='int',
                       help = default('the number of layouts to be generated'), default = 10 )
 
     options, otherjunk = parser.parse_args(argv)
 
     if len(otherjunk) != 0:
-    raise Exception('Command line input not understood: ' + str(otherjunk))
+        raise Exception('Command line input not understood: ' + str(otherjunk))
 
     args = dict()
 
