@@ -9,11 +9,6 @@ from game import Actions
 from random import randint
 from random import seed
 
-mazeHeight = 1
-mazeLength = 5
-posPacman = 1
-posGhost = 4
-numLayouts = 10
 listFood = []
 listCapsule = []
 seed = 0
@@ -23,19 +18,21 @@ usedGameStates = []
 def ghostRule(gameData):
     return True
 
-def generateLayout():
+def generateLayout(gameData):
     listFood = []
     listCapsule = []
-    layoutText = [None]*(2+mazeHeight)
+    height = gameData['mazeHeight']
+    length = gameData['mazeLength']
+    posPacman = gameData['posPacman']
+    posGhost = gameData['posGhost']
+    layoutText = [None]*(2+height)
 
-    wall = ""
-    for k in range(0,(mazeLength+2)):
-        wall += "%"
+    wall = "%"*(length+2)
 
     layoutText[0] = wall
-    layoutText[mazeHeight+1] = wall
+    layoutText[height+1] = wall
 
-    for k in range(1,mazeLength+1): #randomization of food and capsules
+    for k in range(1,length+1): #randomization of food and capsules
         if k == posPacman:
             continue
         if k == posGhost:
@@ -47,10 +44,10 @@ def generateLayout():
         elif randomInt == 2:
             listFood.append(k)
 
-    for x in range(1,(mazeHeight+1)):
+    for x in range(1,(height+1)):
         row = "%"
 
-        for k in range(1,(mazeLength+1)):
+        for k in range(1,(length+1)):
             if k == posPacman:
                 row += "P"
             elif k == posGhost:
@@ -71,7 +68,7 @@ def generateGameState(gameData):
     #gamestate = GameState(generateLayout())
     #layout = generateLayout(gameData)
     #layoutName = 'test1D' 
-    layout = generateLayout()
+    layout =  generateLayout(gameData)
     gameState = GameState()
     numGhostAgents = 1
     gameState.initialize(layout, numGhostAgents)
@@ -81,7 +78,7 @@ def generateGameState(gameData):
 def generateGameStates(gameData):
     listGameStates = []
     randomSeed = 0
-    for repeat in range (0, numLayouts):
+    for repeat in range (0, gameData['numLayouts']):
         if ghostRule(gameData):
             gameState = generateGameState(gameData)
             if gameState not in usedGameStates:
@@ -110,9 +107,9 @@ def readCommand(argv):
     parser.add_option('--mazeHeight', dest = 'mazeHeight', type='int',
                       help = default('the height of the maze'), default = 1)
     parser.add_option('--posPacman', dest = 'posPacman', type='int',
-                      help = default('the position of pacman in a horizontal maze'), default = None)
+                      help = default('the position of pacman in a horizontal maze'), default = 1)
     parser.add_option('--posGhost', dest = 'posGhost', type='int',
-                      help = default('the position of the ghost in a horizontal maze'), default = None)
+                      help = default('the position of the ghost in a horizontal maze'), default = 4)
     parser.add_option('--numLayouts' ,dest = 'numLayouts', type='int',
                       help = default('the number of layouts to be generated'), default = 10 )
 
@@ -131,5 +128,5 @@ def readCommand(argv):
 
     return args
 args = readCommand( sys.argv[1:] )
-for k in range(0,numLayouts):
+for k in range(0,args['numLayouts']):
     print 'Pacman Action: '+getAction(generateGameState(args))
