@@ -6,6 +6,8 @@ from game import GameStateData
 from game import Game
 from game import Directions
 from game import Actions
+from random import randint
+from random import seed
 
 mazeHeight = 1
 mazeLength = 5
@@ -28,15 +30,28 @@ def ghostRule(gameData):
     return True
 
 def generateLayout():
+    listFood = []
+    listCapsule = []
     layoutText = [None]*(2+mazeHeight)
 
     wall = ""
     for k in range(0,(mazeLength+2)):
         wall += "%"
 
-
     layoutText[0] = wall
     layoutText[mazeHeight+1] = wall
+
+    for k in range(1,mazeLength+1): #randomization of food and capsules
+        if k == posPacman:
+            continue
+        if k == posGhost:
+            continue
+        #random.seed(0)
+        randomInt = randint(0,2)
+        if randomInt == 1:
+            listCapsule.append(k)
+        elif randomInt == 2:
+            listFood.append(k)
 
     for x in range(1,(mazeHeight+1)):
         row = "%"
