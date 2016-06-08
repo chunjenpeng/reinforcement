@@ -128,5 +128,5 @@ def readCommand(argv):
 
     return args
 args = readCommand( sys.argv[1:] )
-for k in range(0,numLayouts):
+for k in range(0,args['numLayouts']):
     print 'Pacman Action: ' + getAction(generateGameState(args)) + "\n"
