@@ -54,7 +54,7 @@ def generateLayout():
 
     return layoutText
 
-def generateGameState(gameData): #  THIS DOES NOT WORK
+def generateGameState(gameData): 
     #gamestate = GameState(generateLayout())
     #layout = generateLayout(gameData)
     layoutName = 'test1D' 
@@ -79,7 +79,6 @@ def getAction(gameState):
     pacmanAgent = pacmanAgents.GreedyAgent()
     action = pacmanAgent.getAction(gameState)
     return action 
-
 
 print 'Pacman Action: '+getAction(generateGameState(gameData))
 #generateGameStates()
