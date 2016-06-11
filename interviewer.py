@@ -55,9 +55,28 @@ def ghostAtEast(gameData):
         return True
     return False
 
-def ghostAtWest(gameData):
-    if(gameData.posPacman > gameData.posGhost):
-        return True
+def foodIsNear(gameData, near = 1):
+    for food in gameData.listFood:
+        if(abs(gameData.posPacman - food) <= near):
+            return True
+    return False
+
+def foodAtEast(gameData):
+    for food in gameData.listFood:
+        if(gameData.posPacman < food):
+            return True
+    return False
+    
+def capsuleIsNear(gameData, near = 1):
+    for capsule in gameData.listCapsule:
+        if(abs(gameData.posPacman - capsule) <= near):
+            return True
+    return False
+
+def capsuleAtEast(gameData):
+    for capsule in gameData.listCapsule:
+        if(gameData.posPacman < capsule):
+            return True
     return False
 
 def pacmanAtCorner(gameData):
@@ -65,20 +84,25 @@ def pacmanAtCorner(gameData):
        return True 
     return False 
 
-
 def generateChromosome():
-    chromosome = {}
+    chromosome = dict.fromkeys(rules.keys(),False)
     chromosome['ghostIsNear'] = True 
-    chromosome['ghostAtEast'] = False 
-    chromosome['ghostAtWest'] = True 
-    chromosome['pacmanAtCorner'] = False 
+    #chromosome['ghostAtEast'] = True 
+    #chromosome['foodIsNear'] = True 
+    #chromosome['foodAtEast'] = True 
+    #chromosome['capsuleIsNear'] = True 
+    #chromosome['capsuleAtEast'] = True 
+    #chromosome['pacmanAtCorner'] = True 
     return chromosome
 
 def generateRules():
     rules = {}
     rules['ghostIsNear'] = Rule(ghostIsNear)
     rules['ghostAtEast'] = Rule(ghostAtEast)
-    rules['ghostAtWest'] = Rule(ghostAtWest)
+    rules['foodIsNear'] = Rule(foodIsNear)
+    rules['foodAtEast'] = Rule(foodAtEast)
+    rules['capsuleIsNear'] = Rule(capsuleIsNear)
+    rules['capsuleAtEast'] = Rule(capsuleAtEast)
     rules['pacmanAtCorner'] = Rule(pacmanAtCorner)
     return rules
     
