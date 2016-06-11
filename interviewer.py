@@ -39,6 +39,12 @@ class Rule:
     def check(self, gameData):
         return self.func(gameData)
 
+def checkRules(rules, gameData, chromosome):
+    for rule in rules:
+        if rules[rule].check(gameData) is not chromosome[rule]:
+            return False
+    return True
+
 def ghostIsNear(gameData, near = 1):
     if (abs(gameData.posPacman - gameData.posGhost) <= near):
         return True
@@ -54,17 +60,26 @@ def ghostAtWest(gameData):
         return True
     return False
 
-def checkRules(rules, gameData):
-    for rule in rules:
-        if rules[rule].check(gameData) is False:
-            return False
-    return True
+def pacmanAtCorner(gameData):
+    if((gameData.posPacman == 1) or (gameData.posPacman == gameData.mazeLength)):
+       return True 
+    return False 
+
+
+def generateChromosome():
+    chromosome = {}
+    chromosome['ghostIsNear'] = True 
+    chromosome['ghostAtEast'] = False 
+    chromosome['ghostAtWest'] = True 
+    chromosome['pacmanAtCorner'] = False 
+    return chromosome
 
 def generateRules():
-    rules = {} 
+    rules = {}
     rules['ghostIsNear'] = Rule(ghostIsNear)
-    #rules['ghostAtEast'] = Rule(ghostAtEast)
+    rules['ghostAtEast'] = Rule(ghostAtEast)
     rules['ghostAtWest'] = Rule(ghostAtWest)
+    rules['pacmanAtCorner'] = Rule(pacmanAtCorner)
     return rules
     
 def generateLayout(gameData):
@@ -107,16 +122,6 @@ def generateGameState(args):
     gameState.initialize(layout, numGhostAgents)
     return gameState
     
-def generateGameStates(gameData):
-    listGameStates = []
-    randomSeed = 0
-    for repeat in range (0, gameData['numLayouts']):
-        if ghostRule(gameData):
-            gameState = generateGameState(gameData)
-            if gameState not in usedGameStates:
-                listGameStates.append(gameState)
-                usedGameStates.append(gameState)
-    return listGameStates
 
 def getAction(gameState):
     import pacmanAgents, qlearningAgents
@@ -164,13 +169,29 @@ args = readCommand( sys.argv[1:] )
 for k in range(0,args['numLayouts']):
     data = gameData(args)
     rules = generateRules()
-    while checkRules(rules, data) is False:
-        #usedGameData = []
+    chromosome = generateChromosome()
+    while checkRules(rules, data, chromosome) is False:
         data = gameData(args)
     gameState = generateGameState(data)
     print gameState
-    print "When",
-    for rule in rules:
-        print rule,
 
-    print ', Pacman goes: ' + getAction(gameState) + "\n"
+    fullRule = ""
+    for rule in rules:
+        if not chromosome[rule]: 
+            fullRule = fullRule + 'Not'
+        fullRule = fullRule + str(rule)+', ' 
+
+    print 'When: '+fullRule+'Pacman goes: ' + getAction(gameState) + "\n"
+
+'''
+def generateGameStates(gameData):
+    listGameStates = []
+    randomSeed = 0
+    for repeat in range (0, gameData['numLayouts']):
+        if ghostRule(gameData):
+            gameState = generateGameState(gameData)
+            if gameState not in usedGameStates:
+                listGameStates.append(gameState)
+                usedGameStates.append(gameState)
+    return listGameStates
+'''
