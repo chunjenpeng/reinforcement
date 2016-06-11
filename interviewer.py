@@ -12,8 +12,8 @@ from random import seed
 class Rule:
     def __init__(self, closure):
         self.func = closure
-    def check(self):
-        self.func()
+    def check(self, gameData):
+        return self.func(gameData)
 
 def ghostIsNear(gameData, near = 1):
     if (abs(gameData['posPacman'] - gameData['posGhost']) <= near):
@@ -38,19 +38,13 @@ seed = 0
 usedGameStates = []
     
 def ghostRule(gameData):
-    '''
-    rules = []
-    rules.append( Rule(ghostIsNear(gameData)))
-    rules.append( Rule(ghostAtRight(gameData)))
-    rules.append( Rule(ghostAtLeft(gameData)))
-    ''' 
     rules = {} 
-    rules['ghostIsNear'] = Rule(ghostIsNear(gameData))
-    rules['ghostAtRight'] = Rule(ghostAtRight(gameData))
-    rules['ghostAtLeft'] = Rule(ghostAtLeft(gameData))
+    rules['ghostIsNear'] = Rule(ghostIsNear)
+    rules['ghostAtRight'] = Rule(ghostAtRight)
+    rules['ghostAtLeft'] = Rule(ghostAtLeft)
 
     for rule in rules:
-        print rule, rules[rule].check
+        print rule, rules[rule].check(gameData)
         if rules[rule].check is False:
             print 'Not '+rule
             return False
