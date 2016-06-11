@@ -9,6 +9,28 @@ from game import Actions
 from random import randint
 from random import seed
 
+class Rule:
+    def __init__(self, closure):
+        self.func = closure
+    def check(self):
+        self.func()
+
+def ghostIsNear(gameData, near = 1):
+    if (abs(gameData['posPacman'] - gameData['posGhost']) <= near):
+        return True
+    return False 
+
+def ghostAtRight(gameData):
+    if(gameData['posPacman'] < gameData['posGhost']):
+        return True
+    return False
+
+def ghostAtLeft(gameData):
+    if(gameData['posPacman'] > gameData['posGhost']):
+        return True
+    return False
+
+
 listFood = []
 listCapsule = []
 seed = 0
@@ -16,6 +38,22 @@ seed = 0
 usedGameStates = []
     
 def ghostRule(gameData):
+    '''
+    rules = []
+    rules.append( Rule(ghostIsNear(gameData)))
+    rules.append( Rule(ghostAtRight(gameData)))
+    rules.append( Rule(ghostAtLeft(gameData)))
+    ''' 
+    rules = {} 
+    rules['ghostIsNear'] = Rule(ghostIsNear(gameData))
+    rules['ghostAtRight'] = Rule(ghostAtRight(gameData))
+    rules['ghostAtLeft'] = Rule(ghostAtLeft(gameData))
+
+    for rule in rules:
+        print rule, rules[rule].check
+        if rules[rule].check is False:
+            print 'Not '+rule
+            return False
     return True
 
 def generateLayout(gameData):
@@ -65,14 +103,10 @@ def generateLayout(gameData):
     return Layout(layoutText)
 
 def generateGameState(gameData): 
-    #gamestate = GameState(generateLayout())
-    #layout = generateLayout(gameData)
-    #layoutName = 'test1D' 
     layout =  generateLayout(gameData)
     gameState = GameState()
     numGhostAgents = 1
     gameState.initialize(layout, numGhostAgents)
-    print gameState
     return gameState
     
 def generateGameStates(gameData):
@@ -107,9 +141,9 @@ def readCommand(argv):
     parser.add_option('--mazeHeight', dest = 'mazeHeight', type='int',
                       help = default('the height of the maze'), default = 1)
     parser.add_option('--posPacman', dest = 'posPacman', type='int',
-                      help = default('the position of pacman in a horizontal maze'), default = 1)
+                      help = default('the position of pacman in a horizontal maze'), default = 2)
     parser.add_option('--posGhost', dest = 'posGhost', type='int',
-                      help = default('the position of the ghost in a horizontal maze'), default = 4)
+                      help = default('the position of the ghost in a horizontal maze'), default = 3)
     parser.add_option('--numLayouts' ,dest = 'numLayouts', type='int',
                       help = default('the number of layouts to be generated'), default = 10 )
 
@@ -129,4 +163,7 @@ def readCommand(argv):
     return args
 args = readCommand( sys.argv[1:] )
 for k in range(0,args['numLayouts']):
-    print 'Pacman Action: ' + getAction(generateGameState(args)) + "\n"
+    ghostRule(args)    
+    gameState = generateGameState(args)
+    print gameState
+    print 'Pacman Action: ' + getAction(gameState) + "\n"
