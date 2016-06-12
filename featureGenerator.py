@@ -71,28 +71,28 @@ def ghostAtEast(gameData):
 def ghostAtCorner(gameData):
     return atCorner(gameData.posGhost, gameData.mazeLength)
 
-def nearestFoodIsNear(gameData):
+def closestFoodIsNear(gameData):
     #TODO
     # use closestFood at featureExtractors.py:29
     util.raiseNotDefined()
 
-def nearestFoodAtEast(gameData):
+def closestFoodAtEast(gameData):
     #TODO
     util.raiseNotDefined()
 
-def nearestFoodAtCorner(gameData):
+def closestFoodAtCorner(gameData):
     #TODO
     util.raiseNotDefined()
 
-def nearestCapsuleIsNear(gameData):
+def closestCapsuleIsNear(gameData):
     #TODO
     util.raiseNotDefined()
 
-def nearestCapsuleAtEast(gameData):
+def closestCapsuleAtEast(gameData):
     #TODO
     util.raiseNotDefined()
 
-def nearestCapsuleAtCorner(gameData):
+def closestCapsuleAtCorner(gameData):
     #TODO
     util.raiseNotDefined()
 
