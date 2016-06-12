@@ -8,7 +8,10 @@ from game import Directions
 from game import Actions
 from random import randint
 from random import seed
+import featureGenerator
 
+#TODO
+############# Remove this part when featureGenerator.py is finished #######################
 class gameData:
     def __init__(self, args):
         self.mazeHeight = args['mazeHeight']
@@ -33,6 +36,8 @@ class gameData:
             elif randomInt == 2:
                self.listFood.append(k)
 
+
+
 class Rule:
     def __init__(self, closure):
         self.func = closure
@@ -45,15 +50,32 @@ def checkRules(rules, gameData, chromosome):
             return False
     return True
 
-def ghostIsNear(gameData, near = 1):
-    if (abs(gameData.posPacman - gameData.posGhost) <= near):
-        return True
-    return False 
-
-def ghostAtEast(gameData):
-    if(gameData.posPacman < gameData.posGhost):
+def isNear(pos1, pos2, near):
+    if (abs(pos1 - pos2)<= near):
         return True
     return False
+
+def atEast(pos1, pos2):
+    if (pos1 > pos2):
+        return True
+    return False
+    
+def atCorner(pos, length):
+    if(pos == 1 or pos == length):
+        return True
+    return False
+
+def pacmanAtCorner(gameData):
+    return atCorner(gameData.posPacman, gameData.mazeLength)
+
+def ghostIsNear(gameData):
+    return isNear( gameData.posGhost, gameData.posPacman, near = 1 )
+
+def ghostAtEast(gameData):
+    return atEast(gameData.posGhost, gameData.posPacman)
+
+def ghostAtCorner(gameData):
+    return atCorner(gameData.posGhost, gameData.mazeLength)
 
 def foodIsNear(gameData, near = 1):
     for food in gameData.listFood:
@@ -78,18 +100,14 @@ def capsuleAtEast(gameData):
         if(gameData.posPacman < capsule):
             return True
     return False
-
-def pacmanAtCorner(gameData):
-    if((gameData.posPacman == 1) or (gameData.posPacman == gameData.mazeLength)):
-       return True 
-    return False 
+############# Remove this part when featureGenerator.py is finished #######################
 
 def generateChromosome():
     chromosome = dict.fromkeys(rules.keys(),False)
-    chromosome['ghostIsNear'] = True 
+    #chromosome['ghostIsNear'] = True 
     #chromosome['ghostAtEast'] = True 
-    #chromosome['foodIsNear'] = True 
-    #chromosome['foodAtEast'] = True 
+    chromosome['foodIsNear'] = True 
+    chromosome['foodAtEast'] = True 
     #chromosome['capsuleIsNear'] = True 
     #chromosome['capsuleAtEast'] = True 
     #chromosome['pacmanAtCorner'] = True 
@@ -193,8 +211,14 @@ args = readCommand( sys.argv[1:] )
 for k in range(0,args['numLayouts']):
     data = gameData(args)
     rules = generateRules()
+    # TODO
+    # randomly generate chromosome until all(most) of the chromosome(rules) have the same action
+    # then extract the same rules in the chromosome and combine them as a new rule
     chromosome = generateChromosome()
     while checkRules(rules, data, chromosome) is False:
+        #TODO 
+        # add data into a usedGameData dict
+        # if usedGameData has all possible gamestates, return that rules contain conflict rules
         data = gameData(args)
     gameState = generateGameState(data)
     print gameState
