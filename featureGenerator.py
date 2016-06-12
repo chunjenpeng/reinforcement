@@ -43,7 +43,11 @@ def checkRules(rules, gameData, chromosome):
     return True
 
 # TODO
-# Rewirte rules with binary relations and GP
+# Rewrite rules with binary relations and GP(Genetic Programming)
+# Perhaps define another class GP? 
+# with Objects = pacman, closestGhost, closestFood, closestCapsule, ...
+# and Relations = isNear, atEast, atCorner, ... 
+
 def isNear(pos1, pos2, near):
     if (abs(pos1 - pos2)<= near):
         return True
