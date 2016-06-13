@@ -30,20 +30,20 @@ class gameData:
 
 
 
-class Rule:
+class Feature:
     def __init__(self, closure):
         self.func = closure
-    def check(self, gameData):
+    def satisfy(self, gameData):
         return self.func(gameData)
 
-def checkRules(rules, gameData, chromosome):
-    for rule in rules:
-        if rules[rule].check(gameData) is not chromosome[rule]:
+def satisfyFeatures(features, gameData, chromosome):
+    for feature in features:
+        if features[feature].check(gameData) is not chromosome[feature]:
             return False
     return True
 
 # TODO
-# Rewrite rules with binary relations and GP(Genetic Programming)
+# Rewrite features with binary relations and GP(Genetic Programming)
 # Perhaps define another class GP? 
 # with Objects = pacman, closestGhost, closestFood, closestCapsule, ...
 # and Relations = isNear, atEast, atCorner, ... 
