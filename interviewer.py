@@ -77,25 +77,26 @@ def ghostAtEast(gameData):
 def ghostAtCorner(gameData):
     return atCorner(gameData.posGhost, gameData.mazeLength)
 
-def foodIsNear(gameData, near = 1):
+def closestFoodIsNear(gameData, near = 1):
     for food in gameData.listFood:
         if(abs(gameData.posPacman - food) <= near):
+
             return True
     return False
 
-def foodAtEast(gameData):
+def closestFoodAtEast(gameData):
     for food in gameData.listFood:
         if(gameData.posPacman < food):
             return True
     return False
     
-def capsuleIsNear(gameData, near = 1):
+def closestCapsuleIsNear(gameData, near = 1):
     for capsule in gameData.listCapsule:
         if(abs(gameData.posPacman - capsule) <= near):
             return True
     return False
 
-def capsuleAtEast(gameData):
+def closestCapsuleAtEast(gameData):
     for capsule in gameData.listCapsule:
         if(gameData.posPacman < capsule):
             return True
@@ -104,12 +105,12 @@ def capsuleAtEast(gameData):
 
 def generateChromosome():
     chromosome = dict.fromkeys(features.keys(),False)
-    #chromosome['ghostIsNear'] = True 
-    #chromosome['ghostAtEast'] = True 
-    chromosome['foodIsNear'] = True 
-    chromosome['foodAtEast'] = True 
-    #chromosome['capsuleIsNear'] = True 
-    #chromosome['capsuleAtEast'] = True 
+    chromosome['ghostIsNear'] = True
+    #chromosome['ghostAtEast'] = True
+    chromosome['closestFoodIsNear'] = True
+    #chromosome['closestFoodAtEast'] = True
+    #chromosome['closestCapsuleIsNear'] = True
+    #chromosome['closestCapsuleAtEast'] = True
     #chromosome['pacmanAtCorner'] = True 
     return chromosome
 
@@ -117,10 +118,10 @@ def generateFeatures():
     features = {}
     features['ghostIsNear'] = Feature(ghostIsNear)
     features['ghostAtEast'] = Feature(ghostAtEast)
-    features['foodIsNear'] = Feature(foodIsNear)
-    features['foodAtEast'] = Feature(foodAtEast)
-    features['capsuleIsNear'] = Feature(capsuleIsNear)
-    features['capsuleAtEast'] = Feature(capsuleAtEast)
+    features['closestFoodIsNear'] = Feature(closestFoodIsNear)
+    features['closestFoodAtEast'] = Feature(closestFoodAtEast)
+    features['closestCapsuleIsNear'] = Feature(closestCapsuleIsNear)
+    features['closestCapsuleAtEast'] = Feature(closestCapsuleAtEast)
     features['pacmanAtCorner'] = Feature(pacmanAtCorner)
     return features
     
