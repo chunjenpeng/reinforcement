@@ -38,15 +38,15 @@ class gameData:
 
 
 
-class Rule:
+class Feature:
     def __init__(self, closure):
         self.func = closure
-    def check(self, gameData):
+    def satisfy(self, gameData):
         return self.func(gameData)
 
-def checkRules(rules, gameData, chromosome):
-    for rule in rules:
-        if rules[rule].check(gameData) is not chromosome[rule]:
+def satisfyFeatures(feature, gameData, chromosome):
+    for feature in features:
+        if features[feature].satisfy(gameData) is not chromosome[feature]:
             return False
     return True
 
@@ -103,7 +103,7 @@ def capsuleAtEast(gameData):
 ############# Remove this part when featureGenerator.py is finished #######################
 
 def generateChromosome():
-    chromosome = dict.fromkeys(rules.keys(),False)
+    chromosome = dict.fromkeys(features.keys(),False)
     #chromosome['ghostIsNear'] = True 
     #chromosome['ghostAtEast'] = True 
     chromosome['foodIsNear'] = True 
@@ -113,16 +113,16 @@ def generateChromosome():
     #chromosome['pacmanAtCorner'] = True 
     return chromosome
 
-def generateRules():
-    rules = {}
-    rules['ghostIsNear'] = Rule(ghostIsNear)
-    rules['ghostAtEast'] = Rule(ghostAtEast)
-    rules['foodIsNear'] = Rule(foodIsNear)
-    rules['foodAtEast'] = Rule(foodAtEast)
-    rules['capsuleIsNear'] = Rule(capsuleIsNear)
-    rules['capsuleAtEast'] = Rule(capsuleAtEast)
-    rules['pacmanAtCorner'] = Rule(pacmanAtCorner)
-    return rules
+def generateFeatures():
+    features = {}
+    features['ghostIsNear'] = Feature(ghostIsNear)
+    features['ghostAtEast'] = Feature(ghostAtEast)
+    features['foodIsNear'] = Feature(foodIsNear)
+    features['foodAtEast'] = Feature(foodAtEast)
+    features['capsuleIsNear'] = Feature(capsuleIsNear)
+    features['capsuleAtEast'] = Feature(capsuleAtEast)
+    features['pacmanAtCorner'] = Feature(pacmanAtCorner)
+    return features
     
 def generateLayout(gameData):
     height = gameData.mazeHeight
@@ -210,26 +210,26 @@ def readCommand(argv):
 args = readCommand( sys.argv[1:] )
 for k in range(0,args['numLayouts']):
     data = gameData(args)
-    rules = generateRules()
+    features = generateFeatures()
     # TODO
-    # randomly generate chromosome until all(most) of the chromosome(rules) have the same action
-    # then extract the same rules in the chromosome and combine them as a new rule
+    # randomly generate chromosome until all(most) of the chromosome(features) have the same action
+    # then extract the same features in the chromosome and combine them as a new feature
     chromosome = generateChromosome()
-    while checkRules(rules, data, chromosome) is False:
+    while satisfyFeatures(features, data, chromosome) is False:
         #TODO 
         # add data into a usedGameData dict
-        # if usedGameData has all possible gamestates, return that rules contain conflict rules
+        # if usedGameData has all possible gamestates, return that features contain conflict features
         data = gameData(args)
     gameState = generateGameState(data)
     print gameState
 
-    fullRule = ""
-    for rule in rules:
-        if not chromosome[rule]: 
-            fullRule = fullRule + 'Not'
-        fullRule = fullRule + str(rule)+', ' 
+    fullFeature = ""
+    for feature in features:
+        if not chromosome[feature]: 
+            fullFeature = fullFeature + 'Not'
+        fullFeature = fullFeature + str(feature)+', ' 
 
-    print 'When: '+fullRule+'Pacman goes: ' + getAction(gameState) + "\n"
+    print 'When: '+fullFeature+'Pacman goes: ' + getAction(gameState) + "\n"
 
 '''
 def generateGameStates(gameData):
