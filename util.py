@@ -493,3 +493,32 @@ class TimeoutFunction:
             signal.signal(signal.SIGALRM, old)
         signal.alarm(0)
         return result
+
+def closest(list,mazeLength,gameData):
+    minDist = mazeLength
+    for k in list:
+        if(abs(gameData.posPacman-k)<=minDist):
+            minDist = abs(gameData.posPacman-k)
+    return minDist
+
+def closestList(list,mazeLength,gameData):
+    minDistList = []
+    returnList = []
+    minDist = mazeLength
+    count = 0
+    for k in range(1,mazeLength-1):
+        if(k not in list):
+            minDistList.append([None])
+        if(k in list):
+            minDistList.append(abs(gameData.posPacman-k))
+    for k in minDistList:
+        if(k == [None]):
+            continue
+        elif(k <= minDist):
+            minDist = k
+    for k in minDistList:
+        count = count + 1
+        if(k == minDist):
+            returnList.append(count)
+    return returnList
+
