@@ -13,7 +13,12 @@ import featureGenerator
 #TODO
 ############# Remove this part when featureGenerator.py is finished #######################
 class gameData:
-    def __init__(self, args):
+    def __init__(self, args, chromosome = None):
+        self.initialize(args)
+        if chromosome != None:
+            while satisfyFeatures(generateFeatures(), self, chromosome) == False:
+                self.initialize(args)
+    def initialize(self, args):
         self.mazeHeight = args['mazeHeight']
         self.mazeLength = args['mazeLength']
         if args['posPacman'] is None:
@@ -103,16 +108,49 @@ def closestCapsuleAtEast(gameData):
     return False
 ############# Remove this part when featureGenerator.py is finished #######################
 
-def generateChromosome():
+def generateChromosome(chromosomeString = '00000000'):
     chromosome = dict.fromkeys(features.keys(),False)
-    chromosome['ghostIsNear'] = True
-    #chromosome['ghostAtEast'] = True
-    chromosome['closestFoodIsNear'] = True
-    #chromosome['closestFoodAtEast'] = True
-    #chromosome['closestCapsuleIsNear'] = True
-    #chromosome['closestCapsuleAtEast'] = True
-    #chromosome['pacmanAtCorner'] = True 
+    keys = chromosome.keys()
+    for k in range (0,len(keys)):
+        if chromosomeString[k] == '0':
+            chromosome[keys[k]] = False
+        else:
+            chromosome[keys[k]] = True
     return chromosome
+
+def generateAllChromosomes(chromosomenumber):
+    allChromosomes = []
+    for k in range(0, 2**chromosomenumber):
+        binaryvalue = str('{0:08b}'.format(k))
+        allChromosomes.append(generateChromosome(binaryvalue))
+    return allChromosomes
+
+def testChromosomes(chromosomenumber, args, testlimit):
+    allChromosomes = generateAllChromosomes(chromosomenumber)
+    features = generateFeatures()
+    badChromosomes = []
+    for k in allChromosomes:
+        gameStates = []
+        for x in range (0, testlimit):
+            data = gameData(args)
+            if(satisfyFeatures(features, data, k)):
+                gameStates.append(data)
+        if len(gameStates) == 0:
+            badChromosomes.append(k)
+    print "The contradictory chromosomes are: \n"
+    for k in badChromosomes:
+        binarystring = ""
+        for x in k.values():
+            if x:
+                binarystring+= '1'
+            else:
+                binarystring+= '0'
+        print binarystring+'\n'
+
+    
+    return badChromosomes
+
+
 
 def generateFeatures():
     features = {}
@@ -209,18 +247,20 @@ def readCommand(argv):
 
 
 args = readCommand( sys.argv[1:] )
-for k in range(0,args['numLayouts']):
+features = generateFeatures()
+
+
+testChromosomes(len(generateChromosome()), args, 1000)
+
+
+'''for k in range(0,args['numLayouts']):
     data = gameData(args)
     features = generateFeatures()
     # TODO
     # randomly generate chromosome until all(most) of the chromosome(features) have the same action
     # then extract the same features in the chromosome and combine them as a new feature
     chromosome = generateChromosome()
-    while satisfyFeatures(features, data, chromosome) is False:
-        #TODO 
-        # add data into a usedGameData dict
-        # if usedGameData has all possible gamestates, return that features contain conflict features
-        data = gameData(args)
+    data = gameData(args, chromosome)
     gameState = generateGameState(data)
     print gameState
 
@@ -230,7 +270,7 @@ for k in range(0,args['numLayouts']):
             fullFeature = fullFeature + 'Not'
         fullFeature = fullFeature + str(feature)+', ' 
 
-    print 'When: '+fullFeature+'Pacman goes: ' + getAction(gameState) + "\n"
+    print 'When: '+fullFeature+'Pacman goes: ' + getAction(gameState) + "\n"'''
 
 '''
 def generateGameStates(gameData):
