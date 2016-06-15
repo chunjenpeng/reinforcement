@@ -78,40 +78,35 @@ def ghostAtCorner(gameData):
     return atCorner(gameData.posGhost, gameData.mazeLength)
 
 def closestFoodIsNear(gameData, near = 1):
-    for food in gameData.listFood:
-        if(abs(gameData.posPacman - food) <= near):
-
-            return True
-    return False
+    return util.closest(gameData.listFood,args['mazeLength'],gameData) == near
 
 def closestFoodAtEast(gameData):
-    for food in gameData.listFood:
-        if(gameData.posPacman < food):
-            return True
-    return False
+    list = util.closestList(gameData.listFood,args['mazeLength'],gameData)
+    if(len(list)==1):
+        if(gameData.posPacman > list[0]):
+            return False
+    return True
     
 def closestCapsuleIsNear(gameData, near = 1):
-    for capsule in gameData.listCapsule:
-        if(abs(gameData.posPacman - capsule) <= near):
-            return True
-    return False
+    return util.closest(gameData.listCapsule, args['mazeLength'], gameData) == near
 
 def closestCapsuleAtEast(gameData):
-    for capsule in gameData.listCapsule:
-        if(gameData.posPacman < capsule):
-            return True
-    return False
+    list = util.closestList(gameData.listCapsule,args['mazeLength'],gameData)
+    if(len(list)==1):
+        if(gameData.posPacman > list[0]):
+            return False
+    return True
 ############# Remove this part when featureGenerator.py is finished #######################
 
 def generateChromosome():
     chromosome = dict.fromkeys(features.keys(),False)
-    chromosome['ghostIsNear'] = True
+    #chromosome['ghostIsNear'] = True
     #chromosome['ghostAtEast'] = True
-    chromosome['closestFoodIsNear'] = True
+    #chromosome['closestFoodIsNear'] = True
     #chromosome['closestFoodAtEast'] = True
-    #chromosome['closestCapsuleIsNear'] = True
-    #chromosome['closestCapsuleAtEast'] = True
-    #chromosome['pacmanAtCorner'] = True 
+    chromosome['closestCapsuleIsNear'] = True
+    chromosome['closestCapsuleAtEast'] = True
+    #chromosome['pacmanAtCorner'] = True
     return chromosome
 
 def generateFeatures():
