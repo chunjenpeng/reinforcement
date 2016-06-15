@@ -115,7 +115,7 @@ def generateChromosome(chromosomeString = '00000000'):
 
 def generateAllChromosomes(chromosomenumber):
     allChromosomes = []
-    for k in range(0, 2**chromosomenumber):
+    for k in range(0, 2**(chromosomenumber+1)):
         binaryvalue = str('{0:08b}'.format(k))
         allChromosomes.append(generateChromosome(binaryvalue))
     return allChromosomes
@@ -132,7 +132,7 @@ def testChromosomes(chromosomenumber, args, testlimit):
                 gameStates.append(data)
         if len(gameStates) == 0:
             badChromosomes.append(k)
-    print "The contradictory chromosomes are: \n"
+    print "The contradictory chromosomes are:"
     for k in badChromosomes:
         binarystring = ""
         for x in k.values():
@@ -140,7 +140,7 @@ def testChromosomes(chromosomenumber, args, testlimit):
                 binarystring+= '1'
             else:
                 binarystring+= '0'
-        print binarystring+'\n'
+        print binarystring
 
     
     return badChromosomes
