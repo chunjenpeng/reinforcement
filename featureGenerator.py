@@ -58,7 +58,7 @@ def atEast(pos1, pos2):
         return True
     return False
     
-def atCorner(pos):
+def atCorner(pos,length):
     if(pos == 1 or pos == length):
         return True
     return False
@@ -78,7 +78,7 @@ def ghostAtCorner(gameData):
 def closestFoodIsNear(gameData):
     #TODO
     # use closestFood at featureExtractors.py:29
-    util.raiseNotDefined()
+    return featureExtractors.closestFood(gameData.posPacman,gameData.listFood,gameData) == 1
 
 def closestFoodAtEast(gameData):
     #TODO
@@ -90,7 +90,7 @@ def closestFoodAtCorner(gameData):
 
 def closestCapsuleIsNear(gameData):
     #TODO
-    util.raiseNotDefined()
+    return featureExtractors.closestFood(gameData.posPacman,gameData.listCapsule,gameData) == 1
 
 def closestCapsuleAtEast(gameData):
     #TODO
