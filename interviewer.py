@@ -103,7 +103,7 @@ def closestCapsuleAtEast(gameData):
     return True
 ############# Remove this part when featureGenerator.py is finished #######################
 
-def generateChromosome(chromosomeString = '00000000'):
+def generateChromosome(chromosomeString = '0000000'):
     chromosome = dict.fromkeys(features.keys(),False)
     keys = chromosome.keys()
     for k in range (0,len(keys)):
@@ -115,8 +115,8 @@ def generateChromosome(chromosomeString = '00000000'):
 
 def generateAllChromosomes(chromosomenumber):
     allChromosomes = []
-    for k in range(0, 2**(chromosomenumber+1)):
-        binaryvalue = str('{0:08b}'.format(k))
+    for k in range(0, 2**(chromosomenumber-1)):
+        binaryvalue = str('{0:07b}'.format(k))
         allChromosomes.append(generateChromosome(binaryvalue))
     return allChromosomes
 
@@ -133,19 +133,22 @@ def testChromosomes(chromosomenumber, args, testlimit):
         if len(gameStates) == 0:
             badChromosomes.append(k)
     print "The contradictory chromosomes are:"
-    for k in badChromosomes:
-        binarystring = ""
-        for x in k.values():
-            if x:
-                binarystring+= '1'
-            else:
-                binarystring+= '0'
-        print binarystring
+    printChromosomeList(badChromosomes)
 
     
     return badChromosomes
 
-
+def printChromosome(chromosome):
+    binarystring = ""
+    for x in chromosome.values():
+        if x:
+            binarystring+= '1'
+        else:
+            binarystring+= '0'
+    print binarystring
+def printChromosomeList(chromosomes):
+    for k in chromosomes:
+        printChromosome(k)
 
 def generateFeatures():
     features = {}
@@ -244,8 +247,7 @@ def readCommand(argv):
 args = readCommand( sys.argv[1:] )
 features = generateFeatures()
 
-
-testChromosomes(len(generateChromosome()), args, 1000)
+testChromosomes(len(generateChromosome()), args, 5000)
 
 
 '''for k in range(0,args['numLayouts']):
