@@ -83,7 +83,7 @@ def ghostAtCorner(gameData):
     return atCorner(gameData.posGhost, gameData.mazeLength)
 
 def closestFoodIsNear(gameData, near = 1):
-    return util.closest(gameData.listFood,args['mazeLength'],gameData) == near
+    return util.closest(gameData.listFood,args['mazeLength'],gameData) <= near
 
 def closestFoodAtEast(gameData):
     list = util.closestList(gameData.listFood,args['mazeLength'],gameData)
@@ -208,8 +208,8 @@ def getAction(gameState):
     action = pacmanAgent.getAction(gameState)
     return action
 
-def default(str):
-  return str + ' [Default: %default]'
+def default(string):
+  return string + ' [Default: %default]'
 
 def readCommand(argv):
 
