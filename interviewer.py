@@ -86,9 +86,9 @@ def closestFoodIsNear(gameData, near = 1):
     return util.closest(gameData.listFood,args['mazeLength'],gameData) <= near
 
 def closestFoodAtEast(gameData):
-    list = util.closestList(gameData.listFood,args['mazeLength'],gameData)
-    if(len(list)==1):
-        if(gameData.posPacman > list[0]):
+    closestList = util.closestList(gameData.listFood,args['mazeLength'],gameData)
+    if(len(closestList)==1):
+        if(gameData.posPacman > closestList[0]):
             return False
     return True
     
@@ -96,9 +96,9 @@ def closestCapsuleIsNear(gameData, near = 1):
     return util.closest(gameData.listCapsule, args['mazeLength'], gameData) == near
 
 def closestCapsuleAtEast(gameData):
-    list = util.closestList(gameData.listCapsule,args['mazeLength'],gameData)
-    if(len(list)==1):
-        if(gameData.posPacman > list[0]):
+    closestList = util.closestList(gameData.listCapsule,args['mazeLength'],gameData)
+    if(len(closestList)==1):
+        if(gameData.posPacman > closestList[0]):
             return False
     return True
 ############# Remove this part when featureGenerator.py is finished #######################
