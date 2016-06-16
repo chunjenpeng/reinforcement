@@ -115,7 +115,7 @@ def generateChromosome(chromosomeString = '0000000'):
 
 def generateAllChromosomes(chromosomenumber):
     allChromosomes = []
-    for k in range(0, 2**(chromosomenumber-1)):
+    for k in range(0, 2**(chromosomenumber)):
         binaryvalue = str('{0:07b}'.format(k))
         allChromosomes.append(generateChromosome(binaryvalue))
     return allChromosomes
@@ -247,7 +247,7 @@ def readCommand(argv):
 args = readCommand( sys.argv[1:] )
 features = generateFeatures()
 
-testChromosomes(len(generateChromosome()), args, 5000)
+testChromosomes(len(generateChromosome()), args, 1000)
 
 
 '''for k in range(0,args['numLayouts']):
