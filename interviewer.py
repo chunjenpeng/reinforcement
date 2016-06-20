@@ -132,8 +132,8 @@ def testChromosomes(chromosomenumber, args, testlimit):
                 gameStates.append(data)
         if len(gameStates) == 0:
             badChromosomes.append(k)
-    print "The contradictory chromosomes are:"
-    printChromosomeList(badChromosomes)
+    #print "The contradictory chromosomes are:"
+    #printChromosomeList(badChromosomes)
 
     
     return badChromosomes
@@ -247,7 +247,15 @@ def readCommand(argv):
 args = readCommand( sys.argv[1:] )
 features = generateFeatures()
 
-testChromosomes(len(generateChromosome()), args, 1000)
+badChromosomes = testChromosomes(len(generateChromosome()), args, 1000)
+print 'Contradict rules:'
+for chromosome in badChromosomes:
+    fullFeature = ''
+    for feature in features:
+        if chromosome[feature] is False: 
+            fullFeature = fullFeature + 'Not'
+        fullFeature = fullFeature + str(feature)+', ' 
+    print fullFeature
 
 
 '''for k in range(0,args['numLayouts']):
