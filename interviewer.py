@@ -113,17 +113,18 @@ def generateChromosome(chromosomeString = '0000000'):
             chromosome[keys[k]] = True
     return chromosome
 
-def generateAllChromosomes(chromosomenumber):
+def generateAllChromosomes(chromosomeNumber):
     allChromosomes = []
-    for k in range(0, 2**(chromosomenumber)):
+    for k in range(0, 2**(chromosomeNumber)):
         binaryvalue = str('{0:07b}'.format(k))
         allChromosomes.append(generateChromosome(binaryvalue))
     return allChromosomes
 
-def testChromosomes(chromosomenumber, args, testlimit):
-    allChromosomes = generateAllChromosomes(chromosomenumber)
+def testChromosomes(chromosomeNumber, args, testlimit):
+    allChromosomes = generateAllChromosomes(chromosomeNumber)
     features = generateFeatures()
     badChromosomes = []
+    goodChromosomes = []
     for k in allChromosomes:
         gameStates = []
         for x in range (0, testlimit):
@@ -132,11 +133,11 @@ def testChromosomes(chromosomenumber, args, testlimit):
                 gameStates.append(data)
         if len(gameStates) == 0:
             badChromosomes.append(k)
+        else:
+            goodChromosomes.append(k)
     #print "The contradictory chromosomes are:"
     #printChromosomeList(badChromosomes)
-
-    
-    return badChromosomes
+    return goodChromosomes, badChromosomes
 
 def printChromosome(chromosome):
     binarystring = ""
@@ -243,20 +244,61 @@ def readCommand(argv):
     args['numLayouts'] = options.numLayouts
     return args
 
-
-args = readCommand( sys.argv[1:] )
-features = generateFeatures()
-
-badChromosomes = testChromosomes(len(generateChromosome()), args, 1000)
-print 'Contradict rules:'
-for chromosome in badChromosomes:
+def getFeatures(chromosome):
     fullFeature = ''
     for feature in features:
         if chromosome[feature] is False: 
             fullFeature = fullFeature + 'Not'
         fullFeature = fullFeature + str(feature)+', ' 
-    print fullFeature
+    return fullFeature
 
+
+args = readCommand( sys.argv[1:] )
+features = generateFeatures()
+
+goodChromosomes, badChromosomes = testChromosomes(len(generateChromosome()), args, 1000)
+print 'Contradict rules:'
+for chromosome in badChromosomes:
+    print getFeatures(chromosome)
+
+goEastChromosomes = []
+goWestChromosomes = []
+repeat = 10
+successRate = 0.9
+for chromosome in goodChromosomes:
+    goEast = goWest = 0 
+    #print ''
+    #print getFeatures(chromosome) 
+    for i in range(0,repeat):
+        gameState = generateGameState(gameData(args, chromosome))
+        action = getAction(gameState)
+        if action == 'West':
+            goWest = goWest+1
+        if action == 'East':
+            goEast = goEast+1
+        #print gameState
+        #print action
+        #print 'goEast: '+str(goEast)+', goWest: '+str(goWest)
+    if goEast >= repeat*successRate:
+        goEastChromosomes.append(chromosome)
+    if goWest >= repeat*successRate:
+        goWestChromosomes.append(chromosome)
+
+print'\nPacman goes East when: '
+for chromosome in goEastChromosomes:
+    print generateGameState(gameData(args, chromosome))
+    print getFeatures(chromosome)
+print'\nPacman goes West when: '
+for chromosome in goWestChromosomes:
+    print generateGameState(gameData(args, chromosome))
+    print getFeatures(chromosome)
+
+print'\nPacman goes East: '+str(len(goEastChromosomes))
+printChromosomeList(goEastChromosomes)
+print'\nPacman goes West: '+str(len(goWestChromosomes))
+printChromosomeList(goWestChromosomes)
+
+    
 
 '''for k in range(0,args['numLayouts']):
     data = gameData(args)
