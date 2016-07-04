@@ -506,7 +506,7 @@ def closestList(closestList,mazeLength,gameData):
     returnList = []
     minDist = mazeLength
     count = 0
-    for k in range(1,mazeLength-1):
+    for k in range(1,mazeLength+1):
         if(k not in closestList):
             minDistList.append([None])
         if(k in closestList):
