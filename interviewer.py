@@ -41,6 +41,31 @@ class gameData:
                self.listCapsule.append(k)
             elif randomInt == 2:
                self.listFood.append(k)
+    def initializeWithState(self, gameState):
+        layout = gameState.data.layout.layoutText
+        self.mazeHeight = len(layout)
+        self.mazeLength = len(layout[0])
+
+        pacman = 0
+        for k in range(1, len(layout[1])):
+            if layout[1][k] == "P":
+                pacman = k-1
+        self.posPacman = pacman
+
+        ghost = 0
+        for k in range(1, len(layout[1])):
+            if layout[1][k] == "P":
+                ghost = k-1
+        self.posGhost = ghost
+
+        for k in range(1, len(layout[1])):
+            if layout[1][k] == ".":
+                self.listFood.append(k)
+
+        for k in range(1, len(layout[1])):
+            if layout[1][k] == "o":
+                self.listCapsule.append(k)
+        return self
 
 
 
@@ -145,7 +170,7 @@ def generateAllStates(length, ghostNum = 1): #length of all possible spaces. Do 
         if zerocount == (ghostNum+1):
             allValidStates.append(k)
 
-    allStates = []
+    allLayouts = []
 
     for k in allValidStates: #hardcoded because I couldn't think of a better way of doing this
         tempstring1 = ""
@@ -163,11 +188,11 @@ def generateAllStates(length, ghostNum = 1): #length of all possible spaces. Do 
             else:
                 tempstring1 += k[x]
                 tempstring2 += k[x]
-        allStates.append(tempstring1)
-        allStates.append(tempstring2)
-    for k in range(0, len(allStates)):
-        state = allStates[k]
-        newstate = ""
+        allLayouts.append(tempstring1)
+        allLayouts.append(tempstring2)
+    for k in range(0, len(allLayouts)):
+        state = allLayouts[k]
+        newstate = "%"
         for x in range(0, len(state)):
             if state[x] == "1":
                 newstate+=" "
@@ -179,30 +204,41 @@ def generateAllStates(length, ghostNum = 1): #length of all possible spaces. Do 
                 newstate+= "P"
             elif state[x] == "5":
                 newstate+= "G"
-        allStates[k] = newstate
+        newstate+= "%"
+        layouttext = []
+        layouttext.append("%"*7) #HARDCODE
+        layouttext.append(newstate)
+        layouttext.append("%"*7) #HARDCODE
+        allLayouts[k] = layouttext
+        print layouttext
 
-    for k in range(0, len(allStates)):
-        layout = Layout(allStates[k])
+    allStates = []
+    for k in range(0, len(allLayouts)):
+        layout = Layout(allLayouts[k])
         gameState = GameState()
         gameState.initialize(layout, 1) #ghost hardcoded
-        allStates[k] = gameState
-    random.shuffle(allStates)
+        allStates.append(gameState)
     return allStates
 
 
 
 def testChromosomes(chromosomeNumber, args, testlimit):
     allChromosomes = generateAllChromosomes(chromosomeNumber)
+    allStates = generateAllStates(args["mazeLength"])
+    allData =[]
+    for state in allStates:
+        data = gameData(args)
+        allData.append(data.initializeWithState(state))
     features = generateFeatures()
     badChromosomes = []
     goodChromosomes = []
     for k in allChromosomes:
-        gameStates = []
-        for x in range (0, testlimit):
-            data = gameData(args)
+        usedData = []
+        for data in allData:
+            print data
             if(satisfyFeatures(features, data, k)):
-                gameStates.append(data)
-        if len(gameStates) == 0:
+                usedData.append(data)
+        if len(usedData) == 0:
             badChromosomes.append(k)
         else:
             goodChromosomes.append(k)
@@ -291,7 +327,7 @@ def readCommand(argv):
     parser = OptionParser(usageStr)
 
     parser.add_option('--mazeLength', dest = 'mazeLength', type='int',
-                      help = default('the length of the maze'), default = 10)
+                      help = default('the length of the maze'), default = 5)
     parser.add_option('--mazeHeight', dest = 'mazeHeight', type='int',
                       help = default('the height of the maze'), default = 1)
     parser.add_option('--posPacman', dest = 'posPacman', type='int',
