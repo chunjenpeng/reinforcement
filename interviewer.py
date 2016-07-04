@@ -88,20 +88,28 @@ def closestFoodIsNear(gameData, near = 1):
 
 def closestFoodAtEast(gameData):
     closestList = util.closestList(gameData.listFood,args['mazeLength'],gameData)
-    if(len(closestList)==1):
-        if(gameData.posPacman > closestList[0]):
-            return False
-    return True
+    if (len(closestList) == 0):
+        return False
+    if (len(closestList) == 1):
+        if (gameData.posPacman < closestList[0]):
+            return True
+        return False
+    if (len(closestList) == 2):
+        return True
     
 def closestCapsuleIsNear(gameData, near = 1):
     return util.closest(gameData.listCapsule, args['mazeLength'], gameData) == near
 
 def closestCapsuleAtEast(gameData):
     closestList = util.closestList(gameData.listCapsule,args['mazeLength'],gameData)
+    if(len(closestList)==0):
+        return False
     if(len(closestList)==1):
-        if(gameData.posPacman > closestList[0]):
-            return False
-    return True
+        if(gameData.posPacman < closestList[0]):
+            return True
+        return False
+    if(len(closestList)==2):
+        return True
 ############# Remove this part when featureGenerator.py is finished #######################
 
 def generateChromosome(chromosomeString = '0000000'):
@@ -318,8 +326,8 @@ def getFeatures(chromosome):
 args = readCommand( sys.argv[1:] )
 features = generateFeatures()
 
-goodChromosomes, badChromosomes = testChromosomes(len(generateChromosome()), args, 10000)
-print 'Contradict rules:'
+goodChromosomes, badChromosomes = testChromosomes(len(generateChromosome()), args, 1000)
+print 'Contradict rules:' + str(len(badChromosomes))
 for chromosome in badChromosomes:
     print getFeatures(chromosome)
 
