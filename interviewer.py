@@ -9,6 +9,7 @@ from game import Actions
 from random import randint
 from random import seed
 import featureGenerator
+import random
 
 #TODO
 ############# Remove this part when featureGenerator.py is finished #######################
@@ -177,6 +178,7 @@ def generateAllStates(length, ghostNum = 1): #length of all possible spaces. Do 
         gameState = GameState()
         gameState.initialize(layout, 1) #ghost hardcoded
         allStates[k] = gameState
+    random.shuffle(allStates)
     return allStates
 
 
@@ -357,7 +359,6 @@ print'\nPacman goes East: '+str(len(goEastChromosomes))
 printChromosomeList(goEastChromosomes)
 print'\nPacman goes West: '+str(len(goWestChromosomes))
 printChromosomeList(goWestChromosomes)
-    
 
 '''for k in range(0,args['numLayouts']):
     data = gameData(args)
