@@ -120,67 +120,6 @@ def generateAllChromosomes(chromosomeNumber):
         allChromosomes.append(generateChromosome(binaryvalue))
     return allChromosomes
 
-def generateAllStates(length, ghostNum = 1): #length of all possible spaces. Do not set the ghost num
-    allStatesWithoutP = []
-    for k in range(0, 4**length):
-        layout = util.base10toN(k, 4, length)
-        allStatesWithoutP.append(layout)
-
-    allValidStates = []
-
-    for k in allStatesWithoutP: 
-        zerocount = 0
-        for x in range(0, len(k)):
-            if k[x] == "0":
-                zerocount += 1
-        if zerocount == (ghostNum+1):
-            allValidStates.append(k)
-
-    allStates = []
-
-    for k in allValidStates: #hardcoded because I couldn't think of a better way of doing this
-        tempstring1 = ""
-        tempstring2 = ""
-        switcher = True
-        for x in range(0, len(k)):
-            if k[x] == "0":
-                if switcher:
-                    tempstring1 += "4"
-                    tempstring2 += "5"
-                else:
-                    tempstring1 += "5"
-                    tempstring2 += "4"
-                switcher = False
-            else:
-                tempstring1 += k[x]
-                tempstring2 += k[x]
-        allStates.append(tempstring1)
-        allStates.append(tempstring2)
-    for k in range(0, len(allStates)):
-        state = allStates[k]
-        newstate = ""
-        for x in range(0, len(state)):
-            if state[x] == "1":
-                newstate+=" "
-            elif state[x] == "2":
-                newstate += "."
-            elif state[x] == "3":
-                newstate+= "o"
-            elif state[x] == "4":
-                newstate+= "P"
-            elif state[x] == "5":
-                newstate+= "G"
-        allStates[k] = newstate
-
-    for k in range(0, len(allStates)):
-        layout = Layout(allStates[k])
-        gameState = GameState()
-        gameState.initialize(layout, 1) #ghost hardcoded
-        allStates[k] = gameState
-    return allStates
-
-
-
 def testChromosomes(chromosomeNumber, args, testlimit):
     allChromosomes = generateAllChromosomes(chromosomeNumber)
     features = generateFeatures()
@@ -256,8 +195,8 @@ def generateLayout(gameData):
 
     return Layout(layoutText)
 
-def generateGameState(gameData): 
-    layout =  generateLayout(gameData)
+def generateGameState(args): 
+    layout =  generateLayout(args)
     gameState = GameState()
     numGhostAgents = 1
     gameState.initialize(layout, numGhostAgents)
@@ -313,10 +252,11 @@ def getFeatures(chromosome):
         fullFeature = fullFeature + str(feature)+', ' 
     return fullFeature
 
+
 args = readCommand( sys.argv[1:] )
 features = generateFeatures()
 
-goodChromosomes, badChromosomes = testChromosomes(len(generateChromosome()), args, 10000)
+goodChromosomes, badChromosomes = testChromosomes(len(generateChromosome()), args, 1000)
 print 'Contradict rules:'
 for chromosome in badChromosomes:
     print getFeatures(chromosome)
@@ -357,6 +297,7 @@ print'\nPacman goes East: '+str(len(goEastChromosomes))
 printChromosomeList(goEastChromosomes)
 print'\nPacman goes West: '+str(len(goWestChromosomes))
 printChromosomeList(goWestChromosomes)
+
     
 
 '''for k in range(0,args['numLayouts']):
