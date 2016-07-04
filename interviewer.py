@@ -9,6 +9,7 @@ from game import Actions
 from random import randint
 from random import seed
 import featureGenerator
+import numpy as np
 
 #TODO
 ############# Remove this part when featureGenerator.py is finished #######################
@@ -139,6 +140,7 @@ def testChromosomes(chromosomeNumber, args, testlimit):
     #printChromosomeList(badChromosomes)
     return goodChromosomes, badChromosomes
 
+
 def printChromosome(chromosome):
     binarystring = ""
     for x in chromosome.values():
@@ -147,6 +149,7 @@ def printChromosome(chromosome):
         else:
             binarystring+= '0'
     print binarystring
+
 def printChromosomeList(chromosomes):
     for k in chromosomes:
         printChromosome(k)
@@ -159,7 +162,7 @@ def generateFeatures():
     features['closestFoodAtEast'] = Feature(closestFoodAtEast)
     features['closestCapsuleIsNear'] = Feature(closestCapsuleIsNear)
     features['closestCapsuleAtEast'] = Feature(closestCapsuleAtEast)
-    features['pacmanAtCorner'] = Feature(pacmanAtCorner)
+    #features['pacmanAtCorner'] = Feature(pacmanAtCorner)
     return features
     
 def generateLayout(gameData):
@@ -252,14 +255,23 @@ def getFeatures(chromosome):
         fullFeature = fullFeature + str(feature)+', ' 
     return fullFeature
 
+def chromosome2bit(chromosome):
+    l = []
+    for x in chromosome.values():
+        if x:
+            l.append(1)
+        else:
+            l.append(0)
+    return l
 
 args = readCommand( sys.argv[1:] )
 features = generateFeatures()
 
 goodChromosomes, badChromosomes = testChromosomes(len(generateChromosome()), args, 1000)
-print 'Contradict rules:'
-for chromosome in badChromosomes:
-    print getFeatures(chromosome)
+def printContradictRules():
+    print 'Contradict rules:'
+    for chromosome in badChromosomes:
+        print getFeatures(chromosome)
 
 goEastChromosomes = []
 goWestChromosomes = []
@@ -283,7 +295,7 @@ for chromosome in goodChromosomes:
         goEastChromosomes.append(chromosome)
     if goWest >= repeat*successRate:
         goWestChromosomes.append(chromosome)
-
+'''
 print'\nPacman goes East when: '
 for chromosome in goEastChromosomes:
     print generateGameState(gameData(args, chromosome))
@@ -292,13 +304,61 @@ print'\nPacman goes West when: '
 for chromosome in goWestChromosomes:
     print generateGameState(gameData(args, chromosome))
     print getFeatures(chromosome)
+'''
 
+
+def findMI(chromosomes):
+    sum_list = [sum(x) for x in zip(*chromosomes)]
+    p_list = [float(sum(x))/len(chromosomes) for x in zip(*chromosomes)]
+    print sum_list, p_list
+
+def calc_MI(X,Y,bins):
+    c_XY = np.histogram2d(X,Y,bins)[0]
+    c_X = np.histogram(X,bins)[0]
+    c_Y = np.histogram(Y,bins)[0]
+
+    H_X = shan_entropy(c_X)
+    H_Y = shan_entropy(c_Y)
+    H_XY = shan_entropy(c_XY)
+
+    MI = H_X + H_Y - H_XY
+    return MI
+
+def shan_entropy(c):
+    c_normalized = c / float(np.sum(c))
+    c_normalized = c_normalized[np.nonzero(c_normalized)]
+    H = -sum(c_normalized* np.log2(c_normalized))
+    return H
+
+def calc_matMI(A):
+    n = A.shape[1]
+    bins = n  
+    matMI = np.zeros((n,n))
+    for ix in np.arange(n):
+        for jx in np.arange(ix+1, n):
+            matMI[ix, jx] = calc_MI(A[:, ix], A[:,jx], bins)
+    return matMI
+
+np.set_printoptions(suppress=True, precision=3)
+
+bitLists = []
 print'\nPacman goes East: '+str(len(goEastChromosomes))
-printChromosomeList(goEastChromosomes)
-print'\nPacman goes West: '+str(len(goWestChromosomes))
-printChromosomeList(goWestChromosomes)
+for chromosome in goEastChromosomes:
+    bitChromosome = chromosome2bit(chromosome)
+    bitLists.append(bitChromosome)
+    print bitChromosome, getFeatures(chromosome)
+print calc_matMI(np.array(bitLists))
 
-    
+bitLists = []
+print'\nPacman goes West: '+str(len(goWestChromosomes))
+for chromosome in goWestChromosomes:
+    bitChromosome = chromosome2bit(chromosome)
+    bitLists.append(bitChromosome)
+    print bitChromosome, getFeatures(chromosome)
+print calc_matMI(np.array(bitLists))
+
+
+
 
 '''for k in range(0,args['numLayouts']):
     data = gameData(args)
