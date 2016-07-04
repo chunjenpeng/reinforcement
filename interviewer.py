@@ -217,7 +217,7 @@ def generateAllStates(length, ghostNum = 1): #length of all possible spaces. Do 
         layouttext.append(newstate)
         layouttext.append("%"*(length+2)) #HARDCODE
         allLayouts[k] = layouttext
-        #print layouttext
+        print layouttext
 
     allStates = []
     for k in range(0, len(allLayouts)):
@@ -407,28 +407,27 @@ chromosomesWithData = testChromosomes(len(generateChromosome()), args)
 badChromosomes = []
 goEastChromosomes = []
 goWestChromosomes = []
-#repeat = 10
-successRate = 0.9
+successRate = 0.7
 for chromosomeString in chromosomesWithData.keys():
     chromosome = generateChromosome(chromosomeString)
     goEast = goWest = 0.0 
     stateList = chromosomesWithData[chromosomeString]
-    print ''
-    print getFeatures(chromosome) 
     if len(stateList) == 0:
         badChromosomes.append(chromosome)
         continue
     for gameState in stateList:
         action = getAction(gameState)
-        print gameState, action
+        #print gameState, action
         if action == 'West':
             goWest = goWest + 1.0
         if action == 'East':
             goEast = goEast + 1.0
     
     if goEast/len(stateList) >= successRate:
+        print 'go East', str(100*goEast/len(stateList)), '% :', getFeatures(chromosome) 
         goEastChromosomes.append(chromosome)
     if goWest/len(stateList) >= successRate:
+        print 'go West', str(100*goWest/len(stateList)), '% :', getFeatures(chromosome)
         goWestChromosomes.append(chromosome)
 '''
 print'\nPacman goes East when: '
@@ -477,21 +476,23 @@ def calc_matMI(A):
 np.set_printoptions(suppress=True, precision=3)
 
 bitLists = []
-print'\nPacman goes East: '+str(len(goEastChromosomes))
+print'\nOver', str(100*successRate), '% of the time, Pacman goes East: '+str(len(goEastChromosomes))
 if len(goEastChromosomes) > 0:
     for chromosome in goEastChromosomes:
         bitChromosome = chromosome2bit(chromosome)
         bitLists.append(bitChromosome)
-        print bitChromosome, getFeatures(chromosome)
+        print bitChromosome#, getFeatures(chromosome)
+    print 'Mutual Information Matrix:'
     print calc_matMI(np.array(bitLists))
 
 bitLists = []
-print'\nPacman goes West: '+str(len(goWestChromosomes))
+print'\nOver', str(100*successRate), '% of the time, Pacman goes West: '+str(len(goWestChromosomes))
 if len(goWestChromosomes) > 0:
     for chromosome in goWestChromosomes:
         bitChromosome = chromosome2bit(chromosome)
         bitLists.append(bitChromosome)
-        print bitChromosome, getFeatures(chromosome)
+        print bitChromosome#, getFeatures(chromosome)
+    print 'Mutual Information Matrix:'
     print calc_matMI(np.array(bitLists))
 
 
