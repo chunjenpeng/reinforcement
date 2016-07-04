@@ -8,8 +8,10 @@ from game import Directions
 from game import Actions
 from random import randint
 from random import seed
+from collections import defaultdict
 import featureGenerator
 import numpy as np
+import random
 
 #TODO
 ############# Remove this part when featureGenerator.py is finished #######################
@@ -19,6 +21,7 @@ class gameData:
         if chromosome != None:
             while satisfyFeatures(generateFeatures(), self, chromosome) == False:
                 self.initialize(args)
+    
     def initialize(self, args):
         self.mazeHeight = args['mazeHeight']
         self.mazeLength = args['mazeLength']
@@ -41,6 +44,35 @@ class gameData:
                self.listCapsule.append(k)
             elif randomInt == 2:
                self.listFood.append(k)
+
+    def initializeWithState(self, gameState):
+        layout = gameState.data.layout.layoutText
+        self.mazeHeight = len(layout)-2
+        self.mazeLength = len(layout[0])-2
+        self.listFood = []
+        self.listCapsule = []
+
+        pacman = 0
+        for k in range(1, len(layout[1])):
+            if layout[1][k] == "P":
+                pacman = k
+        self.posPacman = pacman
+
+        ghost = 0
+        for k in range(1, len(layout[1])):
+            if layout[1][k] == "G":
+                ghost = k
+        self.posGhost = ghost
+
+        for k in range(1, len(layout[1])):
+            if layout[1][k] == ".":
+                self.listFood.append(k)
+
+        for k in range(1, len(layout[1])):
+            if layout[1][k] == "o":
+                self.listCapsule.append(k)
+        
+        return self
 
 
 
@@ -88,20 +120,28 @@ def closestFoodIsNear(gameData, near = 1):
 
 def closestFoodAtEast(gameData):
     closestList = util.closestList(gameData.listFood,args['mazeLength'],gameData)
-    if(len(closestList)==1):
-        if(gameData.posPacman > closestList[0]):
-            return False
-    return True
+    if (len(closestList) == 0):
+        return False
+    if (len(closestList) == 1):
+        if (gameData.posPacman < closestList[0]):
+            return True
+        return False
+    if (len(closestList) == 2):
+        return True
     
 def closestCapsuleIsNear(gameData, near = 1):
     return util.closest(gameData.listCapsule, args['mazeLength'], gameData) == near
 
 def closestCapsuleAtEast(gameData):
     closestList = util.closestList(gameData.listCapsule,args['mazeLength'],gameData)
+    if(len(closestList)==0):
+        return False
     if(len(closestList)==1):
-        if(gameData.posPacman > closestList[0]):
-            return False
-    return True
+        if(gameData.posPacman < closestList[0]):
+            return True
+        return False
+    if(len(closestList)==2):
+        return True
 ############# Remove this part when featureGenerator.py is finished #######################
 
 def generateChromosome(chromosomeString = '0000000'):
@@ -121,38 +161,127 @@ def generateAllChromosomes(chromosomeNumber):
         allChromosomes.append(generateChromosome(binaryvalue))
     return allChromosomes
 
-def testChromosomes(chromosomeNumber, args, testlimit):
+def generateAllStates(length, ghostNum = 1): #length of all possible spaces. Do not set the ghost num
+    allStatesWithoutP = []
+    for k in range(0, 4**length):
+        layout = util.base10toN(k, 4, length)
+        allStatesWithoutP.append(layout)
+
+    allValidStates = []
+
+    for k in allStatesWithoutP: 
+        zerocount = 0
+        for x in range(0, len(k)):
+            if k[x] == "0":
+                zerocount += 1
+        if zerocount == (ghostNum+1):
+            allValidStates.append(k)
+
+    allLayouts = []
+
+    for k in allValidStates: #hardcoded because I couldn't think of a better way of doing this
+        tempstring1 = ""
+        tempstring2 = ""
+        switcher = True
+        for x in range(0, len(k)):
+            if k[x] == "0":
+                if switcher:
+                    tempstring1 += "4"
+                    tempstring2 += "5"
+                else:
+                    tempstring1 += "5"
+                    tempstring2 += "4"
+                switcher = False
+            else:
+                tempstring1 += k[x]
+                tempstring2 += k[x]
+        allLayouts.append(tempstring1)
+        allLayouts.append(tempstring2)
+    for k in range(0, len(allLayouts)):
+        state = allLayouts[k]
+        newstate = "%"
+        for x in range(0, len(state)):
+            if state[x] == "1":
+                newstate+=" "
+            elif state[x] == "2":
+                newstate += "."
+            elif state[x] == "3":
+                newstate+= "o"
+            elif state[x] == "4":
+                newstate+= "P"
+            elif state[x] == "5":
+                newstate+= "G"
+        newstate+= "%"
+        layouttext = []
+        layouttext.append("%"*(length+2)) #HARDCODE
+        layouttext.append(newstate)
+        layouttext.append("%"*(length+2)) #HARDCODE
+        allLayouts[k] = layouttext
+        #print layouttext
+
+    allStates = []
+    for k in range(0, len(allLayouts)):
+        layout = Layout(allLayouts[k])
+        gameState = GameState()
+        gameState.initialize(layout, 1) #ghost hardcoded
+        allStates.append(gameState)
+    return allStates
+
+
+
+def testChromosomes(chromosomeNumber, args):
     allChromosomes = generateAllChromosomes(chromosomeNumber)
+    allStates = generateAllStates(args["mazeLength"])
     features = generateFeatures()
-    badChromosomes = []
-    goodChromosomes = []
-    for k in allChromosomes:
-        gameStates = []
-        for x in range (0, testlimit):
-            data = gameData(args)
-            if(satisfyFeatures(features, data, k)):
-                gameStates.append(data)
-        if len(gameStates) == 0:
-            badChromosomes.append(k)
+    allData =[]
+    #badChromosomes = []
+    #goodChromosomes = []
+    chromosomesWithData = {} # {chromosome:[matchData]} 
+    for state in allStates:
+        data = gameData(args)
+        data.initializeWithState(state)
+        for chromosome in allChromosomes:
+            if(satisfyFeatures(features, data, chromosome)):
+                chromosomeString = chromosome2string(chromosome)
+                chromosomesWithData.setdefault(chromosomeString,[]).append(state)
+                print ''
+                print getFeatures(chromosome)
+                print state
+                print 'posPacman = ', str(data.posPacman)
+                print 'posGhost = ', str(data.posGhost)
+                print 'listFood = ', data.listFood
+                print 'listCapsule = ', data.listCapsule
+    return chromosomesWithData            
+'''
+        allData.append(data.initializeWithState(state))
+    for chromosome in allChromosomes:
+        matchData = []
+        for data in allData:
+            #print data
+            if(satisfyFeatures(features, data, chromosome)):
+                matchData.append(data)
+        if len(matchData) == 0:
+        if match:
+            goodChromosomes.append(chromosome)
         else:
-            goodChromosomes.append(k)
+            badChromosomes.append(chromosome)
     #print "The contradictory chromosomes are:"
     #printChromosomeList(badChromosomes)
     return goodChromosomes, badChromosomes
+'''
 
-
-def printChromosome(chromosome):
+def chromosome2string(chromosome):
     binarystring = ""
     for x in chromosome.values():
         if x:
             binarystring+= '1'
         else:
             binarystring+= '0'
-    print binarystring
+    return binarystring
 
 def printChromosomeList(chromosomes):
-    for k in chromosomes:
-        printChromosome(k)
+    for chromosome in chromosomes:
+        print chromosome2string(chromosome)
 
 def generateFeatures():
     features = {}
@@ -162,7 +291,7 @@ def generateFeatures():
     features['closestFoodAtEast'] = Feature(closestFoodAtEast)
     features['closestCapsuleIsNear'] = Feature(closestCapsuleIsNear)
     features['closestCapsuleAtEast'] = Feature(closestCapsuleAtEast)
-    #features['pacmanAtCorner'] = Feature(pacmanAtCorner)
+    features['pacmanAtCorner'] = Feature(pacmanAtCorner)
     return features
     
 def generateLayout(gameData):
@@ -223,7 +352,7 @@ def readCommand(argv):
     parser = OptionParser(usageStr)
 
     parser.add_option('--mazeLength', dest = 'mazeLength', type='int',
-                      help = default('the length of the maze'), default = 10)
+                      help = default('the length of the maze'), default = 5)
     parser.add_option('--mazeHeight', dest = 'mazeHeight', type='int',
                       help = default('the height of the maze'), default = 1)
     parser.add_option('--posPacman', dest = 'posPacman', type='int',
@@ -255,45 +384,51 @@ def getFeatures(chromosome):
         fullFeature = fullFeature + str(feature)+', ' 
     return fullFeature
 
+def printContradictRules(badChromosomes):
+    print 'Contradict rules:' + str(len(badChromosomes))
+    for chromosome in badChromosomes:
+        print getFeatures(chromosome)
+
 def chromosome2bit(chromosome):
-    l = []
+    bitList = []
     for x in chromosome.values():
         if x:
-            l.append(1)
+            bitList.append(1)
         else:
-            l.append(0)
-    return l
+            bitList.append(0)
+    return bitList 
 
 args = readCommand( sys.argv[1:] )
 features = generateFeatures()
 
-goodChromosomes, badChromosomes = testChromosomes(len(generateChromosome()), args, 1000)
-def printContradictRules():
-    print 'Contradict rules:'
-    for chromosome in badChromosomes:
-        print getFeatures(chromosome)
+#goodChromosomes, badChromosomes = testChromosomes(len(generateChromosome()), args)
+chromosomesWithData = testChromosomes(len(generateChromosome()), args)
 
+badChromosomes = []
 goEastChromosomes = []
 goWestChromosomes = []
-repeat = 10
+#repeat = 10
 successRate = 0.9
-for chromosome in goodChromosomes:
-    goEast = goWest = 0 
-    #print ''
-    #print getFeatures(chromosome) 
-    for i in range(0,repeat):
-        gameState = generateGameState(gameData(args, chromosome))
+for chromosomeString in chromosomesWithData.keys():
+    chromosome = generateChromosome(chromosomeString)
+    goEast = goWest = 0.0 
+    stateList = chromosomesWithData[chromosomeString]
+    print ''
+    print getFeatures(chromosome) 
+    if len(stateList) == 0:
+        badChromosomes.append(chromosome)
+        continue
+    for gameState in stateList:
         action = getAction(gameState)
+        print gameState, action
         if action == 'West':
-            goWest = goWest+1
+            goWest = goWest + 1.0
         if action == 'East':
-            goEast = goEast+1
-        #print gameState
-        #print action
-        #print 'goEast: '+str(goEast)+', goWest: '+str(goWest)
-    if goEast >= repeat*successRate:
+            goEast = goEast + 1.0
+    
+    if goEast/len(stateList) >= successRate:
         goEastChromosomes.append(chromosome)
-    if goWest >= repeat*successRate:
+    if goWest/len(stateList) >= successRate:
         goWestChromosomes.append(chromosome)
 '''
 print'\nPacman goes East when: '
@@ -343,22 +478,25 @@ np.set_printoptions(suppress=True, precision=3)
 
 bitLists = []
 print'\nPacman goes East: '+str(len(goEastChromosomes))
-for chromosome in goEastChromosomes:
-    bitChromosome = chromosome2bit(chromosome)
-    bitLists.append(bitChromosome)
-    print bitChromosome, getFeatures(chromosome)
-print calc_matMI(np.array(bitLists))
+if len(goEastChromosomes) > 0:
+    for chromosome in goEastChromosomes:
+        bitChromosome = chromosome2bit(chromosome)
+        bitLists.append(bitChromosome)
+        print bitChromosome, getFeatures(chromosome)
+    print calc_matMI(np.array(bitLists))
 
 bitLists = []
 print'\nPacman goes West: '+str(len(goWestChromosomes))
-for chromosome in goWestChromosomes:
-    bitChromosome = chromosome2bit(chromosome)
-    bitLists.append(bitChromosome)
-    print bitChromosome, getFeatures(chromosome)
-print calc_matMI(np.array(bitLists))
+if len(goWestChromosomes) > 0:
+    for chromosome in goWestChromosomes:
+        bitChromosome = chromosome2bit(chromosome)
+        bitLists.append(bitChromosome)
+        print bitChromosome, getFeatures(chromosome)
+    print calc_matMI(np.array(bitLists))
 
 
 
+#printChromosomeList(goWestChromosomes)
 
 '''for k in range(0,args['numLayouts']):
     data = gameData(args)
