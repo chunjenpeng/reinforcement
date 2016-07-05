@@ -453,12 +453,122 @@ def calc_matMI(A):
     for ix in np.arange(n):
         for jx in np.arange(ix+1, n):
             matMI[ix, jx] = calc_MI(A[:, ix], A[:,jx], bins)
+            matMI[jx, ix] = calc_MI(A[:, ix], A[:,jx], bins)
     return matMI
+'''
+def findMask(A):
+    featureList = []
+    feature1, feature2 = unravel_index(A.argmax(), A.shape)
+    featureList.append(feature1)
+    featureList.append(feature2)
+    n = A.shape[1]
+    Array = np.zeros((n,n))
+    Array[:] = A
+    print '(',feature1,',',feature2,')',Array[feature1][feature2]
+    print Array
+    Array[feature1][feature2] = 0
+    
+    for i in range(0, A.shape[0]-2):
+        if (np.amax(Array[feature1,:]) > np.amax(Array[feature2,:])):
+            print '(',feature1,',',np.nanargmax(Array[feature1,:]),') =',np.amax(Array[feature1,:])
+            Array[feature1][feature2] = 0
+            feature1 = np.nanargmax(Array[feature1,:])
+            featureList.append(feature1)
+            print Array 
+        else:
+            print '(',feature2,',',np.nanargmax(Array[feature2,:]),') =',np.amax(Array[feature2,:])
+            Array[feature1][feature2] = 0
+            feature2 = np.nanargmax(Array[feature2,:])
+            featureList.append(feature2)
+            np.set_printoptions(suppress=True, precision=3)
+            print Array 
+    
+    return featureList
+'''
+
+def findMask(A,startNode):
+    featureList = []
+    feature1 = startNode
+    feature2 = np.nanargmax(A[feature1,:])
+    featureList.append(feature1)
+    featureList.append(feature2)
+    n = A.shape[1]
+    Array = np.zeros((n,n))
+    Array[:] = A
+    print '(',feature1,',',feature2,') =',Array[feature1][feature2]
+    #print Array
+    Array[feature1][feature2] = 0
+    Array[feature2][feature1] = 0
+    
+    for i in range(0, A.shape[0]-2):
+        if (np.amax(Array[feature1,:]) > np.amax(Array[feature2,:])):
+            print '(',feature1,',',np.nanargmax(Array[feature1,:]),') =',np.amax(Array[feature1,:])
+            Array[feature1][feature2] = 0
+            Array[feature2][feature1] = 0
+            feature1 = np.nanargmax(Array[feature1,:])
+            if feature1 in featureList:
+                break
+            else:
+                featureList.append(feature1)
+                #print Array 
+        else:
+            print '(',feature2,',',np.nanargmax(Array[feature2,:]),') =',np.amax(Array[feature2,:])
+            Array[feature1][feature2] = 0
+            Array[feature2][feature1] = 0
+            feature2 = np.nanargmax(Array[feature2,:])
+            if feature2 in featureList:
+                break
+            else:
+                featureList.append(feature2)
+                #print Array 
+
+    return featureList
+
+
+def calc_2bits_prob(A):
+    n00 = n01 = n10 = n11 = 0.0
+    for f in A:
+        if f[0] == 0 and f[1] == 0:
+            n00 = n00 + 1
+        elif f[0] == 0 and f[1] == 1:
+            n01 = n01 + 1
+        elif f[0] == 1 and f[1] == 0:
+            n10 = n10 + 1
+        elif f[0] == 1 and f[1] == 1:
+            n11 = n11 + 1
+    print 'n00', n00, n00/len(A)
+    print 'n01', n01, n01/len(A)
+    print 'n10', n10, n10/len(A)
+    print 'n11', n11, n11/len(A)
+    nList = [n00/len(A), n01/len(A), n10/len(A), n11/len(A)]
+
+def findPossibleString(mask, arr):
+    stringList = []
+    dictFeature = {}
+    possible = ['*'] * arr.shape[1]
+   
+    matFeature = arr[:, mask]
+    for i in xrange(len(matFeature)):
+        key = ''.join(map(str,matFeature[i]))
+        if key in dictFeature:
+            dictFeature[key] += 1
+        else:
+            dictFeature[key] = 1
+    print arr
+    print mask
+    print dictFeature
+    s = max(dictFeature, key=dictFeature.get)
+    for i in xrange(len(mask)):
+        possible[mask[i]] = s[i]
+    
+    possibleString = ''.join(possible)
+    stringList.append(possibleString) 
+    
+    return stringList
 
 def mergeFeatures(chromosomes):
     if chromosomes is None:
         return
-    
     bitLists = []
     for chromosome in chromosomes:
         bitChromosome = chromosome2bit(chromosome)
@@ -469,71 +579,28 @@ def mergeFeatures(chromosomes):
     matMI = calc_matMI(arr)
     np.set_printoptions(suppress=True, precision=3)
     print matMI
-    feature1, feature2 =  unravel_index(matMI.argmax(), matMI.shape)
-    while matMI[feature1][feature2] > 0.99:
-        matMI[feature1][feature2] = 0.0
-        feature1, feature2 =  unravel_index(matMI.argmax(), matMI.shape)
-    
-    
-    matFeature = arr[:, [feature1, feature2]]
-    #print matFeature.count([0 0])
-    n00 = n01 = n10 = n11 = 0.0
-    for f in matFeature:
-        if f[0] == 0 and f[1] == 0:
-            n00 = n00 + 1
-        elif f[0] == 0 and f[1] == 1:
-            n01 = n01 + 1
-        elif f[0] == 1 and f[1] == 0:
-            n10 = n10 + 1
-        elif f[0] == 1 and f[1] == 1:
-            n11 = n11 + 1
-    print 'n00', n00, n00/len(matFeature)
-    print 'n01', n01, n01/len(matFeature)
-    print 'n10', n10, n10/len(matFeature)
-    print 'n11', n11, n11/len(matFeature)
-    nList = [n00/len(matFeature), n01/len(matFeature), n10/len(matFeature), n11/len(matFeature)]
-    
-    stringList = []
-    possible = ['*'] * len(chromosomes[0])
-    max_value = max(nList)
-    max_index = nList.index(max_value)
-    
-    condition = [] 
+    feature1, feature2 = unravel_index(matMI.argmax(), matMI.shape)
     keys = list(features.keys())
     print 'Most related features: (',feature1,',',feature2,')', keys[feature1], keys[feature2] 
-    #if n00/len(matFeature)>0.3: #n00 
-    if max_index == 0: #n00 
-        possible[feature1] = '0'
-        possible[feature2] = '0'
-        possibleString = ''.join(possible)
-        stringList.append(possibleString) 
-        condition.append('Not '+keys[feature1])
-        condition.append('Not '+keys[feature2])
-    if max_index == 1: #n01 
-        possible[feature1] = '0'
-        possible[feature2] = '1'
-        possibleString = ''.join(possible)
-        stringList.append(possibleString) 
-        condition.append('Not '+keys[feature1])
-        condition.append(keys[feature2])
-    if max_index == 2: #n10 
-        possible[feature1] = '1'
-        possible[feature2] = '0'
-        possibleString = ''.join(possible)
-        stringList.append(possibleString) 
-        condition.append(keys[feature1])
-        condition.append('Not '+keys[feature2])
-    if max_index == 3: #n11 
-        possible[feature1] = '1'
-        possible[feature2] = '1'
-        possibleString = ''.join(possible)
-        stringList.append(possibleString) 
-        condition.append(keys[feature1])
-        condition.append(keys[feature2])
-   
+    
+    masks = []
+    for i in range(0, len(chromosomes[0])):
+        mask = findMask(matMI, i) # ILS 
+        masks.append(mask)
+        print mask
+    
+    stringList = findPossibleString(masks[feature1],arr)
+    
+    condition = [] 
+    s = stringList[0]
+    for feature in masks[feature1]:
+        if s[feature] == '0':
+            condition.append('Not'+keys[feature])
+        else:
+            condition.append(keys[feature])
+    
     print 'possibleStrings', stringList
     return condition, stringList
-
 
 def selection(population, conditions):
     newPopulation = []
@@ -573,8 +640,8 @@ while True:
    
     pause = raw_input("Press <ENTER> to continue...")
     
-print 'Learned Features: ', ' and '.join(learnedFeatures)
 print 'learned string:', ''.join(learnedString) 
+print 'Learned Features: When', ' and '.join(learnedFeatures),', Action: East'
 
 
 
