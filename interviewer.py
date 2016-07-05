@@ -557,13 +557,13 @@ def findPossibleString(mask, arr):
     print arr
     print mask
     print dictFeature
-    s = max(dictFeature, key=dictFeature.get)
-    for i in xrange(len(mask)):
-        possible[mask[i]] = s[i]
-    
-    possibleString = ''.join(possible)
-    stringList.append(possibleString) 
-    
+    while dictFeature: 
+        s = max(dictFeature, key=dictFeature.get)
+        for i in xrange(len(mask)):
+            possible[mask[i]] = s[i]
+        possibleString = ''.join(possible)
+        stringList.append(possibleString) 
+        del dictFeature[s] 
     return stringList
 
 def mergeFeatures(chromosomes):
@@ -590,17 +590,8 @@ def mergeFeatures(chromosomes):
         print mask
     
     stringList = findPossibleString(masks[feature1],arr)
-    
-    condition = [] 
-    s = stringList[0]
-    for feature in masks[feature1]:
-        if s[feature] == '0':
-            condition.append('Not'+keys[feature])
-        else:
-            condition.append(keys[feature])
-    
     print 'possibleStrings', stringList
-    return condition, stringList
+    return stringList
 
 def selection(population, conditions):
     newPopulation = []
@@ -625,17 +616,31 @@ while True:
     chromosomesWithStates = findChromosomesStates(population, allStates, args)
     badChromosomes, goEastChromosomes, goWestChromosomes = testChromosomes(chromosomesWithStates)
     print'\nOver', str(100*successRate), '% of the time, Pacman goes East: '+str(len(goEastChromosomes))
-    condition, stringList = mergeFeatures(goEastChromosomes)
+    stringList = mergeFeatures(goEastChromosomes)
     if stringList[0].count('*') == len(features) - 1:
        break 
-    learnedFeatures = learnedFeatures + condition 
-    print 'Learned Features: ', ' and '.join(learnedFeatures)
     
     slist = list(stringList[0])
     for s in range(0,len(slist)):
         if slist[s] != '*':
             learnedString[s] = slist[s]
     print 'learned string:', ''.join(learnedString) 
+    
+    #s = stringList[0] 
+    s = learnedString 
+    learnedFeature = [] 
+    keys = list(features.keys())
+    for feature in xrange(len(learnedString)):
+        if s[feature] == '0':
+            learnedFeature.append('Not'+keys[feature])
+        elif s[feature] == '1':
+            learnedFeature.append(keys[feature])
+    print 'Learned Features: ', ' and '.join(learnedFeature)
+    
+    #learnedFeatures.append(condition) 
+    #print 'Learned Features: ', ' and '.join(learnedFeatures)
+    
+    
     population = selection(population, stringList) 
    
     pause = raw_input("Press <ENTER> to continue...")
