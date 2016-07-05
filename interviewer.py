@@ -414,10 +414,10 @@ def testChromosomes(chromosomesWithStates):
                 goEast = goEast + 1.0
         
         if goEast/len(stateList) >= successRate:
-            print 'go East', str(100*goEast/len(stateList)), '% :', getFeatures(chromosome) 
+            #print 'go East', str(100*goEast/len(stateList)), '% :', getFeatures(chromosome) 
             goEastChromosomes.append(chromosome)
         if goWest/len(stateList) >= successRate:
-            print 'go West', str(100*goWest/len(stateList)), '% :', getFeatures(chromosome)
+            #print 'go West', str(100*goWest/len(stateList)), '% :', getFeatures(chromosome)
             goWestChromosomes.append(chromosome)
 
     return badChromosomes, goEastChromosomes, goWestChromosomes
@@ -550,9 +550,9 @@ args = readCommand( sys.argv[1:] )
 features = generateFeatures()
 successRate = 0.7
 learnedFeatures = []
+learnedString = ['*'] * len(features)
 population = generateAllChromosomes(len(features))
 allStates = generateAllStates(args["mazeLength"])
-
 TERMINATE = False 
 while True: 
     chromosomesWithStates = findChromosomesStates(population, allStates, args)
@@ -563,12 +563,18 @@ while True:
        break 
     learnedFeatures = learnedFeatures + condition 
     print 'Learned Features: ', ' and '.join(learnedFeatures)
-    print 'possible string:', stringList 
+    
+    slist = list(stringList[0])
+    for s in range(0,len(slist)):
+        if slist[s] != '*':
+            learnedString[s] = slist[s]
+    print 'learned string:', ''.join(learnedString) 
     population = selection(population, stringList) 
    
     pause = raw_input("Press <ENTER> to continue...")
     
 print 'Learned Features: ', ' and '.join(learnedFeatures)
+print 'learned string:', ''.join(learnedString) 
 
 
 
