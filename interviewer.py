@@ -9,6 +9,7 @@ from game import Actions
 from random import randint
 from random import seed
 from collections import defaultdict
+from itertools import product
 from numpy import unravel_index
 import featureGenerator
 import numpy as np
@@ -155,6 +156,18 @@ def generateChromosome(chromosomeString = '0000000'):
             chromosome[keys[k]] = True
     return chromosome
 
+def generateChromosomes(chromosomeString):
+    population = []
+    #chromosomeString = '1**1***'
+    c = chromosomeString.count('*')
+    chromosomeString = chromosomeString.replace('*', '{}')
+    for x in product('01', repeat=c):
+        #print chromosomeString.format(*x)
+        chromosomeStringInstance = chromosomeString.format(*x)
+        chromosome = generateChromosome( chromosomeStringInstance )
+        population.append(chromosome)
+    return population
+
 def generateAllChromosomes(chromosomeNumber):
     allChromosomes = []
     for k in range(0, 2**(chromosomeNumber)):
@@ -218,7 +231,7 @@ def generateAllStates(length, ghostNum = 1): #length of all possible spaces. Do 
         layouttext.append(newstate)
         layouttext.append("%"*(length+2)) #HARDCODE
         allLayouts[k] = layouttext
-        print layouttext
+        #print layouttext
 
     allStates = []
     for k in range(0, len(allLayouts)):
@@ -230,21 +243,19 @@ def generateAllStates(length, ghostNum = 1): #length of all possible spaces. Do 
 
 
 
-def findChromosomesData(chromosomeNumber, args):
-    allChromosomes = generateAllChromosomes(chromosomeNumber)
-    allStates = generateAllStates(args["mazeLength"])
+def findChromosomesStates(population, allStates, args):
+    if len(population) <= 0:
+        return
     features = generateFeatures()
-    allData =[]
-    #badChromosomes = []
-    #goodChromosomes = []
-    chromosomesWithData = {} # {chromosome:[matchData]} 
+    chromosomesWithStates = {} # {chromosome:[matchState1, matchState2, ...], ch2:[], ...} 
     for state in allStates:
         data = gameData(args)
         data.initializeWithState(state)
-        for chromosome in allChromosomes:
+        for chromosome in population:
             if(satisfyFeatures(features, data, chromosome)):
                 chromosomeString = chromosome2string(chromosome)
-                chromosomesWithData.setdefault(chromosomeString,[]).append(state)
+                chromosomesWithStates.setdefault(chromosomeString,[]).append(state)
+                '''
                 print ''
                 print getFeatures(chromosome)
                 print state
@@ -252,24 +263,8 @@ def findChromosomesData(chromosomeNumber, args):
                 print 'posGhost = ', str(data.posGhost)
                 print 'listFood = ', data.listFood
                 print 'listCapsule = ', data.listCapsule
-    return chromosomesWithData            
-'''
-        allData.append(data.initializeWithState(state))
-    for chromosome in allChromosomes:
-        matchData = []
-        for data in allData:
-            #print data
-            if(satisfyFeatures(features, data, chromosome)):
-                matchData.append(data)
-        if len(matchData) == 0:
-        if match:
-            goodChromosomes.append(chromosome)
-        else:
-            badChromosomes.append(chromosome)
-    #print "The contradictory chromosomes are:"
-    #printChromosomeList(badChromosomes)
-    return goodChromosomes, badChromosomes
-'''
+                '''
+    return chromosomesWithStates            
 
 def chromosome2string(chromosome):
     binarystring = ""
@@ -399,14 +394,14 @@ def chromosome2bit(chromosome):
             bitList.append(0)
     return bitList 
 
-def testChromosomes(chromosomesWithData):
+def testChromosomes(chromosomesWithStates):
     badChromosomes = []
     goEastChromosomes = []
     goWestChromosomes = []
-    for chromosomeString in chromosomesWithData.keys():
+    for chromosomeString in chromosomesWithStates.keys():
         chromosome = generateChromosome(chromosomeString)
         goEast = goWest = 0.0 
-        stateList = chromosomesWithData[chromosomeString]
+        stateList = chromosomesWithStates[chromosomeString]
         if len(stateList) == 0:
             badChromosomes.append(chromosome)
             continue
@@ -426,23 +421,6 @@ def testChromosomes(chromosomesWithData):
             goWestChromosomes.append(chromosome)
 
     return badChromosomes, goEastChromosomes, goWestChromosomes
-
-args = readCommand( sys.argv[1:] )
-features = generateFeatures()
-successRate = 0.7
-
-chromosomesWithData = findChromosomesData(len(generateChromosome()), args)
-badChromosomes, goEastChromosomes, goWestChromosomes = testChromosomes(chromosomesWithData)
-'''
-print'\nPacman goes East when: '
-for chromosome in goEastChromosomes:
-    print generateGameState(gameData(args, chromosome))
-    print getFeatures(chromosome)
-print'\nPacman goes West when: '
-for chromosome in goWestChromosomes:
-    print generateGameState(gameData(args, chromosome))
-    print getFeatures(chromosome)
-'''
 
 
 def findMI(chromosomes):
@@ -477,49 +455,142 @@ def calc_matMI(A):
             matMI[ix, jx] = calc_MI(A[:, ix], A[:,jx], bins)
     return matMI
 
-def findPairsInMI(matMI):
-   pairList = []
-
-
-
-
 def mergeFeatures(chromosomes):
-    np.set_printoptions(suppress=True, precision=3)
-    if len(chromosomes) > 0:
-        bitLists = []
-        for chromosome in chromosomes:
-            bitChromosome = chromosome2bit(chromosome)
-            bitLists.append(bitChromosome)
-            print bitChromosome#, getFeatures(chromosome)
-        arr = np.array(bitLists)
-        print 'Mutual Information Matrix:'
-        matMI = calc_matMI(arr)
-        print matMI
-        feature1, feature2 =  unravel_index(matMI.argmax(), matMI.shape)
-        keys = list(features.keys())
-        print 'Most related features: (',feature1,',',feature2,')', keys[feature1], keys[feature2] 
-        matFeature = arr[:, [feature1, feature2]]
-        #print matFeature.count([0 0])
-        n00 = n01 = n10 = n11 = 0.0
-        for f in matFeature:
-            if f[0] == 0 and f[1] == 0:
-                n00 = n00 + 1
-            elif f[0] == 0 and f[1] == 1:
-                n01 = n01 + 1
-            elif f[0] == 1 and f[1] == 0:
-                n10 = n10 + 1
-            elif f[0] == 1 and f[1] == 1:
-                n11 = n11 + 1
-        print 'n00', n00, n00/len(matFeature)
-        print 'n01', n01, n01/len(matFeature)
-        print 'n10', n10, n10/len(matFeature)
-        print 'n11', n11, n11/len(matFeature)
+    if chromosomes is None:
+        return
     
-     
-print'\nOver', str(100*successRate), '% of the time, Pacman goes East: '+str(len(goEastChromosomes))
-mergeFeatures(goEastChromosomes)
-print'\nOver', str(100*successRate), '% of the time, Pacman goes West: '+str(len(goWestChromosomes))
-mergeFeatures(goWestChromosomes)
+    bitLists = []
+    for chromosome in chromosomes:
+        bitChromosome = chromosome2bit(chromosome)
+        bitLists.append(bitChromosome)
+        #print bitChromosome#, getFeatures(chromosome)
+    arr = np.array(bitLists)
+    print 'Mutual Information Matrix:'
+    matMI = calc_matMI(arr)
+    np.set_printoptions(suppress=True, precision=3)
+    print matMI
+    feature1, feature2 =  unravel_index(matMI.argmax(), matMI.shape)
+    while matMI[feature1][feature2] > 0.99:
+        matMI[feature1][feature2] = 0.0
+        feature1, feature2 =  unravel_index(matMI.argmax(), matMI.shape)
+    
+    
+    matFeature = arr[:, [feature1, feature2]]
+    #print matFeature.count([0 0])
+    n00 = n01 = n10 = n11 = 0.0
+    for f in matFeature:
+        if f[0] == 0 and f[1] == 0:
+            n00 = n00 + 1
+        elif f[0] == 0 and f[1] == 1:
+            n01 = n01 + 1
+        elif f[0] == 1 and f[1] == 0:
+            n10 = n10 + 1
+        elif f[0] == 1 and f[1] == 1:
+            n11 = n11 + 1
+    print 'n00', n00, n00/len(matFeature)
+    print 'n01', n01, n01/len(matFeature)
+    print 'n10', n10, n10/len(matFeature)
+    print 'n11', n11, n11/len(matFeature)
+    nList = [n00/len(matFeature), n01/len(matFeature), n10/len(matFeature), n11/len(matFeature)]
+    
+    stringList = []
+    possible = ['*'] * len(chromosomes[0])
+    max_value = max(nList)
+    max_index = nList.index(max_value)
+    
+    condition = [] 
+    keys = list(features.keys())
+    print 'Most related features: (',feature1,',',feature2,')', keys[feature1], keys[feature2] 
+    #if n00/len(matFeature)>0.3: #n00 
+    if max_index == 0: #n00 
+        possible[feature1] = '0'
+        possible[feature2] = '0'
+        possibleString = ''.join(possible)
+        stringList.append(possibleString) 
+        condition.append('Not '+keys[feature1])
+        condition.append('Not '+keys[feature2])
+    if max_index == 1: #n01 
+        possible[feature1] = '0'
+        possible[feature2] = '1'
+        possibleString = ''.join(possible)
+        stringList.append(possibleString) 
+        condition.append('Not '+keys[feature1])
+        condition.append(keys[feature2])
+    if max_index == 2: #n10 
+        possible[feature1] = '1'
+        possible[feature2] = '0'
+        possibleString = ''.join(possible)
+        stringList.append(possibleString) 
+        condition.append(keys[feature1])
+        condition.append('Not '+keys[feature2])
+    if max_index == 3: #n11 
+        possible[feature1] = '1'
+        possible[feature2] = '1'
+        possibleString = ''.join(possible)
+        stringList.append(possibleString) 
+        condition.append(keys[feature1])
+        condition.append(keys[feature2])
+   
+    print 'possibleStrings', stringList
+    return condition, stringList
+
+
+def selection(population, conditions):
+    newPopulation = []
+    for condition in conditions: #condition is a string '1*1****'
+        newChromosomes= generateChromosomes(condition) 
+        for newChromosome in newChromosomes:
+            if newChromosome in population:
+                newPopulation.append(newChromosome)
+    return newPopulation
+
+############################################################################################################
+
+args = readCommand( sys.argv[1:] )
+features = generateFeatures()
+successRate = 0.7
+learnedFeatures = []
+population = generateAllChromosomes(len(features))
+allStates = generateAllStates(args["mazeLength"])
+
+TERMINATE = False 
+while True: 
+    chromosomesWithStates = findChromosomesStates(population, allStates, args)
+    badChromosomes, goEastChromosomes, goWestChromosomes = testChromosomes(chromosomesWithStates)
+    print'\nOver', str(100*successRate), '% of the time, Pacman goes East: '+str(len(goEastChromosomes))
+    condition, stringList = mergeFeatures(goEastChromosomes)
+    if stringList[0].count('*') == len(features) - 1:
+       break 
+    learnedFeatures = learnedFeatures + condition 
+    print 'Learned Features: ', ' and '.join(learnedFeatures)
+    print 'possible string:', stringList 
+    population = selection(population, stringList) 
+   
+    pause = raw_input("Press <ENTER> to continue...")
+    
+print 'Learned Features: ', ' and '.join(learnedFeatures)
+
+
+
+
+
+
+
+
+
+
+
+'''
+print'\nPacman goes East when: '
+for chromosome in goEastChromosomes:
+    print generateGameState(gameData(args, chromosome))
+    print getFeatures(chromosome)
+print'\nPacman goes West when: '
+for chromosome in goWestChromosomes:
+    print generateGameState(gameData(args, chromosome))
+    print getFeatures(chromosome)
+'''
+
 
 
 '''
