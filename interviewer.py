@@ -290,19 +290,6 @@ def chromosome2string(chromosome):
 def printChromosomeList(chromosomes):
     for chromosome in chromosomes:
         print chromosome2string(chromosome)
-
-def generateFeatures():
-    features = {}
-    features['ghostIsNear'] = Feature(ghostIsNear)
-    features['ghostAtEast'] = Feature(ghostAtEast)
-    features['closestFoodIsNear'] = Feature(closestFoodIsNear)
-    features['closestFoodAtEast'] = Feature(closestFoodAtEast)
-    features['closestCapsuleIsNear'] = Feature(closestCapsuleIsNear)
-    features['closestCapsuleAtEast'] = Feature(closestCapsuleAtEast)
-    features['closestWallIsNear'] = Feature(closestWallIsNear)
-    features['closestWallAtEast'] = Feature(closestWallAtEast)
-    #features['pacmanAtCorner'] = Feature(pacmanAtCorner) 
-    return features
     
 def generateLayout(gameData):
     height = gameData.mazeHeight
@@ -409,6 +396,8 @@ def chromosome2bit(chromosome):
     return bitList 
 
 def testChromosomes(chromosomesWithStates):
+    #repeatTest = 1
+    repeatTest = 10
     badChromosomes = []
     goEastChromosomes = []
     goWestChromosomes = []
@@ -420,18 +409,19 @@ def testChromosomes(chromosomesWithStates):
             badChromosomes.append(chromosome)
             continue
         for gameState in stateList:
-            action = getAction(gameState)
-            #print gameState, action
-            if action == 'West':
-                goWest = goWest + 1.0
-            if action == 'East':
-                goEast = goEast + 1.0
+            for i in xrange(repeatTest):
+                action = getAction(gameState)
+                #print gameState, action
+                if action == 'East':
+                    goEast = goEast + 1.0
+                if action == 'West':
+                    goWest = goWest + 1.0
         
-        if goEast/len(stateList) >= successRate:
-            #print 'go East', str(100*goEast/len(stateList)), '% :', getFeatures(chromosome) 
+        if goEast/(repeatTest*len(stateList)) >= successRate:
+            #print 'go East', str(100*goEast/(repeatTest*len(stateList))), '% :', chromosome2string(chromosome), getFeatures(chromosome) 
             goEastChromosomes.append(chromosome)
-        if goWest/len(stateList) >= successRate:
-            #print 'go West', str(100*goWest/len(stateList)), '% :', getFeatures(chromosome)
+        if goWest/(repeatTest*len(stateList)) >= successRate:
+            #print 'go West', str(100*goWest/(repeatTest*len(stateList))), '% :', chromosome2string(chromosome), getFeatures(chromosome)
             goWestChromosomes.append(chromosome)
 
     return badChromosomes, goEastChromosomes, goWestChromosomes
@@ -569,13 +559,14 @@ def findPossibleString(mask, arr, baseString):
             dictFeature[key] = 1
     #print arr
     print '\nUsing mask:',mask
-    print dictFeature
+    #print dictFeature
     while dictFeature: 
         s = max(dictFeature, key=dictFeature.get)
         for i in xrange(len(mask)):
             possible[mask[i]] = s[i]
         possibleString = ''.join(possible)
-        stringDict[possibleString] = dictFeature[s]
+        score = dictFeature[s] #dictFeature[s] == score == number of features satisfy
+        stringDict[possibleString] = score #TODO Better Way to find score for {string:score}
         #print 'possibleString', possibleString, ',score = ', dictFeature[s]
         del dictFeature[s] 
     return stringDict
@@ -622,7 +613,7 @@ def mergeFeatures(chromosomes, baseString):
     print 'masks :', masks 
     
     stringDict = {}
-    #TODO
+    #TODO how to find the right mask?
     usedFeature = []
     for i in xrange(len(relatedFeatureList)):
         feature1 = relatedFeatureList[i][0]
@@ -662,11 +653,40 @@ def selection(population, condition): #condition is a string '1*1****'
             newPopulation.append(newChromosome)
     return newPopulation
 
+def mergeDuplicateStrings(mergedStringDict):
+    stringDict = {}
+    #TODO 
+    stringDict.update(mergedStringDict)
+    return stringDict
+
+def learn(chromosomes):
+    stringDict = {}
+    mergedStringDict = mergeFeatures(chromosomes, initialString)
+    stringDict = mergeDuplicateStrings(mergedStringDict)
+    #print 'stringDict', stringDict
+    learnedStrings.update(stringDict) 
+    learnedStringsSorted = sorted (((learnedString, score) for score, learnedString in stringDict.iteritems()), reverse=True)
+    return learnedStringsSorted
+
+def generateFeatures():
+    features = {}
+    features['ghostIsNear'] = Feature(ghostIsNear)
+    features['ghostAtEast'] = Feature(ghostAtEast)
+    features['closestFoodIsNear'] = Feature(closestFoodIsNear)
+    features['closestFoodAtEast'] = Feature(closestFoodAtEast)
+    features['closestCapsuleIsNear'] = Feature(closestCapsuleIsNear)
+    features['closestCapsuleAtEast'] = Feature(closestCapsuleAtEast)
+    features['closestWallIsNear'] = Feature(closestWallIsNear)
+    features['closestWallAtEast'] = Feature(closestWallAtEast)
+    #features['pacmanAtCorner'] = Feature(pacmanAtCorner) 
+    return features
+
 ############################################################################################################
 
 args = readCommand( sys.argv[1:] )
 features = generateFeatures()
 successRate = 0.7
+#successRate = 0.9
 learnedFeatures = {} #{learnedFeature:score} 
 learnedStrings = {} #{learnedString:score} 
 initialString = '*' * len(features)
@@ -674,38 +694,36 @@ population = generateChromosomes(initialString)
 populationDict = {}
 allStates = generateAllStates(args["mazeLength"])
 TERMINATE = False 
-
 #while not TERMINATE: 
 
-populationDict[initialString]=population
+populationDict[initialString] = population
 chromosomesWithStates = findChromosomesStates(population, allStates, args)
 badChromosomes, goEastChromosomes, goWestChromosomes = testChromosomes(chromosomesWithStates)
 
+print'SuccessRate: ', str(100*successRate),'%'
+#printChromosomeList(goEastChromosomes)
+learnEast = learn(goEastChromosomes)
+#printChromosomeList(goWestChromosomes)
+learnWest = learn(goWestChromosomes)
 
-#Check goEastChromosomes
-print'\nOver', str(100*successRate), '% of the time, Pacman goes East: '+str(len(goEastChromosomes))
-stringDict = {}
-stringDict = mergeFeatures(goEastChromosomes, initialString)
-#print 'stringDict', stringDict
-learnedStrings.update(stringDict) 
-learnedStringsSorted = sorted (((learnedString, score) for score, learnedString in learnedStrings.iteritems()), reverse=True)
-
+topN = 12 
 print '\n\nfeatures: ', ', '.join(features.keys())
-print '\nLearned Features for Action East:'
-for score, learnedString in learnedStringsSorted:
+print '\nPacman goes East: '+str(len(goEastChromosomes))
+print 'Learned Features for Action East:'
+for score, learnedString in learnEast[:topN]:
     learnedFeature = findLearnedFeatures(learnedString)
-    print 'score:', score, learnedString, 'When', ' and '.join(learnedFeature)
+    print 'count:', score, learnedString, 'When', ' and '.join(learnedFeature)
     
-    '''
-    #Check goWestChromosomes
-    print'\nOver', str(100*successRate), '% of the time, Pacman goes West: '+str(len(goEastChromosomes))
-    stringDict = {}
-    stringDict = mergeFeatures(goWestChromosomes, initialString)
-    print 'stringDict', stringDict
-    learnedStrings.update(stringDict) 
-    '''
-
-
+print '\nPacman goes West: '+str(len(goWestChromosomes))
+print 'Learned Features for Action West:'
+for score, learnedString in learnWest[:topN]:
+    learnedFeature = findLearnedFeatures(learnedString)
+    print 'count:', score, learnedString, 'When', ' and '.join(learnedFeature)
+    
+    
+    
+    
+    
     #if stringList[0].count('*') == len(features) - 1:
     #    break 
     
@@ -796,7 +814,6 @@ if len(goWestChromosomes) > 0:
 '''
 
 
-#printChromosomeList(goWestChromosomes)
 
 '''for k in range(0,args['numLayouts']):
     data = gameData(args)
