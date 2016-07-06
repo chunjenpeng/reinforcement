@@ -144,6 +144,16 @@ def closestCapsuleAtEast(gameData):
         return False
     if(len(closestList)==2):
         return True
+
+def closestWallIsNear(gameData, near = 1):
+    return atCorner(gameData.posPacman, gameData.mazeLength)
+
+def closestWallAtEast(gameData):
+    if(gameData.posPacman >= gameData.mazeLength/2):
+        return True
+    else:
+        return False
+
 ############# Remove this part when featureGenerator.py is finished #######################
 
 def generateChromosome(chromosomeString):
@@ -289,7 +299,9 @@ def generateFeatures():
     features['closestFoodAtEast'] = Feature(closestFoodAtEast)
     features['closestCapsuleIsNear'] = Feature(closestCapsuleIsNear)
     features['closestCapsuleAtEast'] = Feature(closestCapsuleAtEast)
-    features['pacmanAtCorner'] = Feature(pacmanAtCorner) #TODO BUG if you comment this
+    features['closestWallIsNear'] = Feature(closestWallIsNear)
+    features['closestWallAtEast'] = Feature(closestWallAtEast)
+    #features['pacmanAtCorner'] = Feature(pacmanAtCorner) 
     return features
     
 def generateLayout(gameData):
@@ -523,7 +535,6 @@ def findMask(A,startNode):
             else:
                 featureList.append(feature2)
                 #print Array 
-
     return featureList
 
 
@@ -556,10 +567,10 @@ def findPossibleString(mask, arr, baseString):
             dictFeature[key] += 1
         else:
             dictFeature[key] = 1
-    print arr
-    print mask
+    #print arr
+    print '\nUsing mask:',mask
     print dictFeature
-    while dictFeature:#TODO BUG here i suppose... 
+    while dictFeature: 
         s = max(dictFeature, key=dictFeature.get)
         for i in xrange(len(mask)):
             possible[mask[i]] = s[i]
@@ -568,6 +579,20 @@ def findPossibleString(mask, arr, baseString):
         #print 'possibleString', possibleString, ',score = ', dictFeature[s]
         del dictFeature[s] 
     return stringDict
+
+def findRelatedFeatures(Array):
+    n = Array.shape[1]
+    A = np.zeros((n,n))
+    A[:] = Array
+    relatedFeatureList = []
+    feature1, feature2 = unravel_index(A.argmax(), A.shape)
+    while feature1 != feature2:
+        pair = (feature1, feature2)
+        relatedFeatureList.append(pair)
+        A[feature1][feature2] = 0
+        A[feature2][feature1] = 0
+        feature1, feature2 = unravel_index(A.argmax(), A.shape)
+    return relatedFeatureList
 
 def mergeFeatures(chromosomes, baseString):
     if chromosomes is None:
@@ -579,20 +604,34 @@ def mergeFeatures(chromosomes, baseString):
         #print bitChromosome#, getFeatures(chromosome)
     arr = np.array(bitLists)
     print 'Mutual Information Matrix:'
-    matMI = calc_matMI(arr)
+    matMI = calc_matMI(arr)                                 # Mutual Information Matrix
     np.set_printoptions(suppress=True, precision=3)
     print matMI
-    feature1, feature2 = unravel_index(matMI.argmax(), matMI.shape)
-    keys = list(features.keys())
-    print 'Most related features: (',feature1,',',feature2,')', keys[feature1], keys[feature2] 
     
-    masks = []
+    print 'Related features:' 
+    relatedFeatureList = findRelatedFeatures(matMI)         # Related Feature List
+    keys = list(features.keys())
+    for feature1, feature2 in relatedFeatureList:
+        print '(',feature1,',',feature2,') = ', matMI[feature1][feature2], keys[feature1], keys[feature2]
+    
+    masks = []                                              # Masks
     for i in range(0, len(chromosomes[0])):
         mask = findMask(matMI, i) # ILS 
         masks.append(mask)
     #    print mask
     print 'masks :', masks 
-    stringDict = findPossibleString(masks[feature1], arr, baseString)
+    
+    stringDict = {}
+    #TODO
+    usedFeature = []
+    for i in xrange(len(relatedFeatureList)):
+        feature1 = relatedFeatureList[i][0]
+        if feature1 in usedFeature:
+            continue
+        usedFeature.append(feature1)
+        possibleStringDict = findPossibleString(masks[feature1], arr, baseString)
+        print possibleStringDict
+        stringDict.update( possibleStringDict )
     return stringDict
 
 def findLearnedFeatures(string):
@@ -635,22 +674,46 @@ population = generateChromosomes(initialString)
 populationDict = {}
 allStates = generateAllStates(args["mazeLength"])
 TERMINATE = False 
-while not TERMINATE: 
-    populationDict[initialString]=population
-    chromosomesWithStates = findChromosomesStates(population, allStates, args)
-    badChromosomes, goEastChromosomes, goWestChromosomes = testChromosomes(chromosomesWithStates)
 
-    #Check goEastChromosomes
-    print'\nOver', str(100*successRate), '% of the time, Pacman goes East: '+str(len(goEastChromosomes))
-    stringDict = mergeFeatures(goEastChromosomes, initialString)
+#while not TERMINATE: 
+
+populationDict[initialString]=population
+chromosomesWithStates = findChromosomesStates(population, allStates, args)
+badChromosomes, goEastChromosomes, goWestChromosomes = testChromosomes(chromosomesWithStates)
+
+
+#Check goEastChromosomes
+print'\nOver', str(100*successRate), '% of the time, Pacman goes East: '+str(len(goEastChromosomes))
+stringDict = {}
+stringDict = mergeFeatures(goEastChromosomes, initialString)
+#print 'stringDict', stringDict
+learnedStrings.update(stringDict) 
+learnedStringsSorted = sorted (((learnedString, score) for score, learnedString in learnedStrings.iteritems()), reverse=True)
+
+print '\n\nfeatures: ', ', '.join(features.keys())
+print '\nLearned Features for Action East:'
+for score, learnedString in learnedStringsSorted:
+    learnedFeature = findLearnedFeatures(learnedString)
+    print 'score:', score, learnedString, 'When', ' and '.join(learnedFeature)
+    
+    '''
+    #Check goWestChromosomes
+    print'\nOver', str(100*successRate), '% of the time, Pacman goes West: '+str(len(goEastChromosomes))
+    stringDict = {}
+    stringDict = mergeFeatures(goWestChromosomes, initialString)
     print 'stringDict', stringDict
     learnedStrings.update(stringDict) 
+    '''
+
 
     #if stringList[0].count('*') == len(features) - 1:
     #    break 
     
-    pause = raw_input("\nPress <ENTER> to continue...\n\n")
-    
+#pause = raw_input("\nPress <ENTER> to continue...\n\n")
+
+
+
+''' 
     for learnedString in stringDict:
         print 'learned string:', learnedString 
         #learnedStrings[learnedString] = stringDict[learnedString] # stringDict[learnedString] = score
@@ -671,7 +734,7 @@ while not TERMINATE:
         learnedStrings.update(stringDict) 
       
         pause = raw_input("\nPress <ENTER> to continue...\n\n")
-        ''' 
+        
         ############################################################################
         for learnedString in stringDict.keys():
             learnedFeature = findLearnedFeatures(learnedString)
@@ -691,13 +754,7 @@ while not TERMINATE:
             pause = raw_input("Press <ENTER> to continue...")
         ############################################################################
         '''
-    TERMINATE = True
 
-learnedStringsSorted = sorted (((learnedString, score) for score, learnedString in learnedStrings.iteritems()), reverse=True)
-print 'learned string:'
-for score, learnedString in learnedStringsSorted:
-    learnedFeature = findLearnedFeatures(learnedString)
-    print 'score:', score, learnedString, 'When', ' and '.join(learnedFeature),', Action: East'
 
 
 
