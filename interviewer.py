@@ -146,7 +146,7 @@ def closestCapsuleAtEast(gameData):
         return True
 ############# Remove this part when featureGenerator.py is finished #######################
 
-def generateChromosome(chromosomeString = '0000000'):
+def generateChromosome(chromosomeString):
     chromosome = dict.fromkeys(features.keys(),False)
     keys = chromosome.keys()
     for k in range (0,len(keys)):
@@ -164,17 +164,19 @@ def generateChromosomes(chromosomeString):
     for x in product('01', repeat=c):
         #print chromosomeString.format(*x)
         chromosomeStringInstance = chromosomeString.format(*x)
+        #print 'chromosomeString',chromosomeString
+        #print 'chromosomeStringInstance', chromosomeStringInstance
         chromosome = generateChromosome( chromosomeStringInstance )
         population.append(chromosome)
     return population
-
+'''
 def generateAllChromosomes(chromosomeNumber):
     allChromosomes = []
     for k in range(0, 2**(chromosomeNumber)):
         binaryvalue = str('{0:07b}'.format(k))
         allChromosomes.append(generateChromosome(binaryvalue))
     return allChromosomes
-
+'''
 def generateAllStates(length, ghostNum = 1): #length of all possible spaces. Do not set the ghost num
     allStatesWithoutP = []
     for k in range(0, 4**length):
@@ -193,7 +195,7 @@ def generateAllStates(length, ghostNum = 1): #length of all possible spaces. Do 
 
     allLayouts = []
 
-    for k in allValidStates: #hardcoded because I couldn't think of a better way of doing this
+    for k in allValidStates: #hardcoded for only ONE GHOST!!
         tempstring1 = ""
         tempstring2 = ""
         switcher = True
@@ -287,7 +289,7 @@ def generateFeatures():
     features['closestFoodAtEast'] = Feature(closestFoodAtEast)
     features['closestCapsuleIsNear'] = Feature(closestCapsuleIsNear)
     features['closestCapsuleAtEast'] = Feature(closestCapsuleAtEast)
-    features['pacmanAtCorner'] = Feature(pacmanAtCorner)
+    features['pacmanAtCorner'] = Feature(pacmanAtCorner) #TODO BUG if you comment this
     return features
     
 def generateLayout(gameData):
@@ -495,14 +497,14 @@ def findMask(A,startNode):
     n = A.shape[1]
     Array = np.zeros((n,n))
     Array[:] = A
-    print '(',feature1,',',feature2,') =',Array[feature1][feature2]
+    #print '(',feature1,',',feature2,') =',Array[feature1][feature2]
     #print Array
     Array[feature1][feature2] = 0
     Array[feature2][feature1] = 0
     
     for i in range(0, A.shape[0]-2):
         if (np.amax(Array[feature1,:]) > np.amax(Array[feature2,:])):
-            print '(',feature1,',',np.nanargmax(Array[feature1,:]),') =',np.amax(Array[feature1,:])
+            #print '(',feature1,',',np.nanargmax(Array[feature1,:]),') =',np.amax(Array[feature1,:])
             Array[feature1][feature2] = 0
             Array[feature2][feature1] = 0
             feature1 = np.nanargmax(Array[feature1,:])
@@ -512,7 +514,7 @@ def findMask(A,startNode):
                 featureList.append(feature1)
                 #print Array 
         else:
-            print '(',feature2,',',np.nanargmax(Array[feature2,:]),') =',np.amax(Array[feature2,:])
+            #print '(',feature2,',',np.nanargmax(Array[feature2,:]),') =',np.amax(Array[feature2,:])
             Array[feature1][feature2] = 0
             Array[feature2][feature1] = 0
             feature2 = np.nanargmax(Array[feature2,:])
@@ -542,10 +544,10 @@ def calc_2bits_prob(A):
     print 'n11', n11, n11/len(A)
     nList = [n00/len(A), n01/len(A), n10/len(A), n11/len(A)]
 
-def findPossibleString(mask, arr):
-    stringList = []
+def findPossibleString(mask, arr, baseString):
+    stringDict = {} 
     dictFeature = {}
-    possible = ['*'] * arr.shape[1]
+    possible = list(baseString) 
    
     matFeature = arr[:, mask]
     for i in xrange(len(matFeature)):
@@ -557,16 +559,17 @@ def findPossibleString(mask, arr):
     print arr
     print mask
     print dictFeature
-    while dictFeature: 
+    while dictFeature:#TODO BUG here i suppose... 
         s = max(dictFeature, key=dictFeature.get)
         for i in xrange(len(mask)):
             possible[mask[i]] = s[i]
         possibleString = ''.join(possible)
-        stringList.append(possibleString) 
+        stringDict[possibleString] = dictFeature[s]
+        #print 'possibleString', possibleString, ',score = ', dictFeature[s]
         del dictFeature[s] 
-    return stringList
+    return stringDict
 
-def mergeFeatures(chromosomes):
+def mergeFeatures(chromosomes, baseString):
     if chromosomes is None:
         return
     bitLists = []
@@ -587,19 +590,37 @@ def mergeFeatures(chromosomes):
     for i in range(0, len(chromosomes[0])):
         mask = findMask(matMI, i) # ILS 
         masks.append(mask)
-        print mask
-    
-    stringList = findPossibleString(masks[feature1],arr)
-    print 'possibleStrings', stringList
-    return stringList
+    #    print mask
+    print 'masks :', masks 
+    stringDict = findPossibleString(masks[feature1], arr, baseString)
+    return stringDict
 
-def selection(population, conditions):
+def findLearnedFeatures(string):
+    learnedFeature = [] 
+    learnedStringList = ['*'] * len(features)
+    slist = list(string)
+    for s in range(0,len(slist)):
+        if slist[s] != '*':
+            learnedStringList[s] = slist[s]
+    #print 'learned string:', ''.join(learnedStringList) 
+    learnedString = str(''.join(learnedStringList))
+    
+    s = learnedStringList
+    keys = list(features.keys())
+    for feature in xrange(len(learnedStringList)):
+        if s[feature] == '0':
+            learnedFeature.append('Not'+keys[feature])
+        elif s[feature] == '1':
+            learnedFeature.append(keys[feature])
+    #print 'Learned Features: ', ' and '.join(learnedFeature)
+    return learnedFeature
+
+def selection(population, condition): #condition is a string '1*1****'
     newPopulation = []
-    for condition in conditions: #condition is a string '1*1****'
-        newChromosomes= generateChromosomes(condition) 
-        for newChromosome in newChromosomes:
-            if newChromosome in population:
-                newPopulation.append(newChromosome)
+    newChromosomes= generateChromosomes(condition) 
+    for newChromosome in newChromosomes:
+        if newChromosome in population:
+            newPopulation.append(newChromosome)
     return newPopulation
 
 ############################################################################################################
@@ -607,46 +628,76 @@ def selection(population, conditions):
 args = readCommand( sys.argv[1:] )
 features = generateFeatures()
 successRate = 0.7
-learnedFeatures = []
-learnedString = ['*'] * len(features)
-population = generateAllChromosomes(len(features))
+learnedFeatures = {} #{learnedFeature:score} 
+learnedStrings = {} #{learnedString:score} 
+initialString = '*' * len(features)
+population = generateChromosomes(initialString)
+populationDict = {}
 allStates = generateAllStates(args["mazeLength"])
 TERMINATE = False 
-while True: 
+while not TERMINATE: 
+    populationDict[initialString]=population
     chromosomesWithStates = findChromosomesStates(population, allStates, args)
     badChromosomes, goEastChromosomes, goWestChromosomes = testChromosomes(chromosomesWithStates)
+
+    #Check goEastChromosomes
     print'\nOver', str(100*successRate), '% of the time, Pacman goes East: '+str(len(goEastChromosomes))
-    stringList = mergeFeatures(goEastChromosomes)
-    if stringList[0].count('*') == len(features) - 1:
-       break 
+    stringDict = mergeFeatures(goEastChromosomes, initialString)
+    print 'stringDict', stringDict
+    learnedStrings.update(stringDict) 
+
+    #if stringList[0].count('*') == len(features) - 1:
+    #    break 
     
-    slist = list(stringList[0])
-    for s in range(0,len(slist)):
-        if slist[s] != '*':
-            learnedString[s] = slist[s]
-    print 'learned string:', ''.join(learnedString) 
+    pause = raw_input("\nPress <ENTER> to continue...\n\n")
     
-    #s = stringList[0] 
-    s = learnedString 
-    learnedFeature = [] 
-    keys = list(features.keys())
-    for feature in xrange(len(learnedString)):
-        if s[feature] == '0':
-            learnedFeature.append('Not'+keys[feature])
-        elif s[feature] == '1':
-            learnedFeature.append(keys[feature])
-    print 'Learned Features: ', ' and '.join(learnedFeature)
+    for learnedString in stringDict:
+        print 'learned string:', learnedString 
+        #learnedStrings[learnedString] = stringDict[learnedString] # stringDict[learnedString] = score
+        learnedFeature = findLearnedFeatures(learnedString)
+        #learnedFeatures.append(learnedFeature)
+        print 'Learned Feature: ', ' and '.join(learnedFeature)
+        
+        
+        newPopulation = selection(population, learnedString) 
+        populationDict[learnedString] = newPopulation
+        #print populationDict[learnedString] 
+        chromosomesWithStates = findChromosomesStates(populationDict[learnedString], allStates, args)
+        badChromosomes, goEastChromosomes, goWestChromosomes = testChromosomes(chromosomesWithStates)
+        print'Over', str(100*successRate), '% of the time, Pacman goes East: '+str(len(goEastChromosomes))
+        
+        stringDict = mergeFeatures(goEastChromosomes, learnedString)
+        print 'stringDict', stringDict
+        learnedStrings.update(stringDict) 
+      
+        pause = raw_input("\nPress <ENTER> to continue...\n\n")
+        ''' 
+        ############################################################################
+        for learnedString in stringDict.keys():
+            learnedFeature = findLearnedFeatures(learnedString)
+            learnedFeatures.append(learnedFeature)
+            learnedStrings.append(learnedString)
+            print 'learned string:', learnedString 
+            print 'Learned Features: ', ' and '.join(learnedFeature)
+            
+            populationDict[learnedString] = selection(population, learnedString) 
+            #print populationDict[learnedString] 
+            chromosomesWithStates = findChromosomesStates(populationDict[learnedString], allStates, args)
+            badChromosomes, goEastChromosomes, goWestChromosomes = testChromosomes(chromosomesWithStates)
+            print'Over', str(100*successRate), '% of the time, Pacman goes East: '+str(len(goEastChromosomes))
+            
+            stringDict = mergeFeatures(goEastChromosomes, learnedString)
     
-    #learnedFeatures.append(condition) 
-    #print 'Learned Features: ', ' and '.join(learnedFeatures)
-    
-    
-    population = selection(population, stringList) 
-   
-    pause = raw_input("Press <ENTER> to continue...")
-    
-print 'learned string:', ''.join(learnedString) 
-print 'Learned Features: When', ' and '.join(learnedFeatures),', Action: East'
+            pause = raw_input("Press <ENTER> to continue...")
+        ############################################################################
+        '''
+    TERMINATE = True
+
+learnedStringsSorted = sorted (((learnedString, score) for score, learnedString in learnedStrings.iteritems()), reverse=True)
+print 'learned string:'
+for score, learnedString in learnedStringsSorted:
+    learnedFeature = findLearnedFeatures(learnedString)
+    print 'score:', score, learnedString, 'When', ' and '.join(learnedFeature),', Action: East'
 
 
 
