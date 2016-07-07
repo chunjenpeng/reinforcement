@@ -331,13 +331,6 @@ def generateGameState(args):
     gameState.initialize(layout, numGhostAgents)
     return gameState
     
-
-def getAction(gameState):
-    import pacmanAgents, qlearningAgents
-    pacmanAgent = pacmanAgents.GreedyAgent()
-    action = pacmanAgent.getAction(gameState)
-    return action
-
 def default(string):
   return string + ' [Default: %default]'
 
@@ -395,7 +388,7 @@ def chromosome2bit(chromosome):
             bitList.append(0)
     return bitList 
 
-def testChromosomes(chromosomesWithStates):
+def testChromosomes(chromosomesWithStates, pacmanAgent):
     #repeatTest = 1
     repeatTest = 10
     badChromosomes = []
@@ -403,27 +396,33 @@ def testChromosomes(chromosomesWithStates):
     goWestChromosomes = []
     for chromosomeString in chromosomesWithStates.keys():
         chromosome = generateChromosome(chromosomeString)
-        goEast = goWest = 0.0 
         stateList = chromosomesWithStates[chromosomeString]
         if len(stateList) == 0:
             badChromosomes.append(chromosome)
             continue
         for gameState in stateList:
+            goEast = goWest = 0.0 
             for i in xrange(repeatTest):
-                action = getAction(gameState)
+                action = pacmanAgent.getAction(gameState)
                 #print gameState, action
                 if action == 'East':
                     goEast = goEast + 1.0
                 if action == 'West':
                     goWest = goWest + 1.0
-        
+            if (goEast/repeatTest) >= successRate:
+                #print 'go East', str(100*goEast/(repeatTest)), '% :', chromosome2string(chromosome), getFeatures(chromosome) 
+                goEastChromosomes.append(chromosome)
+            if (goWest/repeatTest) >= successRate:
+                #print 'go West', str(100*goWest/(repeatTest)), '% :', chromosome2string(chromosome), getFeatures(chromosome)
+                goWestChromosomes.append(chromosome)
+        ''' 
         if goEast/(repeatTest*len(stateList)) >= successRate:
             #print 'go East', str(100*goEast/(repeatTest*len(stateList))), '% :', chromosome2string(chromosome), getFeatures(chromosome) 
             goEastChromosomes.append(chromosome)
         if goWest/(repeatTest*len(stateList)) >= successRate:
             #print 'go West', str(100*goWest/(repeatTest*len(stateList))), '% :', chromosome2string(chromosome), getFeatures(chromosome)
             goWestChromosomes.append(chromosome)
-
+        '''
     return badChromosomes, goEastChromosomes, goWestChromosomes
 
 
@@ -684,9 +683,11 @@ def generateFeatures():
 ############################################################################################################
 
 args = readCommand( sys.argv[1:] )
+import pacmanAgents, qlearningAgents
+pacmanAgent = pacmanAgents.GreedyAgent()
 features = generateFeatures()
-successRate = 0.7
-#successRate = 0.9
+#successRate = 0.7
+successRate = 0.9
 learnedFeatures = {} #{learnedFeature:score} 
 learnedStrings = {} #{learnedString:score} 
 initialString = '*' * len(features)
@@ -698,27 +699,29 @@ TERMINATE = False
 
 populationDict[initialString] = population
 chromosomesWithStates = findChromosomesStates(population, allStates, args)
-badChromosomes, goEastChromosomes, goWestChromosomes = testChromosomes(chromosomesWithStates)
+badChromosomes, goEastChromosomes, goWestChromosomes = testChromosomes(chromosomesWithStates, pacmanAgent)
 
 print'SuccessRate: ', str(100*successRate),'%'
-#printChromosomeList(goEastChromosomes)
 learnEast = learn(goEastChromosomes)
-#printChromosomeList(goWestChromosomes)
 learnWest = learn(goWestChromosomes)
 
-topN = 12 
-print '\n\nfeatures: ', ', '.join(features.keys())
-print '\nPacman goes East: '+str(len(goEastChromosomes))
+topN = 5 
+print '\n\nFeatures: ', ', '.join(features.keys())
+print 'Total number of states:', len(allStates)
+
+print '\nPacman goes East: '+str(len(goEastChromosomes)), 'states'
+#printChromosomeList(goEastChromosomes)
 print 'Learned Features for Action East:'
 for score, learnedString in learnEast[:topN]:
     learnedFeature = findLearnedFeatures(learnedString)
-    print 'count:', score, learnedString, 'When', ' and '.join(learnedFeature)
+    print learnedString, 'count:', score, 'When', ' and '.join(learnedFeature)
     
-print '\nPacman goes West: '+str(len(goWestChromosomes))
+print '\nPacman goes West: '+str(len(goWestChromosomes)), 'states'
+#printChromosomeList(goWestChromosomes)
 print 'Learned Features for Action West:'
 for score, learnedString in learnWest[:topN]:
     learnedFeature = findLearnedFeatures(learnedString)
-    print 'count:', score, learnedString, 'When', ' and '.join(learnedFeature)
+    print learnedString, 'count:', score, 'When', ' and '.join(learnedFeature)
     
     
     
