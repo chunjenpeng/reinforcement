@@ -683,8 +683,8 @@ def generateFeatures():
 ############################################################################################################
 
 args = readCommand( sys.argv[1:] )
-import pacmanAgents, qlearningAgents
-pacmanAgent = pacmanAgents.GreedyAgent()
+import pacmanAgents, qlearningAgents, multiAgents
+pacmanAgent = multiAgents.AlphaBetaAgent()
 features = generateFeatures()
 #successRate = 0.7
 successRate = 0.9
