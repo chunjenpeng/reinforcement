@@ -818,9 +818,9 @@ while True:
     print '\nPacman goes East: '+str(len(goEastChromosomes)), 'states'
     print printLearnedStrings(learnEast) 
     
-    #learnWest = learn(goWestChromosomes)
-    #print '\nPacman goes West: '+str(len(goWestChromosomes)), 'states'
-    #print printLearnedStrings(learnWest) 
+    learnWest = learn(goWestChromosomes)
+    print '\nPacman goes West: '+str(len(goWestChromosomes)), 'states'
+    print printLearnedStrings(learnWest) 
 
     pause = raw_input("\nPress <ENTER> to continue...\n\n")
 
