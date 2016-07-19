@@ -601,11 +601,11 @@ def mergeFeatures(chromosomes, baseString):
     np.set_printoptions(suppress=True, precision=3)
     print matMI
     
-    print 'Related features:' 
+    #print 'Related features:' 
     relatedFeatureList = findRelatedFeatures(matMI)         # Related Feature List
     keys = list(features.keys())
-    for feature1, feature2 in relatedFeatureList:
-        print '(',feature1,',',feature2,') = ', matMI[feature1][feature2], keys[feature1], keys[feature2]
+    #for feature1, feature2 in relatedFeatureList:
+        #print '(',feature1,',',feature2,') = ', matMI[feature1][feature2], keys[feature1], keys[feature2]
     
     masks = []                                              # Masks
     for i in range(0, len(chromosomes[0])):
@@ -655,31 +655,34 @@ def selection(population, condition): #condition is a string '1*1****'
             newPopulation.append(newChromosome)
     return newPopulation
 
-def mergeDuplicateStrings(mergedStringDict):
+def evaluateStrings(mergedStringDict):
     weightedDict = {}
     stringDict = {}
     for string in mergedStringDict:
         c = string.count('*')
         weight = pow(2, len(string)-c)
+        #weight = len(string)-c
         weightedDict[string] = mergedStringDict[string] * weight 
     #TODO 
     stringList = mergedStringDict.keys()
 
-    print '\nmergedStringDict'
-    for string in sorted(mergedStringDict, key = mergedStringDict.get, reverse=True):
-        print string, mergedStringDict[string], fnmatch.filter(stringList, string)
+    #print '\nmergedStringDict'
+    #for string in sorted(mergedStringDict, key = mergedStringDict.get, reverse=True):
+        #print string, mergedStringDict[string], fnmatch.filter(stringList, string)
     
-    print '\nweightedDict'
+    #print '\nweightedDict'
     for string in sorted(weightedDict, key = weightedDict.get, reverse=True):
-        print string, weightedDict[string], '(',mergedStringDict[string], ") :", fnmatch.filter(stringList, string) 
+        #print string, weightedDict[string], '(',mergedStringDict[string], ") :", fnmatch.filter(stringList, string) 
         stringDict[string] = 0
         for matchedString in fnmatch.filter(stringList, string):
             stringDict[string] += weightedDict[matchedString]
         stringDict[string] /= len(fnmatch.filter(stringList, string))
 
-    print '\nstringDict'
-    for string in sorted(stringDict, key = stringDict.get, reverse=True):
-        print string, stringDict[string], fnmatch.filter(stringList, string)
+    totalScore = sum(stringDict.values())
+    #print '\nstringDict'
+    #print 'totalScore: ', totalScore
+    #for string in sorted(stringDict, key = stringDict.get, reverse=True):
+        #print string, stringDict[string], '(', str(stringDict[string]*100/totalScore), '%)', fnmatch.filter(stringList, string)
     
     return stringDict
 
@@ -687,17 +690,22 @@ def mergeDuplicateStrings(mergedStringDict):
 def learn(chromosomesWithStates):
     stringDict = {}
     mergedStringDict = mergeFeatures(chromosomesWithStates, initialString)
-    stringDict = mergeDuplicateStrings(mergedStringDict)
-    learnedStringsSorted = sorted (((learnedString, score) for score, learnedString in stringDict.iteritems()), reverse=True)
-    return learnedStringsSorted
+    stringDict = evaluateStrings(mergedStringDict)
+    return stringDict
+    #learnedStringsSorted = sorted (((learnedString, score) for score, learnedString in stringDict.iteritems()), reverse=True)
+    #return learnedStringsSorted
 
 def printLearnedStrings(learnedStrings, topN = None):
     if topN is None:
         topN = len(learnedStrings)
     print 'Learned Features:'
-    for score, learnedString in learnedStrings[:topN]:
+    sortedStrings = sorted(learnedStrings, key = learnedStrings.get, reverse=True)
+
+    totalScore = sum(learnedStrings.values())
+    for learnedString in sortedStrings[:topN]:
         learnedFeature = findLearnedFeatures(learnedString)
-        print learnedString, 'score:', score, 'When', ' and '.join(learnedFeature)
+        percent = learnedStrings[learnedString]*100.0/totalScore
+        print learnedString, percent, '%', 'When', ' and '.join(learnedFeature)
 
 def generateFeatures():
     features = {}
@@ -747,21 +755,76 @@ badChromosomes, goEastChromosomes, goWestChromosomes = splitByActions(chromosome
 
 #print'SuccessRate: ', str(100*successRate),'%'
 learnEast = learn(goEastChromosomes)
-#learnWest = learn(goWestChromosomes)
+learnWest = learn(goWestChromosomes)
 
 topN = 5 
 print '\n\nFeatures: ', ', '.join(features.keys())
 #print 'Total number of states:', len(allStates)
 
-#print '\nPacman goes East: '+str(len(goEastChromosomes)), 'states'
+print '\nPacman goes East: '+str(len(goEastChromosomes)), 'states'
 #printChromosomeList(goEastChromosomes)
 print printLearnedStrings(learnEast) 
 #print printLearnedStrings(learnEast, topN) 
 
-#print '\nPacman goes West: '+str(len(goWestChromosomes)), 'states'
+print '\nPacman goes West: '+str(len(goWestChromosomes)), 'states'
 #printChromosomeList(goWestChromosomes)
-#print printLearnedStrings(learnWest) 
+print printLearnedStrings(learnWest) 
 #print printLearnedStrings(learnWest, topN) 
+
+
+
+
+def generateNewPopulation(learnedStrings, populationSize):
+    newPopulation = []
+    totalScore = sum(learnedStrings.values())
+    for learnedString in sorted(learnedStrings, key=learnedStrings.get, reverse=True):
+        percent = learnedStrings[learnedString]*100.0/totalScore
+        #print learnedString, percent, '%'
+        copy = int(round(populationSize*percent/100.0))
+        chromosomes = generateChromosomes(learnedString)
+        repeat = copy/len(chromosomes) 
+        mod = copy%len(chromosomes)
+        #print 'copy = ', copy, 'size = ', len(chromosomes)
+        #print 'repeat = ', repeat, 'mod = ', mod
+        if repeat != 0: 
+            for chromosome in chromosomes:
+                for i in xrange(repeat):
+                    newPopulation.append(chromosome)
+                    #print chromosome2string(chromosome)
+        if mod != 0:
+            random.shuffle(chromosomes)
+            for chromosome in chromosomes[0:mod]:
+                newPopulation.append(chromosome)
+                #print chromosome2string(chromosome)
+
+    #newPopulation[(len(newPopulation)/2):] = newPopulation[:(len(newPopulation)/2)]
+    return newPopulation
+
+populationSize = len(population)
+while True:
+    newPopulation = []
+    newPopulation.extend(generateNewPopulation(learnEast, populationSize/2))
+    newPopulation.extend(generateNewPopulation(learnWest, populationSize/2))
+    populationSize = len(newPopulation)
+    print '\nnewPopulation:', populationSize 
+    print '\n\nFeatures: ', ', '.join(features.keys())
+    #for chromosome in newPopulation:
+    #    print chromosome2string(chromosome)
+    
+    chromosomesWithStates = findChromosomesStates(newPopulation, allStates, args)
+    badChromosomes, goEastChromosomes, goWestChromosomes = splitByActions(chromosomesWithStates, pacmanAgent)
+    
+    learnEast = learn(goEastChromosomes)
+    print '\nPacman goes East: '+str(len(goEastChromosomes)), 'states'
+    print printLearnedStrings(learnEast) 
+    
+    #learnWest = learn(goWestChromosomes)
+    #print '\nPacman goes West: '+str(len(goWestChromosomes)), 'states'
+    #print printLearnedStrings(learnWest) 
+
+    pause = raw_input("\nPress <ENTER> to continue...\n\n")
+
+
 
 '''    
 print '\nPacman goes West: '+str(len(goWestChromosomes)), 'states'
