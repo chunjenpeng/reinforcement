@@ -625,9 +625,14 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
         gameDisplay = display
         rules.quiet = False
     game = rules.newGame( layout, pacman, ghosts, gameDisplay, beQuiet, catchExceptions)
-    game.run()
-    if not beQuiet: games.append(game)
+    #game.run()
+    #### 2016-09-04 #### 
+    observations = game.run()
+    import interviewer
+    interviewer.findFeatures(observations)
+    ####################
 
+    if not beQuiet: games.append(game)
     if record:
       import time, cPickle
       fname = ('recorded-game-%d' % (i + 1)) +  '-'.join([str(t) for t in time.localtime()[1:6]])

@@ -1,11 +1,12 @@
-#author Daniel & Ryan
-import featureExtractors
-import util, sys
-from random import randint
-from random import seed
-
+############# Remove this part when featureGenerator.py is finished #######################
 class gameData:
-    def __init__(self, args):
+    def __init__(self, args, chromosome = None):
+        self.initialize(args)
+        if chromosome != None:
+            while satisfyFeatures(generateFeatures(), self, chromosome) == False:
+                self.initialize(args)
+    
+    def initialize(self, args):
         self.mazeHeight = args['mazeHeight']
         self.mazeLength = args['mazeLength']
         if args['posPacman'] is None:
@@ -28,6 +29,35 @@ class gameData:
             elif randomInt == 2:
                self.listFood.append(k)
 
+    def initializeWithState(self, gameState):
+        layout = gameState.data.layout.layoutText
+        self.mazeHeight = len(layout)-2
+        self.mazeLength = len(layout[0])-2
+        self.listFood = []
+        self.listCapsule = []
+
+        pacman = 0
+        for k in range(1, len(layout[1])):
+            if layout[1][k] == "P":
+                pacman = k
+        self.posPacman = pacman
+
+        ghost = 0
+        for k in range(1, len(layout[1])):
+            if layout[1][k] == "G":
+                ghost = k
+        self.posGhost = ghost
+
+        for k in range(1, len(layout[1])):
+            if layout[1][k] == ".":
+                self.listFood.append(k)
+
+        for k in range(1, len(layout[1])):
+            if layout[1][k] == "o":
+                self.listCapsule.append(k)
+        
+        return self
+
 
 
 class Feature:
@@ -36,17 +66,13 @@ class Feature:
     def satisfy(self, gameData):
         return self.func(gameData)
 
-def satisfyFeatures(features, gameData, chromosome):
+def satisfyFeatures(chromosome, features, gameState):
+    return True
     for feature in features:
-        if features[feature].check(gameData) is not chromosome[feature]:
+        #TODO
+        if features[feature].satisfy(gameData) is not chromosome[feature]:
             return False
     return True
-
-# TODO
-# Rewrite features with binary relations and GP(Genetic Programming)
-# Perhaps define another class GP? 
-# with Objects = pacman, closestGhost, closestFood, closestCapsule, ...
-# and Relations = isNear, atEast, atCorner, ... 
 
 def isNear(pos1, pos2, near):
     if (abs(pos1 - pos2)<= near):
@@ -58,7 +84,7 @@ def atEast(pos1, pos2):
         return True
     return False
     
-def atCorner(pos,length):
+def atCorner(pos, length):
     if(pos == 1 or pos == length):
         return True
     return False
@@ -75,53 +101,52 @@ def ghostAtEast(gameData):
 def ghostAtCorner(gameData):
     return atCorner(gameData.posGhost, gameData.mazeLength)
 
-def closestFoodIsNear(gameData):
-    #TODO
-    # use closestFood at featureExtractors.py:29
-    return featureExtractors.closestFood(gameData.posPacman,gameData.listFood,gameData) == 1
+def closestFoodIsNear(gameData, near = 1):
+    return util.closest(gameData.listFood,args['mazeLength'],gameData) <= near
 
 def closestFoodAtEast(gameData):
-    #TODO
-    util.raiseNotDefined()
-
-def closestFoodAtCorner(gameData):
-    #TODO
-    util.raiseNotDefined()
-
-def closestCapsuleIsNear(gameData):
-    #TODO
-    return featureExtractors.closestFood(gameData.posPacman,gameData.listCapsule,gameData) == 1
+    closestList = util.closestList(gameData.listFood,args['mazeLength'],gameData)
+    if (len(closestList) == 0):
+        return False
+    if (len(closestList) == 1):
+        if (gameData.posPacman < closestList[0]):
+            return True
+        return False
+    if (len(closestList) == 2):
+        return True
+    
+def closestCapsuleIsNear(gameData, near = 1):
+    return util.closest(gameData.listCapsule, args['mazeLength'], gameData) == near
 
 def closestCapsuleAtEast(gameData):
-    #TODO
-    util.raiseNotDefined()
-
-def closestCapsuleAtCorner(gameData):
-    #TODO
-    util.raiseNotDefined()
-
-#######################################################################
-def foodIsNear(gameData, near = 1):
-    for food in gameData.listFood:
-        if(abs(gameData.posPacman - food) <= near):
+    closestList = util.closestList(gameData.listCapsule,args['mazeLength'],gameData)
+    if(len(closestList)==0):
+        return False
+    if(len(closestList)==1):
+        if(gameData.posPacman < closestList[0]):
             return True
-    return False
+        return False
+    if(len(closestList)==2):
+        return True
 
-def foodAtEast(gameData):
-    for food in gameData.listFood:
-        if(gameData.posPacman < food):
-            return True
-    return False
-    
-def capsuleIsNear(gameData, near = 1):
-    for capsule in gameData.listCapsule:
-        if(abs(gameData.posPacman - capsule) <= near):
-            return True
-    return False
+def closestWallIsNear(gameData, near = 1):
+    return atCorner(gameData.posPacman, gameData.mazeLength)
 
-def capsuleAtEast(gameData):
-    for capsule in gameData.listCapsule:
-        if(gameData.posPacman < capsule):
-            return True
-    return False
-#######################################################################
+def closestWallAtEast(gameData):
+    if(gameData.posPacman >= gameData.mazeLength/2):
+        return True
+    else:
+        return False
+
+def generateFeatures():
+    features = {}
+    features['ghostIsNear'] = Feature(ghostIsNear)
+    features['ghostAtEast'] = Feature(ghostAtEast)
+    features['closestFoodIsNear'] = Feature(closestFoodIsNear)
+    features['closestFoodAtEast'] = Feature(closestFoodAtEast)
+    features['closestCapsuleIsNear'] = Feature(closestCapsuleIsNear)
+    features['closestCapsuleAtEast'] = Feature(closestCapsuleAtEast)
+    features['closestWallIsNear'] = Feature(closestWallIsNear)
+    features['closestWallAtEast'] = Feature(closestWallAtEast)
+    #features['pacmanAtCorner'] = Feature(pacmanAtCorner) 
+    return features

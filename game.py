@@ -547,6 +547,10 @@ class Game:
     """
     self.display.initialize(self.state.data)
     self.numMoves = 0
+	#### 2016-09-04 ####	
+    observations = [] 
+	####################
+
 
     ###self.display.initialize(self.state.makeObservation(1).data)
     # inform learning agents of the game start
@@ -660,6 +664,10 @@ class Game:
           return
       else:
         action = agent.getAction(observation)
+        if agentIndex == 0: 
+          #print observation, action
+          data = {'gameState':observation, 'action':action}
+          observations.append(data)
       self.unmute()
 
       # Execute the action
@@ -703,4 +711,6 @@ class Game:
           self.unmute()
           return
     self.display.finish()
-
+ 
+	#### 2016-09-04 ####	
+    return observations
