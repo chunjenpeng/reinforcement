@@ -25,8 +25,6 @@ class Feature:
         return self.name
     def satisfy(self, gameState):
         return self.func(gameState)
-     
-
 
 def Ghost_isNear_Pacman(gameState):
     return isNear( gameState.getGhostPosition(1), gameState.getPacmanPosition(), near = 1 )
@@ -34,11 +32,14 @@ def Ghost_isNear_Pacman(gameState):
 def Ghost_atEastOf_Pacman(gameState):
     return atEastOf(gameState.getGhostPosition(1), gameState.getPacmanPosition())
 
+def Ghost_atNorthOf_Pacman(gameState):
+    return atNorthOf(gameState.getGhostPosition(1), gameState.getPacmanPosition())
+
 def generateFeatures():
     features = [] 
     features.append( Feature('Ghost_isNear_Pacman', Ghost_isNear_Pacman))
     features.append( Feature('Ghost_atEastOf_Pacman', Ghost_atEastOf_Pacman))
-    #features.append( Feature('Ghost_atNorthOf_Pacman', Ghost_atNorthOf_Pacman))
+    features.append( Feature('Ghost_atNorthOf_Pacman', Ghost_atNorthOf_Pacman))
     return features
 
 def satisfyFeatures(chromosome, features, gameState):

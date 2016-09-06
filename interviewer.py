@@ -67,6 +67,20 @@ def sortByAction(accuracyOfChromosomes):
         chromosomesForActions[action].sort(key=itemgetter(1), reverse=True) # sorted by accuracy in [(ch, acc), (ch, acc), ...]
     return chromosomesForActions 
 
+def sortByAccuracy(chromosomesForActions, features):
+    responses = []
+    for action in chromosomesForActions:
+        print action 
+        for chromosome, accuracy in chromosomesForActions[action]:
+            print ('%4.3f' % accuracy), chromosome
+            response = (action, chromosome) 
+            responses.append((response, accuracy))
+    
+    responses.sort(key=itemgetter(1), reverse=True)
+    for response, accuracy in responses:
+        print ('%4.3f' % accuracy), ': Go', response[0], 'when', chromosome2feature(response[1], features)
+    return responses 
+
 def findFeatures(observations): # observations = [ {'gameState': gameState, 'action': action}, ... ]
     from featureGenerator import generateFeatures
     features = generateFeatures()
@@ -75,18 +89,7 @@ def findFeatures(observations): # observations = [ {'gameState': gameState, 'act
     chromosomesWithData = matchStatesWithChromosomes(population, features, observations)
     accuracyOfChromosomes = calculateAccuracy(chromosomesWithData)
     chromosomesForActions = sortByAction(accuracyOfChromosomes)
-    
-    learned_chromosomes = []
-    for action in chromosomesForActions:
-        print action 
-        for chromosome, accuracy in chromosomesForActions[action]:
-            print ('%4.3f' % accuracy), chromosome
-            response = (action, chromosome) 
-            learned_chromosomes.append((response, accuracy))
-    
-    learned_chromosomes.sort(key=itemgetter(1), reverse=True)
-    for response, accuracy in learned_chromosomes:
-        print ('%4.3f' % accuracy), '%: Go', response[0], 'when', chromosome2feature( response[1], features)
+    responses = sortByAccuracy(chromosomesForActions, features)
 
 def run():
     print 'Running interviewer.py'

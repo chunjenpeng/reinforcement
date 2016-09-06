@@ -619,6 +619,7 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
 
   for i in range( numGames ):
     beQuiet = i < numTraining
+    ''' 
     if beQuiet:
         # Suppress output and graphics
         import textDisplay
@@ -627,6 +628,11 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
     else:
         gameDisplay = display
         rules.quiet = False
+    '''
+    import textDisplay
+    gameDisplay = textDisplay.NullGraphics()
+    rules.quiet = True
+    
     game = rules.newGame( layout, pacman, ghosts, gameDisplay, beQuiet, catchExceptions)
     #game.run()
     #### 2016-09-04 #### 
