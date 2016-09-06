@@ -1,4 +1,4 @@
-import json
+import json, random
 import featureGenerator as fg
 from operator import itemgetter
 from itertools import product
@@ -6,15 +6,23 @@ from itertools import product
 def chromosome2feature(chromosome, features):
     feature_string = ''  
     for i in xrange(len(chromosome)):
+        if chromosome[i] == '*': continue
         if i > 0:
             feature_string += ' and '
         if chromosome[i] == '0':
             feature_string += 'Not '
-        else:
-            feature_string += '    '
 
         feature_string += features[i].__str__()
     return feature_string
+
+def generateDescendants(string):
+    descendants = []
+    for i in xrange(len(string)):
+        if string[i] != '*':
+            child = list(string)
+            child[i] = '*'
+            descendants.append(''.join(child))
+    return descendants
 
 def generateChromosomes(string):
     population = []
@@ -25,74 +33,100 @@ def generateChromosomes(string):
         population.append(chromosome)
     return population
 
-def generateInitialPopulation(features): #? String or List of float?
+def generateInitialPopulation(features, n): #? String or List of float?
     initialString = '*' * len(features) 
     population = generateChromosomes(initialString) 
-    return population
+    random.shuffle(population)
+    num = len(population if n > len(population) else n
+    return population[:num]
 
-def matchStatesWithChromosomes( population, features, observations):
-    chromosomesWithData = {}
+def matchDataWithChromosome( chromosome, features, observations):
+    chromosomeData = [] 
+    for data in observations:    # ??efficiency??
+        if fg.satisfyFeatures( chromosome, features, data['gameState'] ):
+            chromosomeData.append(data)
+    return chromosomeData
+
+def calculateActionAccuracy(chromosomeData): #Accuracy of chromosome or Accuracy of gameStates?
+    accuracyOfChromosome = {'North':0.0, 'South':0.0, 'East':0.0, 'West':0.0, 'Stop':0.0}
+    for data in chromosomeData:
+        action = data['action']
+        accuracyOfChromosome[action] += 1.0
+    data_num = len(chromosomeData)
+    if data_num != 0:
+        for action in accuracyOfChromosome:
+            accuracyOfChromosome[action] /= data_num
+    return accuracyOfChromosome 
+
+def findBestAction(chromosome, features, observations):
+    chromosomeData = matchDataWithChromosome(chromosome, features, observations)
+    allActionAccuracy = calculateActionAccuracy(chromosomeData)
+    bestAction = max(allActionAccuracy, key=allActionAccuracy.get) 
+    accuracy = allActionAccuracy[bestAction]
+    return (bestAction,accuracy)
+
+
+def steepestDescent(chromosome, features, observations, chromosomeBestAction):
+    bestChromosome = chromosome
+    bestAction, accuracy = findBestAction(chromosome, features, observations) 
+    chromosomeBestAction[chromosome] = (bestAction, accuracy)
+    
+    descendants = generateDescendants(chromosome)
+    for child in descendants:
+        if child in chromosomeBestAction:
+            action, acc = chromosomeBestAction[child]
+        else:
+            action, acc = findBestAction(child, features, observations) 
+            chromosomeBestAction[child] = (action, acc)
+        
+        if acc >= accuracy:
+            bestChromosome, accuracy = child, acc 
+            bestAction = action
+    
+    return bestChromosome, chromosomeBestAction
+
+
+def MinimumDescriptionLength(population, features, observations):
+    chromosomeBestAction = {}
+    bestChromosomes = [] 
+    responseWithAccuracy = [] 
     for chromosome in population:
-        chromosomesWithData[chromosome] = []
-        for data in observations:    # ??efficiency??
-            if fg.satisfyFeatures( chromosome, features, data['gameState'] ):
-                chromosomesWithData[chromosome].append(data)
-    return chromosomesWithData
-
-def calculateAccuracy(chromosomesWithData): #Accuracy of chromosome or Accuracy of gameStates?
-    #accuracyOfGameStates= {}
-    accuracyOfChromosomes = {} 
-    for chromosome in chromosomesWithData.keys():
-        aoc = {'North':0.0, 'South':0.0, 'East':0.0, 'West':0.0, 'Stop':0.0}
-        for data in chromosomesWithData[chromosome]:
-            action = data['action']
-            aoc[action] += 1.0
-
-        data_num = len(chromosomesWithData[chromosome])
-        print chromosome, ', data_num:', data_num
-        if data_num != 0:
-            for action in aoc:
-                aoc[action] /= data_num
-        accuracyOfChromosomes [chromosome] = aoc
+        #Steepest Descent
+        child, chromosomeBestAction = steepestDescent(chromosome, features, observations, chromosomeBestAction) 
+        print chromosome,
+        while(child != chromosome):
+            print '->', child,
+            chromosome = child
+            child, chromosomeBestAction = steepestDescent(chromosome, features, observations, chromosomeBestAction) 
+        print '' 
+        
+        if child not in bestChromosomes: 
+            bestChromosomes.append(child)
+            bestAction, accuracy = chromosomeBestAction[child]
+            response = (child, bestAction) 
+            responseWithAccuracy.append((response, accuracy))
     
-    return accuracyOfChromosomes 
+    return responseWithAccuracy
 
-def sortByAction(accuracyOfChromosomes):
-    chromosomesForActions = {'North':[], 'South':[], 'East':[], 'West':[], 'Stop':[]} 
-    for chromosome in accuracyOfChromosomes:
-        aoc = accuracyOfChromosomes[chromosome]
-        for action in aoc:
-            chromosomesForActions[action].append((chromosome, aoc[action]))
-    for action in chromosomesForActions: 
-        chromosomesForActions[action].sort(key=itemgetter(1), reverse=True) # sorted by accuracy in [(ch, acc), (ch, acc), ...]
-    return chromosomesForActions 
-
-def sortByAccuracy(chromosomesForActions, features):
-    responses = []
-    for action in chromosomesForActions:
-        print action 
-        for chromosome, accuracy in chromosomesForActions[action]:
-            print ('%4.3f' % accuracy), chromosome
-            response = (action, chromosome) 
-            responses.append((response, accuracy))
-    
-    responses.sort(key=itemgetter(1), reverse=True)
-    for response, accuracy in responses:
-        print ('%4.3f' % accuracy), ': Go', response[0], 'when', chromosome2feature(response[1], features)
-    return responses 
+def printResponses(responseWithAccuracy, features, topN):
+    for i in xrange(topN):
+        (chromosome, action), accuracy = responseWithAccuracy[i]
+        print ('%8.7f' % accuracy), ':', chromosome, 'Go', action, ', when', chromosome2feature(chromosome, features)
 
 def findFeatures(observations): # observations = [ {'gameState': gameState, 'action': action}, ... ]
     from featureGenerator import generateFeatures
     features = generateFeatures()
-    population = generateInitialPopulation(features)
+    population = generateInitialPopulation(features, 100)
+    responseWithAccuracy = MinimumDescriptionLength(population, features, observations)
     
-    chromosomesWithData = matchStatesWithChromosomes(population, features, observations)
-    accuracyOfChromosomes = calculateAccuracy(chromosomesWithData)
-    chromosomesForActions = sortByAction(accuracyOfChromosomes)
-    responses = sortByAccuracy(chromosomesForActions, features)
+    print '\nLearned Features:'
+    responseWithAccuracy.sort(key=itemgetter(1), reverse=True)
+    printResponses(responseWithAccuracy, features, topN = len(responseWithAccuracy))
+    
+    print 'number of data:', len(observations)
 
 def run():
     print 'Running interviewer.py'
 
 if __name__ == '__main__':
-    run()
+    findFeatures([])
