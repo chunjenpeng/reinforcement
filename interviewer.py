@@ -36,9 +36,10 @@ def generateChromosomes(string):
 def generateInitialPopulation(features, n): #? String or List of float?
     initialString = '*' * len(features) 
     population = generateChromosomes(initialString) 
+    if n >= len(population):
+        return population
     random.shuffle(population)
-    num = len(population if n > len(population) else n
-    return population[:num]
+    return population[:n]
 
 def matchDataWithChromosome( chromosome, features, observations):
     chromosomeData = [] 
@@ -114,6 +115,8 @@ def printResponses(responseWithAccuracy, features, topN):
         print ('%8.7f' % accuracy), ':', chromosome, 'Go', action, ', when', chromosome2feature(chromosome, features)
 
 def findFeatures(observations): # observations = [ {'gameState': gameState, 'action': action}, ... ]
+    print 'number of data:', len(observations)
+    
     from featureGenerator import generateFeatures
     features = generateFeatures()
     population = generateInitialPopulation(features, 100)
@@ -123,7 +126,6 @@ def findFeatures(observations): # observations = [ {'gameState': gameState, 'act
     responseWithAccuracy.sort(key=itemgetter(1), reverse=True)
     printResponses(responseWithAccuracy, features, topN = len(responseWithAccuracy))
     
-    print 'number of data:', len(observations)
 
 def run():
     print 'Running interviewer.py'

@@ -76,12 +76,12 @@ def generateFeatures():
     features.append( Feature('Ghost_atWestOf_Pacman', Ghost_atWestOf_Pacman))
     features.append( Feature('Ghost_atNorthOf_Pacman', Ghost_atNorthOf_Pacman))
     features.append( Feature('Ghost_atSouthOf_Pacman', Ghost_atSouthOf_Pacman))
-    #''' 
+    ''' 
     features.append( Feature('ClosestFood_isNear_Pacman', ClosestFood_isNear_Pacman))
     features.append( Feature('ClosestFood_atEastOf_Pacman', ClosestFood_atEastOf_Pacman))
-    features.append( Feature('ClosestFood_atWestOf_Pacman', ClosestFood_atWestOf_Pacman))
+    #features.append( Feature('ClosestFood_atWestOf_Pacman', ClosestFood_atWestOf_Pacman))
     features.append( Feature('ClosestFood_atNorthOf_Pacman', ClosestFood_atNorthOf_Pacman))
-    features.append( Feature('ClosestFood_atSouthOf_Pacman', ClosestFood_atSouthOf_Pacman))
+    #features.append( Feature('ClosestFood_atSouthOf_Pacman', ClosestFood_atSouthOf_Pacman))
     #''' 
     return features
 
