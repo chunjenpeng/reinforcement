@@ -613,6 +613,9 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
 
   rules = ClassicGameRules(timeout)
   games = []
+  #### 2016-09-04 #### 
+  observations = []
+
 
   for i in range( numGames ):
     beQuiet = i < numTraining
@@ -627,9 +630,8 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
     game = rules.newGame( layout, pacman, ghosts, gameDisplay, beQuiet, catchExceptions)
     #game.run()
     #### 2016-09-04 #### 
-    observations = game.run()
-    import interviewer
-    interviewer.findFeatures(observations)
+    observation = game.run()
+    observations.extend(observation)
     ####################
 
     if not beQuiet: games.append(game)
@@ -650,6 +652,11 @@ def runGames( layout, pacman, ghosts, display, numGames, record, numTraining = 0
     print 'Win Rate:      %d/%d (%.2f)' % (wins.count(True), len(wins), winRate)
     print 'Record:       ', ', '.join([ ['Loss', 'Win'][int(w)] for w in wins])
 
+    
+  #### 2016-09-04 #### 
+  import interviewer
+  interviewer.findFeatures(observations)
+  
   return games
 
 if __name__ == '__main__':
