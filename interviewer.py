@@ -244,23 +244,25 @@ def findFeatures(observations): # observations = [ {'gameState': gameState, 'act
     bestResponse = {} # { chromosome: {'bestAction':bestAction, 'accuracy':accuracy, 'satisfyStateList':satisfyStateList},  ...}
     nextGeneration = MinimumDescriptionLength(population, features, observations, bestResponse)
     
-    print '\nLearned Features:'
-    printPopulationResponses(nextGeneration, bestResponse, features, topN = len(nextGeneration))
     
     
     matMI = findMutualInformation(nextGeneration, bestResponse)
-    relatedFeatureList = findRelatedFeatures(matMI)         # Related Feature List
+    relatedFeatureList = findRelatedFeatures(matMI)
     print 'Related features:' 
     for feature1, feature2 in relatedFeatureList:
         print '(',feature1,',',feature2,') = ', matMI[feature1][feature2], nextGeneration[feature1], nextGeneration[feature2]
     
-    masks = []                                              # Masks
+    masks = []
     for i in xrange(len(nextGeneration)):
         mask = findMask(matMI, i) # ILS 
         masks.append(mask)
-    #    print mask
-    print 'masks :', masks 
+        print "Related chromosomes:",
+        for k in mask:
+            print nextGeneration[k],
+        print '' 
     
+    print '\nLearned Features:'
+    printPopulationResponses(nextGeneration, bestResponse, features, topN = len(nextGeneration))
 
 def run():
     print 'Running interviewer.py'
