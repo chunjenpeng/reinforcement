@@ -1,7 +1,10 @@
 import json, random
-import featureGenerator as fg
 from operator import itemgetter
 from itertools import product
+
+import featureGenerator as fg
+import numpy as np
+from numpy import unravel_index
 
 def chromosome2feature(chromosome, features):
     feature_string = ''  
@@ -140,10 +143,96 @@ def printPopulationResponses(population, bestResponse, features, topN):
         (chromosome, action), accuracy = responseWithAccuracy[i]
         print ('%8.7f' % accuracy), ':', chromosome, 'Go', action, ', when', chromosome2feature(chromosome, features)
 
+def shan_entropy(c):
+    c_normalized = c / float(np.sum(c))
+    c_normalized = c_normalized[np.nonzero(c_normalized)]
+    H = -sum(c_normalized* np.log2(c_normalized))
+    return H
 
-def printArray(population, bestResponse):
+def calc_MI(X,Y,bins):
+    c_XY = np.histogram2d(X,Y,bins)[0]
+    c_X = np.histogram(X,bins)[0]
+    c_Y = np.histogram(Y,bins)[0]
+
+    H_X = shan_entropy(c_X)
+    H_Y = shan_entropy(c_Y)
+    H_XY = shan_entropy(c_XY)
+
+    MI = H_X + H_Y - H_XY
+    return MI
+
+def generateMatrix(A):
+    n = A.shape[1]
+    bins = n  
+    matMI = np.zeros((n,n))
+    for ix in np.arange(n):
+        for jx in np.arange(ix+1, n):
+            matMI[ix, jx] = calc_MI(A[:, ix], A[:,jx], bins)
+            matMI[jx, ix] = calc_MI(A[:, ix], A[:,jx], bins)
+    return matMI
+
+def findMutualInformation(population, bestResponse):
+    matrix = []
     for chromosome in population:
-        print chromosome, bestResponse[chromosome]['satisfyStateList']
+        satisfyStateList = bestResponse[chromosome]['satisfyStateList'] 
+        matrix.append(satisfyStateList)
+    arr = np.array(matrix)
+    print '\nMutual Information Matrix:'
+    matMI = generateMatrix(np.transpose(arr))
+    np.set_printoptions(suppress=True, precision=3)
+    #print matMI
+    return matMI
+
+def findRelatedFeatures(Array):
+    n = Array.shape[1]
+    A = np.zeros((n,n))
+    A[:] = Array
+    relatedFeatureList = []
+    feature1, feature2 = unravel_index(A.argmax(), A.shape)
+    while feature1 != feature2:
+        pair = (feature1, feature2)
+        relatedFeatureList.append(pair)
+        A[feature1][feature2] = 0
+        A[feature2][feature1] = 0
+        feature1, feature2 = unravel_index(A.argmax(), A.shape)
+    return relatedFeatureList
+
+def findMask(A,startNode):
+    featureList = []
+    feature1 = startNode
+    feature2 = np.nanargmax(A[feature1,:])
+    featureList.append(feature1)
+    featureList.append(feature2)
+    n = A.shape[1]
+    Array = np.zeros((n,n))
+    Array[:] = A
+    #print '(',feature1,',',feature2,') =',Array[feature1][feature2]
+    #print Array
+    Array[feature1][feature2] = 0
+    Array[feature2][feature1] = 0
+    
+    for i in range(0, A.shape[0]-2):
+        if (np.amax(Array[feature1,:]) > np.amax(Array[feature2,:])):
+            #print '(',feature1,',',np.nanargmax(Array[feature1,:]),') =',np.amax(Array[feature1,:])
+            Array[feature1][feature2] = 0
+            Array[feature2][feature1] = 0
+            feature1 = np.nanargmax(Array[feature1,:])
+            if feature1 in featureList:
+                break
+            else:
+                featureList.append(feature1)
+                #print Array 
+        else:
+            #print '(',feature2,',',np.nanargmax(Array[feature2,:]),') =',np.amax(Array[feature2,:])
+            Array[feature1][feature2] = 0
+            Array[feature2][feature1] = 0
+            feature2 = np.nanargmax(Array[feature2,:])
+            if feature2 in featureList:
+                break
+            else:
+                featureList.append(feature2)
+                #print Array 
+    return featureList
 
 def findFeatures(observations): # observations = [ {'gameState': gameState, 'action': action}, ... ]
     print '\nNumber of gameStates recorded:', len(observations)
@@ -157,7 +246,20 @@ def findFeatures(observations): # observations = [ {'gameState': gameState, 'act
     
     print '\nLearned Features:'
     printPopulationResponses(nextGeneration, bestResponse, features, topN = len(nextGeneration))
-    #printArray(nextGeneration, bestResponse)
+    
+    
+    matMI = findMutualInformation(nextGeneration, bestResponse)
+    relatedFeatureList = findRelatedFeatures(matMI)         # Related Feature List
+    print 'Related features:' 
+    for feature1, feature2 in relatedFeatureList:
+        print '(',feature1,',',feature2,') = ', matMI[feature1][feature2], nextGeneration[feature1], nextGeneration[feature2]
+    
+    masks = []                                              # Masks
+    for i in xrange(len(nextGeneration)):
+        mask = findMask(matMI, i) # ILS 
+        masks.append(mask)
+    #    print mask
+    print 'masks :', masks 
     
 
 def run():
