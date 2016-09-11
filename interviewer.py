@@ -39,7 +39,7 @@ def generateChromosomes(string):
     return population
 
 
-def generateInitialPopulation(features, n): #? String or List of float?
+def generateInitialPopulation(features, n): 
     initialString = '*' * len(features) 
     population = generateChromosomes(initialString) 
     if n >= len(population):
@@ -85,14 +85,25 @@ def findBestAction(chromosome, features, observations):
     allActionAccuracy = calculateActionAccuracy(chromosomeData)
     bestAction = max(allActionAccuracy, key=allActionAccuracy.get) 
     accuracy = allActionAccuracy[bestAction]
+    #accuracy = allActionAccuracy[bestAction]*len(chromosomeData)/len(observations)
     
     satisfyStateList = satisfyState[bestAction] 
-    bestData = {'bestAction':bestAction, 'accuracy':accuracy, 'satisfyStateList':satisfyStateList}
+    bestData = {'bestAction':bestAction, 'accuracy':accuracy, 'satisfyStateList':satisfyStateList, 'chromosomeData':chromosomeData}
     return bestData
 
 
 def steepestDescent(chromosome, features, observations, bestResponse):
-    # bestResponse = { chromosome: {'bestAction':bestAction, 'accuracy':accuracy, 'satisfyStateList':satisfyStateList},  ...}
+    '''
+    bestResponse = { 
+        chromosome: {
+            'bestAction':bestAction, 
+            'accuracy':accuracy, 
+            'satisfyStateList':satisfyStateList, 
+            'chromosomeData':chromosomeData
+        },  
+        ...
+    }
+    ''' 
     bestChromosome = chromosome
     currentBestData = findBestAction(chromosome, features, observations) 
     bestResponse[chromosome] = currentBestData 
@@ -112,7 +123,7 @@ def steepestDescent(chromosome, features, observations, bestResponse):
     return bestChromosome
 
 
-def MinimumDescriptionLength(population, features, observations, bestResponse):
+def hillClimbing(population, features, observations, bestResponse):
     nextGeneration= [] 
     print '\nSteepest Descent for each chromosome...'
     for chromosome in population:
@@ -130,7 +141,17 @@ def MinimumDescriptionLength(population, features, observations, bestResponse):
     return nextGeneration
 
 def printPopulationResponses(population, bestResponse, features, topN):
-    # bestResponse = { chromosome: {'bestAction':bestAction, 'accuracy':accuracy, 'satisfyStateList':satisfyStateList},  ...}
+    '''
+    bestResponse = { 
+        chromosome: {
+            'bestAction':bestAction, 
+            'accuracy':accuracy, 
+            'satisfyStateList':satisfyStateList, 
+            'chromosomeData':chromosomeData
+        },  
+        ...
+    }
+    ''' 
     responseWithAccuracy = [] 
     for chromosome in population:
         data = bestResponse[chromosome]
@@ -142,6 +163,7 @@ def printPopulationResponses(population, bestResponse, features, topN):
     for i in xrange(topN):
         (chromosome, action), accuracy = responseWithAccuracy[i]
         print ('%8.7f' % accuracy), ':', chromosome, 'Go', action, ', when', chromosome2feature(chromosome, features)
+    return responseWithAccuracy
 
 def shan_entropy(c):
     c_normalized = c / float(np.sum(c))
@@ -234,6 +256,11 @@ def findMask(A,startNode):
                 #print Array 
     return featureList
 
+def printResponse(chromosome, bestResponse, features):
+    action = bestResponse[chromosome]['bestAction']
+    accuracy = bestResponse[chromosome]['accuracy']
+    print ('%8.7f' % accuracy), ':', chromosome, 'Go', action, ', when', chromosome2feature(chromosome, features)
+
 def findFeatures(observations): # observations = [ {'gameState': gameState, 'action': action}, ... ]
     print '\nNumber of gameStates recorded:', len(observations)
     
@@ -241,28 +268,51 @@ def findFeatures(observations): # observations = [ {'gameState': gameState, 'act
     features = generateFeatures()
     population = generateInitialPopulation(features, 100)
     
-    bestResponse = {} # { chromosome: {'bestAction':bestAction, 'accuracy':accuracy, 'satisfyStateList':satisfyStateList},  ...}
-    nextGeneration = MinimumDescriptionLength(population, features, observations, bestResponse)
+    # Record chromosome score
+    bestResponse = {} 
+    '''
+    bestResponse = { 
+        chromosome: {
+            'bestAction':bestAction, 
+            'accuracy':accuracy, 
+            'satisfyStateList':satisfyStateList, 
+            'chromosomeData':chromosomeData
+        },  
+        ...
+    }
+    ''' 
+    nextGeneration = hillClimbing(population, features, observations, bestResponse)
     
-    
+    print '\nLearned Features:'
+    responseWithAccuracy = printPopulationResponses(nextGeneration, bestResponse, features, topN = len(nextGeneration))
     
     matMI = findMutualInformation(nextGeneration, bestResponse)
     relatedFeatureList = findRelatedFeatures(matMI)
     print 'Related features:' 
-    for feature1, feature2 in relatedFeatureList:
-        print '(',feature1,',',feature2,') = ', matMI[feature1][feature2], nextGeneration[feature1], nextGeneration[feature2]
+    for ch1, ch2 in relatedFeatureList:
+        print '\n(',ch1,',',ch2 ,') = ', matMI[ch1][ch2]
+        printResponse(nextGeneration[ch1], bestResponse, features)
+        printResponse(nextGeneration[ch2], bestResponse, features)
+        
+        offspring1 = nextGeneration[ch1]
+        offspring2 = nextGeneration[ch2]
+        new_chromosomeData = bestResponse[offspring1]['chromosomeData']
+        new_chromosomeData.extend(bestResponse[offspring2]['chromosomeData'])
+        allActionAccuracy = calculateActionAccuracy(new_chromosomeData)
+        bestAction = max(allActionAccuracy, key=allActionAccuracy.get) 
+        accuracy = allActionAccuracy[bestAction]
+        print 'merged accuracy:', accuracy, bestAction
     
     masks = []
     for i in xrange(len(nextGeneration)):
         mask = findMask(matMI, i) # ILS 
         masks.append(mask)
-        print "Related chromosomes:",
+        print "\nRelated chromosomes:"
         for k in mask:
-            print nextGeneration[k],
-        print '' 
+            chromosome = nextGeneration[k]
+            printResponse(chromosome, bestResponse, features)
+
     
-    print '\nLearned Features:'
-    printPopulationResponses(nextGeneration, bestResponse, features, topN = len(nextGeneration))
 
 def run():
     print 'Running interviewer.py'
