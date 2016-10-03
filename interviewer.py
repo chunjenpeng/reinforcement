@@ -1,6 +1,7 @@
 import json, random
 from operator import itemgetter
 from itertools import product
+import cPickle as pickle
 
 import featureGenerator as fg
 import numpy as np
@@ -236,7 +237,8 @@ def findMask(A,startNode):
 def printResponse(chromosome, bestResponse, features):
     action = bestResponse[chromosome]['bestAction']
     accuracy = bestResponse[chromosome]['accuracy']
-    print ('%8.7f' % accuracy), ':', chromosome, 'Go', action, ', when', chromosome2feature(chromosome, features)
+    dataNum = len(bestResponse[chromosome]['chromosomeData'])
+    print ('%8.7f' % accuracy),('(%4d)' % dataNum), ':', chromosome, 'Go', action, ', when', chromosome2feature(chromosome, features)
 
 def printKnowledge(knowledge, features):
     # knowledge = {'chromosomes':[ch1, ch2], 'action': action, 'data': data, 'accuracies':[ac1, ac2], 'MI':MI}
@@ -274,9 +276,12 @@ def oneRun(observations, features, population):
     for ((chromosome, action), accuracy) in responseWithAccuracy:
         printResponse(chromosome, bestResponse, features)
     
+    if len(nextGeneration) == 1: 
+        CONTINUE = False
+        return CONTINUE, {}, observations, bestResponse, sorted_nextGeneration 
+    
     matMI = findMutualInformation(sorted_nextGeneration, bestResponse)
     relatedFeatureList = findRelatedFeatures(matMI)
-    
     #np.set_printoptions(precision=3, suppress=True)
     #print '\nMutual Information Matrix:\n', matMI
     
@@ -305,7 +310,8 @@ def oneRun(observations, features, population):
     #sorted_nextGeneration.remove(ch2)
 
     knowledge = {'chromosomes':[ch1, ch2], 'action': action, 'data': data, 'accuracies':[ac1, ac2], 'MI':MI}
-    return knowledge, observations, bestResponse, sorted_nextGeneration
+    CONTINUE = True
+    return CONTINUE, knowledge, observations, bestResponse, sorted_nextGeneration
 
     '''  
     masks = []
@@ -325,18 +331,24 @@ def findFeatures(observations): # observations = [ {'gameState': gameState, 'act
     knowledgeBase = [] #[{'chromosomes':[ch1, ch2], 'action': action, 'data': data}, {}]
     
     while(True):
-        knowledge, observations, bestResponse, nextGeneration = oneRun(observations, features, population)
+        CONTINUE, knowledge, observations, bestResponse, nextGeneration = oneRun(observations, features, population)
+        if not CONTINUE: break
         knowledgeBase.append(knowledge)
         print '\nKB:'
         for k in knowledgeBase:
             printKnowledge(k, features)
-        raw_input("\nPress <Enter> to continue...\n")
+        #raw_input("\nPress <Enter> to continue...\n")
         #population = nextGeneration
         population = generateInitialPopulation(features, 100)
 
-
+    with open('data.txt', 'wb') as outfile:
+        pickle.dump(knowledgeBase, outfile)
 
 def run():
+    knowledgeBase = pickle.load( open('data.txt', 'rb') )
+    print '\nKB:'
+    for k in knowledgeBase:
+        printKnowledge(k, features)
     print 'Running interviewer.py'
     l1 = [0,1,1,1]
     l2 = [0,1,1,1]
