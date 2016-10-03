@@ -5,6 +5,7 @@ from itertools import product
 import featureGenerator as fg
 import numpy as np
 from numpy import unravel_index
+from sklearn.metrics import normalized_mutual_info_score
 
 def chromosome2feature(chromosome, features):
     feature_string = ''  
@@ -123,24 +124,24 @@ def steepestDescent(chromosome, features, observations, bestResponse):
     return bestChromosome
 
 
-def hillClimbing(population, features, observations, bestResponse):
+def hillClimbing(population, features, observations, bestResponse, doPrint=False):
     nextGeneration= [] 
-    print '\nSteepest Descent for each chromosome...'
+    if doPrint: print '\nSteepest Descent for each chromosome...'
     for chromosome in population:
         child = steepestDescent(chromosome, features, observations, bestResponse) 
-        print chromosome,
+        if doPrint: print chromosome,
         while(child != chromosome):
-            print '->', child,
+            if doPrint: print '->', child,
             chromosome = child
             child = steepestDescent(chromosome, features, observations, bestResponse) 
-        print '' 
+        if doPrint: print '' 
         
         if child not in nextGeneration: 
             nextGeneration.append(child)
     
     return nextGeneration
 
-def printPopulationResponses(population, bestResponse, features, topN):
+def calcResponseAccuracy(population, bestResponse, features):
     '''
     bestResponse = { 
         chromosome: {
@@ -160,37 +161,15 @@ def printPopulationResponses(population, bestResponse, features, topN):
         responseWithAccuracy.append((response, accuracy))
     
     responseWithAccuracy.sort(key=itemgetter(1), reverse=True)
-    for i in xrange(topN):
-        (chromosome, action), accuracy = responseWithAccuracy[i]
-        print ('%8.7f' % accuracy), ':', chromosome, 'Go', action, ', when', chromosome2feature(chromosome, features)
     return responseWithAccuracy
-
-def shan_entropy(c):
-    c_normalized = c / float(np.sum(c))
-    c_normalized = c_normalized[np.nonzero(c_normalized)]
-    H = -sum(c_normalized* np.log2(c_normalized))
-    return H
-
-def calc_MI(X,Y,bins):
-    c_XY = np.histogram2d(X,Y,bins)[0]
-    c_X = np.histogram(X,bins)[0]
-    c_Y = np.histogram(Y,bins)[0]
-
-    H_X = shan_entropy(c_X)
-    H_Y = shan_entropy(c_Y)
-    H_XY = shan_entropy(c_XY)
-
-    MI = H_X + H_Y - H_XY
-    return MI
 
 def generateMatrix(A):
     n = A.shape[1]
-    bins = n  
     matMI = np.zeros((n,n))
     for ix in np.arange(n):
         for jx in np.arange(ix+1, n):
-            matMI[ix, jx] = calc_MI(A[:, ix], A[:,jx], bins)
-            matMI[jx, ix] = calc_MI(A[:, ix], A[:,jx], bins)
+            matMI[ix, jx] = normalized_mutual_info_score(A[:, ix], A[:,jx])
+            matMI[jx, ix] = normalized_mutual_info_score(A[:, jx], A[:,ix])
     return matMI
 
 def findMutualInformation(population, bestResponse):
@@ -199,10 +178,8 @@ def findMutualInformation(population, bestResponse):
         satisfyStateList = bestResponse[chromosome]['satisfyStateList'] 
         matrix.append(satisfyStateList)
     arr = np.array(matrix)
-    print '\nMutual Information Matrix:'
-    matMI = generateMatrix(np.transpose(arr))
-    np.set_printoptions(suppress=True, precision=3)
-    #print matMI
+    #matMI = generateMatrix(np.transpose(arr))
+    matMI = generateMatrix(arr.T)
     return matMI
 
 def findRelatedFeatures(Array):
@@ -261,13 +238,18 @@ def printResponse(chromosome, bestResponse, features):
     accuracy = bestResponse[chromosome]['accuracy']
     print ('%8.7f' % accuracy), ':', chromosome, 'Go', action, ', when', chromosome2feature(chromosome, features)
 
-def findFeatures(observations): # observations = [ {'gameState': gameState, 'action': action}, ... ]
-    print '\nNumber of gameStates recorded:', len(observations)
-    
-    from featureGenerator import generateFeatures
-    features = generateFeatures()
-    population = generateInitialPopulation(features, 100)
-    
+def printKnowledge(knowledge, features):
+    # knowledge = {'chromosomes':[ch1, ch2], 'action': action, 'data': data, 'accuracies':[ac1, ac2], 'MI':MI}
+    print '\nKnowledge:'
+    ch1, ch2 = knowledge['chromosomes']
+    action = knowledge['action']
+    print ch1, 'Go', action, ', when', chromosome2feature(ch1, features)
+    print ch2, 'Go', action, ', when', chromosome2feature(ch2, features)
+    print 'Number of states removed:', len(knowledge['data'])
+    print 'accuracy:', knowledge['accuracies']
+    print 'Mutual Information:', knowledge['MI']
+
+def oneRun(observations, features, population):    
     # Record chromosome score
     bestResponse = {} 
     '''
@@ -281,28 +263,51 @@ def findFeatures(observations): # observations = [ {'gameState': gameState, 'act
         ...
     }
     ''' 
+    
+    print '\nNumber of gameStates:', len(observations)
+    
     nextGeneration = hillClimbing(population, features, observations, bestResponse)
+    responseWithAccuracy = calcResponseAccuracy(nextGeneration, bestResponse, features)
+    sorted_nextGeneration = [chromosome for ((chromosome, action), accuracy) in responseWithAccuracy]
     
-    print '\nLearned Features:'
-    responseWithAccuracy = printPopulationResponses(nextGeneration, bestResponse, features, topN = len(nextGeneration))
+    print '\nResponse Accuracy:'
+    for ((chromosome, action), accuracy) in responseWithAccuracy:
+        printResponse(chromosome, bestResponse, features)
     
-    matMI = findMutualInformation(nextGeneration, bestResponse)
+    matMI = findMutualInformation(sorted_nextGeneration, bestResponse)
     relatedFeatureList = findRelatedFeatures(matMI)
-    print 'Related features:' 
-    for ch1, ch2 in relatedFeatureList:
-        print '\n(',ch1,',',ch2 ,') = ', matMI[ch1][ch2]
-        printResponse(nextGeneration[ch1], bestResponse, features)
-        printResponse(nextGeneration[ch2], bestResponse, features)
-        
-        offspring1 = nextGeneration[ch1]
-        offspring2 = nextGeneration[ch2]
-        new_chromosomeData = bestResponse[offspring1]['chromosomeData']
-        new_chromosomeData.extend(bestResponse[offspring2]['chromosomeData'])
-        allActionAccuracy = calculateActionAccuracy(new_chromosomeData)
-        bestAction = max(allActionAccuracy, key=allActionAccuracy.get) 
-        accuracy = allActionAccuracy[bestAction]
-        print 'merged accuracy:', accuracy, bestAction
     
+    #np.set_printoptions(precision=3, suppress=True)
+    #print '\nMutual Information Matrix:\n', matMI
+    
+    print '\nRelated features:' 
+    for i, j in relatedFeatureList:
+        if matMI[i][j] < 0.99: break
+        print 'Mutual Information(',i,',',j ,') = ', matMI[i][j]
+        printResponse(sorted_nextGeneration[i], bestResponse, features)
+        printResponse(sorted_nextGeneration[j], bestResponse, features)
+
+    i, j = relatedFeatureList[0]
+    ch1 = sorted_nextGeneration[i] 
+    ch2 = sorted_nextGeneration[j] 
+    sorted_nextGeneration.remove(ch1)
+    sorted_nextGeneration.remove(ch2)
+    action = bestResponse[ch1]['bestAction']
+    data = []
+    for d in bestResponse[ch1]['chromosomeData']:
+        if d['action'] is action:
+            data.append(d)
+            observations.remove(d)
+    ac1 = bestResponse[ch1]['accuracy']
+    ac2 = bestResponse[ch2]['accuracy']
+    MI = matMI[i][j] 
+    #sorted_nextGeneration.remove(ch1)
+    #sorted_nextGeneration.remove(ch2)
+
+    knowledge = {'chromosomes':[ch1, ch2], 'action': action, 'data': data, 'accuracies':[ac1, ac2], 'MI':MI}
+    return knowledge, observations, bestResponse, sorted_nextGeneration
+
+    '''  
     masks = []
     for i in xrange(len(nextGeneration)):
         mask = findMask(matMI, i) # ILS 
@@ -311,11 +316,32 @@ def findFeatures(observations): # observations = [ {'gameState': gameState, 'act
         for k in mask:
             chromosome = nextGeneration[k]
             printResponse(chromosome, bestResponse, features)
+    ''' 
 
+def findFeatures(observations): # observations = [ {'gameState': gameState, 'action': action}, ... ]
+    from featureGenerator import generateFeatures
+    features = generateFeatures()
+    population = generateInitialPopulation(features, 100)
+    knowledgeBase = [] #[{'chromosomes':[ch1, ch2], 'action': action, 'data': data}, {}]
     
+    while(True):
+        knowledge, observations, bestResponse, nextGeneration = oneRun(observations, features, population)
+        knowledgeBase.append(knowledge)
+        print '\nKB:'
+        for k in knowledgeBase:
+            printKnowledge(k, features)
+        raw_input("\nPress <Enter> to continue...\n")
+        #population = nextGeneration
+        population = generateInitialPopulation(features, 100)
+
+
 
 def run():
     print 'Running interviewer.py'
+    l1 = [0,1,1,1]
+    l2 = [0,1,1,1]
+    from sklearn.metrics import normalized_mutual_info_score
+    print normalized_mutual_info_score(l1, l2)
 
 if __name__ == '__main__':
-    findFeatures([])
+    run()
