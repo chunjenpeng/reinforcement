@@ -2,11 +2,12 @@ import json, random
 from operator import itemgetter
 from itertools import product
 import cPickle as pickle
-
-import featureGenerator as fg
 import numpy as np
 from numpy import unravel_index
 from sklearn.metrics import normalized_mutual_info_score
+
+import featureGenerator as fg
+from pacman import GameState
 
 def chromosome2feature(chromosome, features):
     feature_string = ''  
@@ -157,11 +158,15 @@ def calcResponseAccuracy(population, bestResponse, features):
     responseWithAccuracy = [] 
     for chromosome in population:
         data = bestResponse[chromosome]
-        response = (chromosome, data['bestAction']) 
-        accuracy = data['accuracy']
-        responseWithAccuracy.append((response, accuracy))
+        d = {
+            'chromosome':chromosome,
+            'action':data['bestAction'],
+            'accuracy':data['accuracy'],
+            'dataNum':len(data['chromosomeData'])
+        }
+        responseWithAccuracy.append(d)
     
-    responseWithAccuracy.sort(key=itemgetter(1), reverse=True)
+    responseWithAccuracy.sort(key=itemgetter('accuracy','dataNum'), reverse=True)
     return responseWithAccuracy
 
 def generateMatrix(A):
@@ -247,7 +252,7 @@ def printKnowledge(knowledge, features):
     action = knowledge['action']
     print ch1, 'Go', action, ', when', chromosome2feature(ch1, features)
     print ch2, 'Go', action, ', when', chromosome2feature(ch2, features)
-    print 'Number of states removed:', len(knowledge['data'])
+    print 'Number of states:', len(knowledge['data'])
     print 'accuracy:', knowledge['accuracies']
     print 'Mutual Information:', knowledge['MI']
 
@@ -267,14 +272,14 @@ def oneRun(observations, features, population):
     ''' 
     
     print '\nNumber of gameStates:', len(observations)
-    
-    nextGeneration = hillClimbing(population, features, observations, bestResponse)
+    doPrint = True 
+    nextGeneration = hillClimbing(population, features, observations, bestResponse, doPrint)
     responseWithAccuracy = calcResponseAccuracy(nextGeneration, bestResponse, features)
-    sorted_nextGeneration = [chromosome for ((chromosome, action), accuracy) in responseWithAccuracy]
+    sorted_nextGeneration = [d['chromosome'] for d in responseWithAccuracy]
     
     print '\nResponse Accuracy:'
-    for ((chromosome, action), accuracy) in responseWithAccuracy:
-        printResponse(chromosome, bestResponse, features)
+    for d in responseWithAccuracy:
+        printResponse(d['chromosome'], bestResponse, features)
     
     if len(nextGeneration) == 1: 
         CONTINUE = False
@@ -345,15 +350,22 @@ def findFeatures(observations): # observations = [ {'gameState': gameState, 'act
         pickle.dump(knowledgeBase, outfile)
 
 def run():
-    knowledgeBase = pickle.load( open('data.txt', 'rb') )
+    from featureGenerator import generateFeatures
+    features = generateFeatures()
+    
+    savefile = open('5_feature.txt', 'r') 
+    #savefile = open('data.txt', 'r') 
+    knowledgeBase = pickle.load( savefile )
+    
     print '\nKB:'
     for k in knowledgeBase:
         printKnowledge(k, features)
+    '''
     print 'Running interviewer.py'
     l1 = [0,1,1,1]
     l2 = [0,1,1,1]
     from sklearn.metrics import normalized_mutual_info_score
     print normalized_mutual_info_score(l1, l2)
-
+    '''
 if __name__ == '__main__':
     run()
