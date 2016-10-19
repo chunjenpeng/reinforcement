@@ -21,7 +21,6 @@ def chromosome2feature(chromosome, features):
         feature_string += features[i].__str__()
     return feature_string
 
-
 def generateDescendants(string):
     descendants = []
     for i in xrange(len(string)):
@@ -31,8 +30,7 @@ def generateDescendants(string):
             descendants.append(''.join(child))
     return descendants
 
-
-def generateChromosomes(string):
+def generatePossibleChromosomes(string):
     population = []
     c = string.count('*')
     string = string.replace('*', '{}')
@@ -41,20 +39,54 @@ def generateChromosomes(string):
         population.append(chromosome)
     return population
 
-
 def generateInitialPopulation(features, n): 
     initialString = '*' * len(features) 
-    population = generateChromosomes(initialString) 
+    population = generatePossibleChromosomes(initialString) 
     if n >= len(population):
         return population
     random.shuffle(population)
     return population[:n]
 
+def generateTable(features, observations, actions):
+    f = len(features)
+    o = len(observations)
+    a = len(actions)
+    table2D = np.zeros((f,o))
+    table3D = np.zeros((f,o,a))
+    for i in xrange(f):
+        for j in xrange(o):
+            gameState = observations[j]['gameState']
+            action = observations[j]['action']
+            k = actions.index(action)
+            if fg.satisfyFeature(features[i], gameState):
+                table3D[i][j][k] = 1
+                table2D[i][j] = 1
+            print('generating table ... %d/%d\r'%(i*o+j,f*o)),
+    return table2D, table3D
 
-def matchDataWithChromosome( chromosome, features, observations):
+
+def satisfyFeatures(chromosome, table):
+    ch = np.array(list(chromosome))
+    location = np.where(ch != '*')[0]
+
+    A = table[:,location]
+    B = ch[location].astype(int).T
+    C = np.logical_not(np.logical_xor(A, B)).astype(int)
+    '''
+    print 'chromosome\n', chromosome
+    print 'location\n', location
+    print 'features\n',B
+    print 'extracted table\n',A
+    print 'XNOR\n',C
+    '''
+    satisfyState = np.prod(C, axis=1)
+    return satisfyState
+
+
+def matchDataWithChromosome(chromosome, features, observations):
     chromosomeData = [] 
     satisfyState = {'North':[], 'South':[], 'East':[], 'West':[], 'Stop':[]}
-     
+    
     for data in observations:    # ??efficiency??
         if fg.satisfyFeatures( chromosome, features, data['gameState'] ):
             chromosomeData.append(data)
@@ -84,12 +116,10 @@ def calculateActionAccuracy(chromosomeData): #Accuracy of chromosome or Accuracy
 
 def findBestAction(chromosome, features, observations):
     chromosomeData, satisfyState  = matchDataWithChromosome(chromosome, features, observations)
-    
     allActionAccuracy = calculateActionAccuracy(chromosomeData)
     bestAction = max(allActionAccuracy, key=allActionAccuracy.get) 
     accuracy = allActionAccuracy[bestAction]
     #accuracy = allActionAccuracy[bestAction]*len(chromosomeData)/len(observations)
-    
     satisfyStateList = satisfyState[bestAction] 
     bestData = {'bestAction':bestAction, 'accuracy':accuracy, 'satisfyStateList':satisfyStateList, 'chromosomeData':chromosomeData}
     return bestData
@@ -332,7 +362,9 @@ def oneRun(observations, features, population):
 def findFeatures(observations): # observations = [ {'gameState': gameState, 'action': action}, ... ]
     from featureGenerator import generateFeatures
     features = generateFeatures()
+    actions = ['Stop', 'North', 'South', 'East', 'West']
     population = generateInitialPopulation(features, 100)
+    table2D, table3D = generateTable(features, observations, actions)
     knowledgeBase = [] #[{'chromosomes':[ch1, ch2], 'action': action, 'data': data}, {}]
     
     while(True):
@@ -346,14 +378,16 @@ def findFeatures(observations): # observations = [ {'gameState': gameState, 'act
         #population = nextGeneration
         population = generateInitialPopulation(features, 100)
 
-    with open('data.txt', 'wb') as outfile:
+    filename = '10_feature_Greedy.txt'
+    with open(filename, 'wb') as outfile:
         pickle.dump(knowledgeBase, outfile)
 
 def run():
     from featureGenerator import generateFeatures
     features = generateFeatures()
     
-    savefile = open('5_feature.txt', 'r') 
+    filename = '5_feature_Greedy.txt'
+    savefile = open(filename, 'r') 
     #savefile = open('data.txt', 'r') 
     knowledgeBase = pickle.load( savefile )
     
