@@ -8,7 +8,16 @@ from sklearn.metrics import normalized_mutual_info_score
 
 import featureGenerator as fg
 from pacman import GameState
-
+'''
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+def plot3D(d):
+    z,x,y = d.nonzero()
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    ax.scatter(x, y, -z, zdir='z', c= 'red')
+    plt.savefig("demo.png")
+'''
 def chromosome2feature(chromosome, features):
     feature_string = ''  
     for i in xrange(len(chromosome)):
@@ -51,18 +60,21 @@ def generateTable(features, observations, actions):
     f = len(features)
     o = len(observations)
     a = len(actions)
-    table2D = np.zeros((f,o))
+    tableFeatureState = np.zeros((f,o))
+    tableStateAction = np.zeros((o,a))
     table3D = np.zeros((f,o,a))
-    for i in xrange(f):
-        for j in xrange(o):
-            gameState = observations[j]['gameState']
-            action = observations[j]['action']
-            k = actions.index(action)
-            if fg.satisfyFeature(features[i], gameState):
-                table3D[i][j][k] = 1
+    for j in xrange(o):
+        gameState = observations[j]['gameState']
+        action = observations[j]['action']
+        k = actions.index(action)
+        tableStateAction[j][k] = 1
+        for i in xrange(f):
+            if features[i].satisfy(gameState):
                 table2D[i][j] = 1
+                table3D[i][j][k] = 1
             print('generating table ... %d/%d\r'%(i*o+j,f*o)),
-    return table2D, table3D
+    #plot3D(table3D)
+    return table3D, tableFeatureState, tableStateAction
 
 
 def satisfyFeatures(chromosome, table):
@@ -360,11 +372,11 @@ def oneRun(observations, features, population):
     ''' 
 
 def findFeatures(observations): # observations = [ {'gameState': gameState, 'action': action}, ... ]
+    actions = ['Stop', 'North', 'South', 'East', 'West']
     from featureGenerator import generateFeatures
     features = generateFeatures()
-    actions = ['Stop', 'North', 'South', 'East', 'West']
     population = generateInitialPopulation(features, 100)
-    table2D, table3D = generateTable(features, observations, actions)
+    table3D, tableFeatureState, tableStateAction = generateTable(features, observations, actions)
     knowledgeBase = [] #[{'chromosomes':[ch1, ch2], 'action': action, 'data': data}, {}]
     
     while(True):
