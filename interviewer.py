@@ -1,4 +1,4 @@
-import json, random
+import json, random, sys
 from operator import itemgetter
 from itertools import product
 import cPickle as pickle
@@ -394,17 +394,18 @@ def findFeatures(observations): # observations = [ {'gameState': gameState, 'act
     with open(filename, 'wb') as outfile:
         pickle.dump(knowledgeBase, outfile)
 
-def run():
+def run(filename):
     from featureGenerator import generateFeatures
     features = generateFeatures()
     
-    filename = '5_feature_Greedy.txt'
     savefile = open(filename, 'r') 
-    #savefile = open('data.txt', 'r') 
     knowledgeBase = pickle.load( savefile )
+    # knowledge = {'chromosomes':[ch1, ch2], 'action': action, 'data': data, 'accuracies':[ac1, ac2], 'MI':MI}
     
+    sorted_knowledgeBase = sorted(knowledgeBase, key=lambda k: (max(k['accuracies'][0], k['accuracies'][1]),len(k['data'])), reverse=True)
+
     print '\nKB:'
-    for k in knowledgeBase:
+    for k in sorted_knowledgeBase:
         printKnowledge(k, features)
     '''
     print 'Running interviewer.py'
@@ -414,4 +415,7 @@ def run():
     print normalized_mutual_info_score(l1, l2)
     '''
 if __name__ == '__main__':
-    run()
+    if len(sys.argv) < 2 or len(sys.argv) > 2:
+        print 'python interviewer.py <filename>'
+    else:
+        run(sys.argv[1])

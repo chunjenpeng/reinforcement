@@ -1,0 +1,1374 @@
+
+KB:
+
+Knowledge:
+0****1000* Go South , when Not Ghost_isNear_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+0****1***1 Go South , when Not Ghost_isNear_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atSouthOf_Pacman
+Number of states: 160
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*1******** Go South , when  and Ghost_atEastOf_Pacman
+**0******* Go South , when  and Not Ghost_atWestOf_Pacman
+Number of states: 138
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+****1***** Go North , when  and Ghost_atSouthOf_Pacman
+********** Go North , when 
+Number of states: 106
+accuracy: [1.0, 0.5669291338582677]
+Mutual Information: 0.516655020982
+
+Knowledge:
+***1****** Go South , when  and Ghost_atNorthOf_Pacman
+****0***** Go South , when  and Not Ghost_atSouthOf_Pacman
+Number of states: 85
+accuracy: [1.0, 0.5407725321888412]
+Mutual Information: 0.63915343608
+
+Knowledge:
+**0*1***** Go West , when  and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman
+*1**1***** Go West , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman
+Number of states: 83
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*1**1*0*** Go West , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+**0*1*0*** Go West , when  and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+Number of states: 53
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*0**1*1*** Go North , when  and Not Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman
+*0**1**0** Go North , when  and Not Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 24
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*1*1**0*1* Go South , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+*1*1***11* Go South , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 23
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*1*0****** Go South , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman
+**00****** Go South , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman
+Number of states: 22
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+********1* Go West , when  and ClosestFood_atNorthOf_Pacman
+*********0 Go West , when  and Not ClosestFood_atSouthOf_Pacman
+Number of states: 14
+accuracy: [1.0, 0.72]
+Mutual Information: 0.689901982331
+
+Knowledge:
+**11**1*1* Go South , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+**11**1**0 Go South , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 13
+accuracy: [1.0, 0.9333333333333333]
+Mutual Information: 0.92687877873
+
+Knowledge:
+01*001*00* Go East , when Not Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+01*0011*** Go East , when Not Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 11
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+0****100** Go South , when Not Ghost_isNear_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+0****1**1* Go South , when Not Ghost_isNear_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 8
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+**1***1*** Go North , when  and Ghost_atWestOf_Pacman and ClosestFood_atEastOf_Pacman
+*0*0**1*** Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 8
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*1****0*1* Go South , when  and Ghost_atEastOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+**00**0*** Go South , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+Number of states: 8
+accuracy: [1.0, 0.8]
+Mutual Information: 1.0
+
+Knowledge:
+**0***0**0 Go South , when  and Not Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+*1****0**0 Go South , when  and Ghost_atEastOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 8
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+0*100100** Go North , when Not Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+00*001**1* Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 6
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+0001**00** Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+000*0*00** Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 6
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1000**001* Go North , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+1***1*001* Go North , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 6
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1**1*100** Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+100**100** Go South , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 6
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+000**11*** Go East , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+000**1*00* Go East , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+Number of states: 6
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1*1**000** Go East , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+10*00000** Go East , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 4
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+0001*10*** Go West , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+000*010*** Go West , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+Number of states: 4
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1*1**0**00 Go South , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+10*000**00 Go South , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 4
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1***1*1*** Go East , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman
+1000**1*** Go East , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 4
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1**1**0*1* Go East , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+1**1**0**0 Go East , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 4
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+11******** Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman
+1*0*0***** Go North , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman
+Number of states: 4
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1*0******* Go East , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman
+1***1***** Go East , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman
+Number of states: 4
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+00***1**** Go South , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and ClosestFood_isNear_Pacman
+*0*1*1**** Go South , when  and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 4
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*0****00** Go East , when  and Not Ghost_atEastOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+**1***00** Go East , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 4
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+11****0*00 Go South , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+11*****100 Go South , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 3
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+**0*10001* Go East , when  and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+*1**10001* Go East , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 3
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1**1*01*00 Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+1**1*0*000 Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 3
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1***1*1*00 Go North , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+1000**1*00 Go North , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 3
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1**1****** Go East , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman
+100*0***** Go East , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman
+Number of states: 3
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+0*10*1**** Go North , when Not Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman
+**1*11**** Go North , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 3
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*000****1* Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atNorthOf_Pacman
+*00*1***1* Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 3
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*****1*0** Go South , when  and ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman
+*****11*** Go South , when  and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 3
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+0*10*100** Go South , when Not Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+0*10*1**1* Go South , when Not Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 2
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*1*1*1**1* Go South , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+*1*1*100** Go South , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 2
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*000**1*1* Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+1***1*1*1* Go East , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 2
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+0**0*11*** Go South , when Not Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+0**0*1*0** Go South , when Not Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 2
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1000****00 Go West , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+1***1***00 Go West , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 2
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+11***01*** Go South , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+1**0*01*** Go South , when Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 2
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1*0**1**** Go South , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_isNear_Pacman
+1**1*1**** Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 2
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*00*0*0*** Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+*001**0*** Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+Number of states: 2
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*000**1*** Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman
+*00*1*1*** Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 2
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1****0**** Go North , when Ghost_isNear_Pacman and Not ClosestFood_isNear_Pacman
+1********1 Go North , when Ghost_isNear_Pacman and ClosestFood_atSouthOf_Pacman
+Number of states: 2
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*1*0**0*** Go North , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+**00**0*** Go North , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+Number of states: 2
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+11***0001* Go West , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+1**0*0001* Go West , when Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*0*0*1000* Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+1***1100** Go West , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+11***1**1* Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+1*0**1**1* Go North , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+000*0*1*00 Go East , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+0001**1*00 Go East , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*****1***1 Go South , when  and ClosestFood_isNear_Pacman and ClosestFood_atSouthOf_Pacman
+11***10*** Go South , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*000*11*** Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+1***111*** Go East , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+00*001*0** Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman
+0**0011*** Go North , when Not Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+000*0***00 Go West , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+0001****00 Go West , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*1*0**001* Go West , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+**00**001* Go West , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+0*10*11*** Go South , when Not Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+00*0*1*0** Go South , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1*1**11*** Go North , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+*0*0*11*** Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1*1***1*1* Go North , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+1*1**0*01* Go North , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1000*1**** Go North , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman
+1***11**** Go North , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*001*10*** Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+1*0**10*** Go East , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1*1**0*0** Go North , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman
+1*1***1*** Go North , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*0**0*000* Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+*0*1**000* Go East , when  and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+11****00** Go South , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+1*000*00** Go South , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*001*0**00 Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+1*0***0*00 Go East , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*001**00** Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+1**1**00** Go East , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+****1*00*0 Go East , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+****1*001* Go East , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+11***1**** Go South , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and ClosestFood_isNear_Pacman
+1*00*1**** Go South , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+10*000**1* Go South , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+1*1**0**1* Go South , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+00*001**** Go East , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman
+0*1001**** Go East , when Not Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+11******1* Go East , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+11*******0 Go East , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+0**001**** Go North , when Not Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman
+*1*001**** Go North , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*001**0**1 Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+*001**0*0* Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*0*00*1*00 Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+*0*00**000 Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1******0** Go South , when Ghost_isNear_Pacman and Not ClosestFood_atWestOf_Pacman
+***0*1*0** Go South , when  and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*00**1**** Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_isNear_Pacman
+00*0*1**** Go West , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*001****0* Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+*00*0***0* Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*000****** Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman
+*00*1***** Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+0**0*1**** Go North , when Not Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman
+*1*0*1**** Go North , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+1********* Go South , when Ghost_isNear_Pacman
+*0***1**** Go South , when  and Not Ghost_atEastOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 1
+accuracy: [1.0, 1.0]
+Mutual Information: 1.0
+
+Knowledge:
+*1*1*100** Go North , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+*1*1*1**1* Go North , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 49
+accuracy: [0.9607843137254902, 0.9607843137254902]
+Mutual Information: 1.0
+
+Knowledge:
+0****1**1* Go North , when Not Ghost_isNear_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+0****100** Go North , when Not Ghost_isNear_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 83
+accuracy: [0.9120879120879121, 0.9120879120879121]
+Mutual Information: 1.0
+
+Knowledge:
+*1**11*1** Go West , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+0*0*11*1** Go West , when Not Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+Number of states: 50
+accuracy: [0.9090909090909091, 0.8947368421052632]
+Mutual Information: 0.974609729648
+
+Knowledge:
+0*10*11*** Go East , when Not Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+00*0*11*** Go East , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 61
+accuracy: [0.8970588235294118, 0.8970588235294118]
+Mutual Information: 1.0
+
+Knowledge:
+*1**111*** Go East , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+01*0*11*** Go East , when Not Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 59
+accuracy: [0.8939393939393939, 0.8939393939393939]
+Mutual Information: 1.0
+
+Knowledge:
+**1*1*001* Go North , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+**1*1*00** Go North , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 48
+accuracy: [0.8888888888888888, 0.7741935483870968]
+Mutual Information: 1.0
+
+Knowledge:
+0**1*11*** Go East , when Not Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+0***011*** Go East , when Not Ghost_isNear_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 102
+accuracy: [0.8793103448275862, 0.8793103448275862]
+Mutual Information: 1.0
+
+Knowledge:
+**1*110*** Go West , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+00**11*1** Go West , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+Number of states: 46
+accuracy: [0.8679245283018868, 0.8545454545454545]
+Mutual Information: 0.972907677383
+
+Knowledge:
+11****0*00 Go West , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+11*****100 Go West , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 19
+accuracy: [0.8636363636363636, 0.8636363636363636]
+Mutual Information: 1.0
+
+Knowledge:
+1000****1* Go North , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atNorthOf_Pacman
+1***1***1* Go North , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 42
+accuracy: [0.8571428571428571, 0.8571428571428571]
+Mutual Information: 1.0
+
+Knowledge:
+1*1**0**1* Go North , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+1*1****11* Go North , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 6
+accuracy: [0.8571428571428571, 0.8571428571428571]
+Mutual Information: 1.0
+
+Knowledge:
+*1**010*** Go West , when  and Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+*1**01*1** Go West , when  and Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+Number of states: 101
+accuracy: [0.8559322033898306, 0.8559322033898306]
+Mutual Information: 1.0
+
+Knowledge:
+0*1001**** Go West , when Not Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman
+00*001**** Go West , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 16
+accuracy: [0.8421052631578947, 0.8421052631578947]
+Mutual Information: 1.0
+
+Knowledge:
+1***10**00 Go North , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+10*0*0**00 Go North , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 10
+accuracy: [0.8333333333333334, 0.8333333333333334]
+Mutual Information: 1.0
+
+Knowledge:
+00*0*11*** Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+*0**111*** Go North , when  and Not Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 5
+accuracy: [0.8333333333333334, 0.8333333333333334]
+Mutual Information: 1.0
+
+Knowledge:
+11****1**1 Go South , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+11*****0*1 Go South , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+Number of states: 5
+accuracy: [0.8333333333333334, 0.8333333333333334]
+Mutual Information: 1.0
+
+Knowledge:
+00*1*10*** Go West , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+**11*10*** Go West , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+Number of states: 62
+accuracy: [0.8266666666666667, 0.8266666666666667]
+Mutual Information: 1.0
+
+Knowledge:
+1*1**11*** Go East , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+*0*0*11*** Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 4
+accuracy: [0.8, 0.8]
+Mutual Information: 1.0
+
+Knowledge:
+00**010*** Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+00**01*1** Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+Number of states: 4
+accuracy: [0.8, 0.8]
+Mutual Information: 1.0
+
+Knowledge:
+*001**0*0* Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+*00*0*0*0* Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+Number of states: 4
+accuracy: [0.8, 0.8]
+Mutual Information: 1.0
+
+Knowledge:
+10*00*1*** Go East , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman
+1*1***1*** Go East , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 19
+accuracy: [0.76, 0.76]
+Mutual Information: 1.0
+
+Knowledge:
+100**01*** Go South , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+1**1*01*** Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 22
+accuracy: [0.7586206896551724, 0.7586206896551724]
+Mutual Information: 1.0
+
+Knowledge:
+**00***1*1 Go East , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+*1*0***1*1 Go East , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+Number of states: 9
+accuracy: [0.75, 0.75]
+Mutual Information: 1.0
+
+Knowledge:
+1**0*01*** Go North , when Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+11***01*** Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 6
+accuracy: [0.75, 0.75]
+Mutual Information: 1.0
+
+Knowledge:
+1000*****1 Go West , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+1***1***0* Go West , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+Number of states: 6
+accuracy: [0.75, 0.75]
+Mutual Information: 1.0
+
+Knowledge:
+1*1***1*** Go South , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and ClosestFood_atEastOf_Pacman
+10*0**1*** Go South , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 3
+accuracy: [0.75, 0.75]
+Mutual Information: 1.0
+
+Knowledge:
+****1*001* Go South , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+****1*00*0 Go South , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 3
+accuracy: [0.75, 0.75]
+Mutual Information: 1.0
+
+Knowledge:
+1*000***1* Go South , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+11*******0 Go South , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 3
+accuracy: [0.75, 0.75]
+Mutual Information: 1.0
+
+Knowledge:
+*00******* Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman
+*0****1*** Go West , when  and Not Ghost_atEastOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 3
+accuracy: [0.75, 0.75]
+Mutual Information: 1.0
+
+Knowledge:
+10***0**00 Go South , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+1**1*0**00 Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 8
+accuracy: [0.7272727272727273, 0.7272727272727273]
+Mutual Information: 1.0
+
+Knowledge:
+1***1*1*** Go North , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman
+1000**1*** Go North , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 10
+accuracy: [0.7142857142857143, 0.7142857142857143]
+Mutual Information: 1.0
+
+Knowledge:
+0**0*11*** Go North , when Not Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+****111*** Go North , when  and Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 5
+accuracy: [0.7142857142857143, 0.7142857142857143]
+Mutual Information: 1.0
+
+Knowledge:
+1*0**10*** Go West , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+1*0**1*1** Go West , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+Number of states: 5
+accuracy: [0.7142857142857143, 0.7142857142857143]
+Mutual Information: 1.0
+
+Knowledge:
+*00****1** Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_atWestOf_Pacman
+*000****** Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman
+Number of states: 5
+accuracy: [0.7142857142857143, 0.5]
+Mutual Information: 1.0
+
+Knowledge:
+10*000**1* Go East , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+1*1**0**1* Go East , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 17
+accuracy: [0.7083333333333334, 0.7083333333333334]
+Mutual Information: 1.0
+
+Knowledge:
+*000****1* Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atNorthOf_Pacman
+*00*1***1* Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 7
+accuracy: [0.7, 0.7]
+Mutual Information: 1.0
+
+Knowledge:
+1**1**0*1* Go West , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+1**1**0**0 Go West , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 9
+accuracy: [0.6923076923076923, 0.6923076923076923]
+Mutual Information: 1.0
+
+Knowledge:
+1*000***1* Go North , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+11******1* Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 9
+accuracy: [0.6923076923076923, 0.6923076923076923]
+Mutual Information: 1.0
+
+Knowledge:
+1**1**0*1* Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+100*0*0*1* Go South , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 30
+accuracy: [0.6818181818181818, 0.6818181818181818]
+Mutual Information: 1.0
+
+Knowledge:
+1*0000**** Go West , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman
+11***0**** Go West , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not ClosestFood_isNear_Pacman
+Number of states: 75
+accuracy: [0.6696428571428571, 0.6696428571428571]
+Mutual Information: 1.0
+
+Knowledge:
+1**1***1** Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman
+1**1**0*** Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+Number of states: 6
+accuracy: [0.6666666666666666, 0.6666666666666666]
+Mutual Information: 1.0
+
+Knowledge:
+1****0**** Go South , when Ghost_isNear_Pacman and Not ClosestFood_isNear_Pacman
+1********1 Go South , when Ghost_isNear_Pacman and ClosestFood_atSouthOf_Pacman
+Number of states: 4
+accuracy: [0.6666666666666666, 0.6666666666666666]
+Mutual Information: 1.0
+
+Knowledge:
+*0*1**000* Go West , when  and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+*0**0*000* Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+Number of states: 2
+accuracy: [0.6666666666666666, 0.6666666666666666]
+Mutual Information: 1.0
+
+Knowledge:
+1****0**00 Go West , when Ghost_isNear_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+*001*0**00 Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 2
+accuracy: [0.6666666666666666, 0.6666666666666666]
+Mutual Information: 1.0
+
+Knowledge:
+11***1**** Go West , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and ClosestFood_isNear_Pacman
+***0*11*** Go West , when  and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 2
+accuracy: [0.6666666666666666, 0.6666666666666666]
+Mutual Information: 1.0
+
+Knowledge:
+0**001**** Go South , when Not Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman
+*1*001**** Go South , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 2
+accuracy: [0.6666666666666666, 0.6666666666666666]
+Mutual Information: 1.0
+
+Knowledge:
+*0*00**000 Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+*0*00*1*00 Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 2
+accuracy: [0.6666666666666666, 0.6666666666666666]
+Mutual Information: 1.0
+
+Knowledge:
+*000**1**1 Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+*000**1*** Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 2
+accuracy: [0.6666666666666666, 0.5]
+Mutual Information: 1.0
+
+Knowledge:
+*001**0*1* Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+*00*0*0*1* Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 9
+accuracy: [0.6428571428571429, 0.6428571428571429]
+Mutual Information: 1.0
+
+Knowledge:
+*********0 Go North , when  and Not ClosestFood_atSouthOf_Pacman
+********** Go North , when 
+Number of states: 7
+accuracy: [0.6363636363636364, 0.30158730158730157]
+Mutual Information: 0.0926511263039
+
+Knowledge:
+****1***** Go East , when  and Ghost_atSouthOf_Pacman
+********** Go East , when 
+Number of states: 177
+accuracy: [0.6254416961130742, 0.494199535962877]
+Mutual Information: 0.66065482977
+
+Knowledge:
+**11**1*** Go North , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman
+*0*1**1*0* Go North , when  and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+Number of states: 10
+accuracy: [0.625, 0.625]
+Mutual Information: 1.0
+
+Knowledge:
+**1*1*00** Go East , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+**1***000* Go East , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+Number of states: 5
+accuracy: [0.625, 0.625]
+Mutual Information: 1.0
+
+Knowledge:
+**11*10*** Go East , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+*0*1*10*** Go East , when  and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+Number of states: 8
+accuracy: [0.6153846153846154, 0.6153846153846154]
+Mutual Information: 1.0
+
+Knowledge:
+1000****0* Go North , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+1***1***** Go North , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman
+Number of states: 12
+accuracy: [0.6, 0.48]
+Mutual Information: 1.0
+
+Knowledge:
+11******** Go South , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman
+1*0*0***** Go South , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman
+Number of states: 6
+accuracy: [0.6, 0.6]
+Mutual Information: 1.0
+
+Knowledge:
+*0****00** Go South , when  and Not Ghost_atEastOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+**1***00** Go South , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 6
+accuracy: [0.6, 0.6]
+Mutual Information: 1.0
+
+Knowledge:
+**11*10*** Go South , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+*0*1*10*** Go South , when  and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+Number of states: 3
+accuracy: [0.6, 0.6]
+Mutual Information: 1.0
+
+Knowledge:
+1*0**1**** Go East , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_isNear_Pacman
+*001*1**** Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 3
+accuracy: [0.6, 0.6]
+Mutual Information: 1.0
+
+Knowledge:
+0001**1*0* Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+0001***00* Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+Number of states: 3
+accuracy: [0.6, 0.6]
+Mutual Information: 1.0
+
+Knowledge:
+*1*0*1**** Go East , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman
+*1**11**** Go East , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 3
+accuracy: [0.6, 0.6]
+Mutual Information: 1.0
+
+Knowledge:
+1***1***1* Go West , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+1*0*****1* Go West , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 3
+accuracy: [0.6, 0.6]
+Mutual Information: 1.0
+
+Knowledge:
+*00*0*0*** Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+*001**0*** Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+Number of states: 3
+accuracy: [0.6, 0.6]
+Mutual Information: 1.0
+
+Knowledge:
+*000****** Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman
+*00*1***** Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman
+Number of states: 3
+accuracy: [0.6, 0.6]
+Mutual Information: 1.0
+
+Knowledge:
+**1***1*** Go East , when  and Ghost_atWestOf_Pacman and ClosestFood_atEastOf_Pacman
+*0*0**1*** Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 11
+accuracy: [0.5789473684210527, 0.5789473684210527]
+Mutual Information: 1.0
+
+Knowledge:
+1**1****** Go West , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman
+100*0***** Go West , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman
+Number of states: 4
+accuracy: [0.5714285714285714, 0.5714285714285714]
+Mutual Information: 1.0
+
+Knowledge:
+**1*11**** Go East , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_isNear_Pacman
+0*10*1**** Go East , when Not Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 4
+accuracy: [0.5714285714285714, 0.5714285714285714]
+Mutual Information: 1.0
+
+Knowledge:
+*000**1**1 Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+*000**1*** Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 4
+accuracy: [0.5714285714285714, 0.5]
+Mutual Information: 1.0
+
+Knowledge:
+**1***00** Go West , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+*0****00** Go West , when  and Not Ghost_atEastOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 13
+accuracy: [0.5652173913043478, 0.5]
+Mutual Information: 1.0
+
+Knowledge:
+*00****1** Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_atWestOf_Pacman
+*000****** Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman
+Number of states: 9
+accuracy: [0.5625, 0.5263157894736842]
+Mutual Information: 0.906783531064
+
+Knowledge:
+****1***1* Go North , when  and Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+********1* Go North , when  and ClosestFood_atNorthOf_Pacman
+Number of states: 86
+accuracy: [0.5620915032679739, 0.49107142857142855]
+Mutual Information: 0.701197282613
+
+Knowledge:
+*1*1*00**0 Go West , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+**01*00**0 Go West , when  and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 117
+accuracy: [0.5571428571428572, 0.5571428571428572]
+Mutual Information: 1.0
+
+Knowledge:
+*00******* Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman
+*0****1*** Go South , when  and Not Ghost_atEastOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 5
+accuracy: [0.5555555555555556, 0.5555555555555556]
+Mutual Information: 1.0
+
+Knowledge:
+**0*1**10* Go West , when  and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+*1**1**10* Go West , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+Number of states: 96
+accuracy: [0.5517241379310345, 0.5517241379310345]
+Mutual Information: 1.0
+
+Knowledge:
+*1*0*****1 Go North , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+**00*****1 Go North , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+Number of states: 11
+accuracy: [0.55, 0.55]
+Mutual Information: 1.0
+
+Knowledge:
+**1*1*1*** Go South , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman
+*0**1*1*** Go South , when  and Not Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 29
+accuracy: [0.5471698113207547, 0.5471698113207547]
+Mutual Information: 1.0
+
+Knowledge:
+**11*01*** Go West , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+**11**1*** Go West , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 81
+accuracy: [0.54, 0.5126582278481012]
+Mutual Information: 1.0
+
+Knowledge:
+***1****** Go West , when  and Ghost_atNorthOf_Pacman
+****0***** Go West , when  and Not Ghost_atSouthOf_Pacman
+Number of states: 97
+accuracy: [0.532967032967033, 0.3939393939393939]
+Mutual Information: 0.704556863643
+
+Knowledge:
+**11***01* Go North , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+**11*0*0*0 Go North , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 33
+accuracy: [0.532258064516129, 0.53125]
+Mutual Information: 0.964294375036
+
+Knowledge:
+*0**1*1*** Go East , when  and Not Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman
+**1*1*1*** Go East , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 59
+accuracy: [0.5267857142857143, 0.5267857142857143]
+Mutual Information: 1.0
+
+Knowledge:
+*1**1***** Go East , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman
+**0*1***** Go East , when  and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman
+Number of states: 92
+accuracy: [0.5257142857142857, 0.5257142857142857]
+Mutual Information: 1.0
+
+Knowledge:
+*0*1***0*1 Go East , when  and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+*0*1**1**1 Go East , when  and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+Number of states: 15
+accuracy: [0.5172413793103449, 0.5172413793103449]
+Mutual Information: 1.0
+
+Knowledge:
+*1******** Go West , when  and Ghost_atEastOf_Pacman
+**0******* Go West , when  and Not Ghost_atWestOf_Pacman
+Number of states: 144
+accuracy: [0.5106382978723404, 0.5106382978723404]
+Mutual Information: 1.0
+
+Knowledge:
+*1*0****** Go West , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman
+**00****** Go West , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman
+Number of states: 58
+accuracy: [0.5087719298245614, 0.5087719298245614]
+Mutual Information: 1.0
+
+Knowledge:
+*000**1*** Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman
+*00*1*1*** Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 8
+accuracy: [0.5, 0.5]
+Mutual Information: 1.0
+
+Knowledge:
+*****11*** Go North , when  and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+*****1*0** Go North , when  and ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 7
+accuracy: [0.5, 0.5]
+Mutual Information: 1.0
+
+Knowledge:
+1****0**** Go East , when Ghost_isNear_Pacman and Not ClosestFood_isNear_Pacman
+1********* Go East , when Ghost_isNear_Pacman
+Number of states: 6
+accuracy: [0.5, 0.4375]
+Mutual Information: 0.876014694966
+
+Knowledge:
+*0*00*00** Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+**100*00** Go North , when  and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 5
+accuracy: [0.5, 0.5]
+Mutual Information: 1.0
+
+Knowledge:
+*001****0* Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+*00*0***0* Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+Number of states: 1
+accuracy: [0.5, 0.5]
+Mutual Information: 1.0
+
+Knowledge:
+*00*1***** Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman
+*000****** Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman
+Number of states: 1
+accuracy: [0.5, 0.5]
+Mutual Information: 1.0
+
+Knowledge:
+1********* Go East , when Ghost_isNear_Pacman
+*0***1**** Go East , when  and Not Ghost_atEastOf_Pacman and ClosestFood_isNear_Pacman
+Number of states: 1
+accuracy: [0.5, 0.5]
+Mutual Information: 1.0
+
+Knowledge:
+**1***1*** Go South , when  and Ghost_atWestOf_Pacman and ClosestFood_atEastOf_Pacman
+**1****0** Go South , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atWestOf_Pacman
+Number of states: 17
+accuracy: [0.4722222222222222, 0.4722222222222222]
+Mutual Information: 1.0
+
+Knowledge:
+**11*01**0 Go East , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+*0*1*01**0 Go East , when  and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+Number of states: 92
+accuracy: [0.467005076142132, 0.44075829383886256]
+Mutual Information: 0.983238724833
+
+Knowledge:
+*00****1** Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_atWestOf_Pacman
+*000****** Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman
+Number of states: 23
+accuracy: [0.46, 0.4528301886792453]
+Mutual Information: 0.953309525626
+
+Knowledge:
+**00*****1 Go South , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+*1*0*****1 Go South , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+Number of states: 26
+accuracy: [0.4406779661016949, 0.4406779661016949]
+Mutual Information: 1.0
+
+Knowledge:
+*1**1***** Go North , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman
+**0*1***** Go North , when  and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman
+Number of states: 178
+accuracy: [0.43842364532019706, 0.43842364532019706]
+Mutual Information: 1.0
+
+Knowledge:
+*********0 Go East , when  and Not ClosestFood_atSouthOf_Pacman
+********** Go East , when 
+Number of states: 19
+accuracy: [0.4318181818181818, 0.375]
+Mutual Information: 0.415113804661
+
+Knowledge:
+**00***10* Go West , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+*1*0***10* Go West , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+Number of states: 18
+accuracy: [0.42857142857142855, 0.42857142857142855]
+Mutual Information: 1.0
+
+Knowledge:
+**00**1**1 Go East , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+*1*0**1**1 Go East , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+Number of states: 19
+accuracy: [0.41304347826086957, 0.41304347826086957]
+Mutual Information: 1.0
+
+Knowledge:
+**0***0*1* Go North , when  and Not Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+*1*****11* Go North , when  and Ghost_atEastOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 56
+accuracy: [0.4117647058823529, 0.4074074074074074]
+Mutual Information: 0.973589952859
+
+Knowledge:
+*1******** Go North , when  and Ghost_atEastOf_Pacman
+**0******* Go North , when  and Not Ghost_atWestOf_Pacman
+Number of states: 208
+accuracy: [0.4, 0.4]
+Mutual Information: 1.0
+
+Knowledge:
+*********0 Go South , when  and Not ClosestFood_atSouthOf_Pacman
+********** Go South , when 
+Number of states: 28
+accuracy: [0.3888888888888889, 0.33064516129032256]
+Mutual Information: 0.56270192512
+
+Knowledge:
+*1*1**0*1* Go East , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+*1*1***11* Go East , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+Number of states: 112
+accuracy: [0.3875432525951557, 0.38545454545454544]
+Mutual Information: 0.926932997745
+
+Knowledge:
+*1**1***** Go South , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman
+**0*1***** Go South , when  and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman
+Number of states: 234
+accuracy: [0.36505460218408736, 0.36505460218408736]
+Mutual Information: 1.0
+
+Knowledge:
+*00******* Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman
+*0****1*** Go North , when  and Not Ghost_atEastOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 5
+accuracy: [0.35714285714285715, 0.35714285714285715]
+Mutual Information: 1.0
+
+Knowledge:
+**1*1*1*** Go West , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman
+*0**1*1*** Go West , when  and Not Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 62
+accuracy: [0.3563218390804598, 0.3563218390804598]
+Mutual Information: 1.0
+
+Knowledge:
+****1***** Go West , when  and Ghost_atSouthOf_Pacman
+********** Go West , when 
+Number of states: 199
+accuracy: [0.3503521126760563, 0.3240223463687151]
+Mutual Information: 0.751431234294
+
+Knowledge:
+*1**100*** Go East , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+**0*100*** Go East , when  and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+Number of states: 166
+accuracy: [0.350210970464135, 0.350210970464135]
+Mutual Information: 1.0
+
+Knowledge:
+***1****** Go East , when  and Ghost_atNorthOf_Pacman
+****0***** Go East , when  and Not Ghost_atSouthOf_Pacman
+Number of states: 98
+accuracy: [0.35, 0.3130841121495327]
+Mutual Information: 0.693924292004
+
+Knowledge:
+********1* Go North , when  and ClosestFood_atNorthOf_Pacman
+********** Go North , when 
+Number of states: 24
+accuracy: [0.3380281690140845, 0.27702702702702703]
+Mutual Information: 0.114193772363
+
+Knowledge:
+**10**1*** Go West , when  and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman
+*0*0**1*** Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman
+Number of states: 15
+accuracy: [0.3333333333333333, 0.3333333333333333]
+Mutual Information: 1.0
+
+Knowledge:
+*0*1**0*** Go North , when  and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+*0*1****** Go North , when  and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman
+Number of states: 125
+accuracy: [0.30864197530864196, 0.3058823529411765]
+Mutual Information: 0.943963174157
+
+Knowledge:
+****1***** Go South , when  and Ghost_atSouthOf_Pacman
+********** Go South , when 
+Number of states: 242
+accuracy: [0.29876543209876544, 0.2954070981210856]
+Mutual Information: 0.756330636396
+
+Knowledge:
+**0******* Go East , when  and Not Ghost_atWestOf_Pacman
+*1******** Go East , when  and Ghost_atEastOf_Pacman
+Number of states: 251
+accuracy: [0.2952941176470588, 0.2944640753828033]
+Mutual Information: 0.990184100437
