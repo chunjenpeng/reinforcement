@@ -1,4 +1,4 @@
-import json, random, sys
+import json, random, sys, fnmatch
 from operator import itemgetter
 from itertools import product
 import cPickle as pickle
@@ -166,25 +166,19 @@ def generateBestResponse(chromosome, table, actions):
     bestResponse = max(responses, key = lambda response: response['accuracy'])
     return bestResponse
 
-def steepestDescent(chromosome, responseDict, gl):
+def steepestDescent(chromosome, gl):
     table = gl['table']
     actions = gl['actions']
-    bestResponse = generateBestResponse(chromosome, table, actions)
-    #responseDict[chromosome] = bestResponse 
 
+    bestResponse = generateBestResponse(chromosome, table, actions)
     descendants = generateDescendants(chromosome)
     random.shuffle(descendants)
     for child in descendants:
         childResponse = generateBestResponse(child, table, actions)
-        ''' 
-        if child in bestResponse:
-            childResponse = responseDict[child]
-        else:
-            childResponse = generateBestResponse(child, table)
-            responseDict[child] = childResponse 
-        ''' 
+        
         #2016-10-20
-        threshold = 0.5 #BEHOLD!!! WHY?0.5?
+        #TODO determine threshold and replacement condition
+        threshold = 0.5 
         if bestResponse['dataNum'] == 0 or \
            childResponse['accuracy'] >= bestResponse['accuracy'] or \
            childResponse['accuracy'] > threshold and childResponse['dataNum'] >= bestResponse['dataNum']:
@@ -202,60 +196,102 @@ def steepestDescent(chromosome, responseDict, gl):
 def hillClimbing(gl, doPrint=False):
     population = gl['population']
     features = gl['features']
-    # Record chromosome score
-    responseDict = {} 
     winner = {} 
+    
     if doPrint: print '\nSteepest Descent for each chromosome...'
     for chromosome in population:
-
-        bestResponse = steepestDescent(chromosome, responseDict, gl) 
+        bestResponse = steepestDescent(chromosome, gl) 
         if doPrint: print chromosome,
         while( bestResponse['chromosome'] != chromosome):
             chromosome = bestResponse['chromosome'] 
             if doPrint: print '->', chromosome,
-            bestResponse = steepestDescent(chromosome, responseDict, gl) 
-            #printResponse(bestResponse, features)
+            bestResponse = steepestDescent(chromosome, gl) 
         if doPrint: print '' 
         
         if chromosome not in winner: 
             winner[chromosome] = bestResponse
     
     nextResponses = [ winner[c] for c in winner ] 
-   
     return sorted(nextResponses, key = lambda response: (response['accuracy'],response['dataNum']), reverse=True)
 
 
 def printKnowledge(knowledge, features):
     # knowledge = {'prior':str, 'responses': [response], 'dataNum': int, 'totalDataNum':int, 'accuracy':float}
     # response  = {'chormosome':str, 'action':str, 'totalDataNum':int, 'dataNum':int, 'accuracy':float, 'matchList':list }
-    print '\nKnowledge:'
-    print 'Given', chromosome2feature(knowledge['prior'], features)
-    print 'accuracy:', knowledge['accuracy']
+    #print '\nKnowledge:'
+    prior = knowledge['prior']
+    accuracy = knowledge['accuracy']
+    dataNum = knowledge['dataNum']
+    totalDataNum = knowledge['totalDataNum']
+    #print ('%8.7f (%4d/%4d)' % (accuracy, dataNum, totalDataNum)), ':', prior 
+    #print 'Given', chromosome2feature(prior, features)
+    for response in knowledge['responses']:
+        printResponse(response, features)
 
-def generateKnowledge(gl, responses):
-    prior = ''
-    responses = []      #
-    totalDataNum = 10   #data that fit prior
-    dataNum = 1         #data that fit this knowledge
-    accuracy = dataNum/totalDataNum
-    knowledge = {'prior':prior, 'responses': responses, 'dataNum': dataNum, 'totalDataNum': totalDataNum, 'accuracy':accuracy}
-    return knowledge
+def deleteUsedObservations(gl, responses):
+    table = gl['table']
+    lists = np.array([ response['matchList'] for response in responses ])
+    remain_data_location = range(table.shape[1])
+    independent_responses = []
+    d_list = []
+    for i in xrange(len(responses)):
+        if i in d_list: continue
+        independent_responses.append(responses[i]) 
+        l = lists[i]
+        location = np.where(l>0)[0]
+        remain_data_location = np.delete(remain_data_location, location, 0)
+        for j in xrange(i+1,len(responses)):
+            if sum(lists[j]*l) > 0 :
+                d_list.append(j)
+    
+    return independent_responses, remain_data_location
+
+
+def generateKnowledge(gl, responses, doPrint = False):
+    # knowledge = {'prior':str, 'responses': [response], 'dataNum': int, 'totalDataNum':int, 'accuracy':float}
+    # response  = {'chormosome':str, 'action':str, 'totalDataNum':int, 'dataNum':int, 'accuracy':float, 'matchList':list }
+    knowledgeList = []
+    features = gl['features']
+    independent_responses, remain_data_location = deleteUsedObservations(gl, responses)
+    if doPrint: 
+        print '\nIndependent Response Accuracy:'
+        for response in independent_responses:
+            printResponse(response, features)
+            print ''
+    
+    for response in independent_responses:
+        prior = response['chromosome'] 
+        responses = [response]
+        totalDataNum = response['totalDataNum']     #TODO
+        dataNum = response['dataNum']                                
+        accuracy = response['accuracy'] 
+        knowledge = {'prior':prior, 'responses': responses, 'dataNum': dataNum, 'totalDataNum': totalDataNum, 'accuracy':accuracy} 
+        knowledgeList.append(knowledge) 
+
+    gl['table'] = gl['table'][:,remain_data_location,:] 
+
+    return knowledgeList
 
 def oneRun(gl):
     observations = gl['observations']
     features = gl['features']
-
-    print '\nNumber of gameStates:', len(observations)
+    
     doPrint = True 
+    #nextResponses = hillClimbing(gl, doPrint)
+    nextResponses = hillClimbing(gl)
+
+    #print '\nResponse Accuracy:'
+    #for response  in nextResponses:
+    #    printResponse(response, features)
     
-    nextResponses = hillClimbing(gl, doPrint)
-    print '\nResponse Accuracy:'
-    for response  in nextResponses:
-        printResponse(response, features)
+    knowledgeList = generateKnowledge(gl, nextResponses, doPrint)
+    #print '\nKB:'
+    #for k in knowledgeList:
+    #    printKnowledge(knowledge, features)
     
-    knowledge = generateKnowledge(gl, nextResponses)
-    #TODO: kick out observations
-    return observations, nextResponses, knowledge
+    
+    print '\nNumber of gameStates:', gl['table'].shape[1] 
+    return observations, nextResponses, knowledgeList
     
     ''' 
     matMI = findMutualInformation(sorted_nextGeneration, bestResponse)
@@ -301,30 +337,28 @@ def findFeatures(observations): # observations = [ {'gameState': gameState, 'act
     actions = ['Stop', 'North', 'South', 'East', 'West']
     from featureGenerator import generateFeatures
     features = generateFeatures()
-    population = generateInitialPopulation(features, 100)
+    population = generateInitialPopulation(features, 50)
     #population = ['11*0*']
     table3D, tableFeatureState, tableStateAction = generateTable(features, observations, actions)
     gl = {'features':features, 'population':population, 'observations':observations, 'actions': actions, 'table':table3D}
 
     responses = []
     knowledgeBase = []
+    # knowledge = {'prior':str, 'responses': [response], 'dataNum': int, 'totalDataNum':int, 'accuracy':float}
     
     while(True):
-        observations, nextResponses, knowledge = oneRun(gl)
-        knowledgeBase.append(knowledge)
-        for response in nextResponses:
-            printResponse(response, features)
-        gl['population'] = [ response['chromosome'] for response in nextResponses ]
-        #population = generateInitialPopulation(features, 100)
-        #print '\nKB:'
-        #for k in knowledgeBase:
-        printKnowledge(knowledge, features)
-        raw_input("\nPress <Enter> to continue...\n")
+        observations, nextResponses, knowledgeList = oneRun(gl)
+        knowledgeBase.extend(knowledgeList)
+        #gl['population'] = [ response['chromosome'] for response in nextResponses ]
+        gl['population'] = generateInitialPopulation(features, 50)
+        if gl['table'].shape[1] < 1: break
+        
+        #raw_input("\nPress <Enter> to continue...\n")
 
-    sorted_knowledgeBase = sorted(knowledgeBase, key=lambda k: (max(k['accuracies'][0], k['accuracies'][1]),len(k['data'])), reverse=True)
-    filename = 'test.p'
+    #sorted_knowledgeBase = sorted(knowledgeBase, key=lambda k: ((k['accuracy']),k['dataNum']), reverse=True)
+    filename = 'KnowledgeBase.p'
     with open(filename, 'wb') as outfile:
-        pickle.dump(sorted_knowledgeBase, outfile)
+        pickle.dump(knowledgeBase, outfile)
     
 
 def run(filename):
@@ -333,8 +367,10 @@ def run(filename):
     
     savefile = open(filename, 'r') 
     knowledgeBase = pickle.load( savefile )
+    print '\nKnowledge:\n'
     for k in knowledgeBase:
         printKnowledge(k, features)
+        print '' 
 
 if __name__ == '__main__':
     if len(sys.argv) < 2 or len(sys.argv) > 2:

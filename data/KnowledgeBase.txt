@@ -1,0 +1,1095 @@
+
+Knowledge:
+
+0.9937500 ( 159/ 160) : *****1***1
+Go South , when  and ClosestFood_isNear_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.9734043 ( 183/ 188) : *****1**1*
+Go North , when  and ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.9010601 ( 255/ 283) : *****11***
+Go East , when  and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+
+0.8192771 ( 272/ 332) : *****1*1**
+Go West , when  and ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+
+0.5089820 (  85/ 167) : *00*00****
+Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman
+
+0.4245283 (  90/ 212) : **0000**1*
+Go West , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.9743590 ( 152/ 156) : *****1**1*
+Go North , when  and ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.9094488 ( 231/ 254) : *****11***
+Go East , when  and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+
+0.8227425 ( 246/ 299) : *****1*1**
+Go West , when  and ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+
+0.6760563 (  48/  71) : *00*0****1
+Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   4/   4) : *****1**1*
+Go South , when  and ClosestFood_isNear_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.9205607 ( 197/ 214) : *****11***
+Go East , when  and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+
+0.8333333 ( 220/ 264) : *****1*1**
+Go West , when  and ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+
+0.6461538 (  84/ 130) : 1***1*****
+Go North , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman
+
+0.6279070 (  54/  86) : 1**1******
+Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman
+
+0.5500000 (  22/  40) : ***1**00**
+Go West , when  and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.4437870 (  75/ 169) : *1*00***1*
+Go West , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.4242424 (  28/  66) : 0*01***11*
+Go East , when Not Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.3190349 ( 238/ 746) : 0*0*1****1
+Go East , when Not Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.7431193 (  81/ 109) : 11********
+Go West , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman
+
+0.6727273 (  37/  55) : *00*0****1
+Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6448598 (  69/ 107) : 1*1*******
+Go East , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman
+
+0.6416667 (  77/ 120) : 1***1*****
+Go North , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman
+
+0.6036036 (  67/ 111) : 0*0*1*0***
+Go West , when Not Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+
+0.6000000 (  18/  30) : ***1**00**
+Go West , when  and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.3322785 ( 210/ 632) : **1*1*****
+Go West , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman
+
+1.0000000 (   4/   4) : 1*****00**
+Go North , when Ghost_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.6538462 (  17/  26) : 11********
+Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman
+
+0.6470588 (  33/  51) : *001*****1
+Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6153846 (  56/  91) : 1*1*******
+Go East , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman
+
+0.6153846 (  16/  26) : ***1**00**
+Go West , when  and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.5869565 (  54/  92) : *1**1*0***
+Go West , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+
+0.5555556 (   5/   9) : 01*0000*0*
+Go East , when Not Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.4418605 (  57/ 129) : **1*1**1*1
+Go South , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3958333 (  19/  48) : **1*1*1*1*
+Go West , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.7500000 (   3/   4) : *0*0**001*
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.6956522 (  16/  23) : 11********
+Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman
+
+0.6265060 (  52/  83) : 1*1*******
+Go East , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman
+
+0.6222222 (  28/  45) : *00*0****1
+Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6076923 (  79/ 130) : ****1*0**0
+Go West , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.6000000 (  15/  25) : ***1**00**
+Go West , when  and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.5454545 (   6/  11) : 0**000*100
+Go East , when Not Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5395683 (  75/ 139) : *000******
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman
+
+0.5333333 (  24/  45) : 01**000*0*
+Go East , when Not Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.4782609 (  22/  46) : 0*100*1**1
+Go West , when Not Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3125000 ( 240/ 768) : ****1**0*1
+Go West , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6666667 (   2/   3) : ***00*00*1
+Go East , when  and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6666667 (   2/   3) : *1*00*00**
+Go North , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.6567164 (  44/  67) : 1*1*******
+Go East , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman
+
+0.6486486 (  48/  74) : 1***1*****
+Go North , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman
+
+0.6338028 (  45/  71) : *1**1*0***
+Go West , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+
+0.6000000 (  12/  20) : ***1**00**
+Go West , when  and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.5882353 (  10/  17) : 11********
+Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman
+
+0.5714286 (  20/  35) : *001*****1
+Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5370370 (  29/  54) : *1*1*0*1**
+Go East , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+
+0.4851485 (  49/ 101) : **1*1*1**0
+Go East , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.4545455 (  10/  22) : *001**1*1*
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.4468085 (  21/  47) : **11***11*
+Go North , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.3870968 (  84/ 217) : **1*1**0*1
+Go West , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.7291667 (  35/  48) : *1**1**1**
+Go West , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman
+
+0.6956522 (  32/  46) : 1*1*******
+Go East , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman
+
+0.6428571 (   9/  14) : **1***00**
+Go West , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.6393443 (  39/  61) : 1***1*****
+Go North , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman
+
+0.6000000 (   9/  15) : 11********
+Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman
+
+0.5909091 (  13/  22) : 1**1****0*
+Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.5416667 (  26/  48) : *1*1*0*1**
+Go East , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+
+0.5384615 (  14/  26) : 000*0*****
+Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman
+
+0.3991597 (  95/ 238) : 00*****1*1
+Go South , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.7500000 (   3/   4) : 0**000*100
+Go East , when Not Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.7000000 (  28/  40) : 1*1*******
+Go East , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman
+
+0.6521739 (  15/  23) : ****1*0*00
+Go West , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.6315789 (  12/  19) : 1*0*0****1
+Go South , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6250000 (   5/   8) : 0*0*1**1*1
+Go East , when Not Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6153846 (   8/  13) : **1***00**
+Go West , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.6000000 (   9/  15) : 11********
+Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman
+
+0.5909091 (  13/  22) : *000****1*
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5384615 (   7/  13) : *1**1**1**
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman
+
+0.5263158 (  10/  19) : *00*****00
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5185185 (  56/ 108) : *****1****
+Go East , when  and ClosestFood_isNear_Pacman
+
+0.4814815 (  13/  27) : **11***11*
+Go North , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.4500000 (   9/  20) : 0**00**1*1
+Go South , when Not Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   2/   2) : ***00*00**
+Go North , when  and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.6470588 (  22/  34) : 1*1*******
+Go East , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman
+
+0.6363636 (   7/  11) : 11********
+Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman
+
+0.6153846 (   8/  13) : **1***00**
+Go West , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.6000000 (   9/  15) : *00*0*1*0*
+Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.5714286 (   8/  14) : ****1**11*
+Go North , when  and Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5714286 (   4/   7) : 01*0***1*1
+Go East , when Not Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5555556 (   5/   9) : *1**1*00**
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.5531915 (  52/  94) : *****1****
+Go East , when  and ClosestFood_isNear_Pacman
+
+0.5238095 (  11/  21) : *001****1*
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5200000 (  13/  25) : 00*1***11*
+Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.4523810 (  19/  42) : 01**0**1*0
+Go West , when Not Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.4500000 (   9/  20) : 0**00**1*1
+Go South , when Not Ghost_isNear_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.4303797 (  34/  79) : **1*10*1**
+Go South , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+
+0.7272727 (   8/  11) : 1*1*******
+Go North , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman
+
+0.7142857 (   5/   7) : 11********
+Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman
+
+0.6666667 (   8/  12) : 000*0***0*
+Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.6666667 (   4/   6) : ****1**11*
+Go North , when  and Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.6000000 (   3/   5) : *1**1**1*1
+Go East , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5882353 (  10/  17) : *00*0****1
+Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5833333 (   7/  12) : *0****00**
+Go East , when  and Not Ghost_atEastOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.5802469 (  47/  81) : *****1****
+Go East , when  and ClosestFood_isNear_Pacman
+
+0.5714286 (   4/   7) : *1*0**00**
+Go South , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.5000000 (   9/  18) : *00*0***1*
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5000000 (   1/   2) : *1*0***11*
+Go East , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.4074074 (  11/  27) : **1*1**01*
+Go West , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.3684211 (   7/  19) : 000*1*1**1
+Go South , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3636364 (  16/  44) : **11**1**1
+Go West , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3597122 (  50/ 139) : 0*1*001**0
+Go West , when Not Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : 1**1**0*00
+Go West , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : 1*1*****1*
+Go South , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.7500000 (   6/   8) : *0****00**
+Go East , when  and Not Ghost_atEastOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.7500000 (   3/   4) : 0*0*1**1*1
+Go East , when Not Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6363636 (  14/  22) : 1**1******
+Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman
+
+0.6031746 (  38/  63) : **1****000
+Go East , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5555556 (   5/   9) : ****10*1*0
+Go North , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5294118 (   9/  17) : ***00**1*1
+Go South , when  and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   5/  10) : *1*****11*
+Go East , when  and Ghost_atEastOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5000000 (   3/   6) : *1*0**00**
+Go South , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.4482759 (  13/  29) : ***1***11*
+Go North , when  and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.3432836 (  23/  67) : *1**10**00
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.3243243 (  84/ 259) : 01*0**1**1
+Go West , when Not Ghost_isNear_Pacman and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : *0*0**00**
+Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+1.0000000 (   1/   1) : 1*1*****1*
+Go South , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.7500000 (   6/   8) : 1*****0***
+Go North , when Ghost_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+
+0.7142857 (   5/   7) : 1**1****0*
+Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.6666667 (   2/   3) : **01**00**
+Go West , when  and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.5806452 (  36/  62) : *****1****
+Go East , when  and ClosestFood_isNear_Pacman
+
+0.5714286 (   8/  14) : ****1**100
+Go West , when  and Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5625000 (   9/  16) : 000*0*****
+Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman
+
+0.5555556 (  10/  18) : *1***0*1*0
+Go East , when  and Ghost_atEastOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5555556 (   5/   9) : *1**1*0***
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+
+0.5384615 (   7/  13) : 1***1*1***
+Go East , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman
+
+0.5384615 (   7/  13) : **11***11*
+Go North , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.4666667 (   7/  15) : *0*000*10*
+Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   3/   3) : 1**1****1*
+Go East , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : 1*****0*1*
+Go North , when Ghost_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : **000**10*
+Go West , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : 1*1******1
+Go East , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : *1**0*00**
+Go West , when  and Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+1.0000000 (   1/   1) : 1**1***1**
+Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman
+
+0.9473684 (  18/  19) : *****1*0**
+Go East , when  and ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.6666667 (   2/   3) : ******00*1
+Go South , when  and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6666667 (   2/   3) : *0****00**
+Go East , when  and Not Ghost_atEastOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.6000000 (   9/  15) : *1***0*1*0
+Go East , when  and Ghost_atEastOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.6000000 (   3/   5) : **1*10*1*0
+Go South , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5714286 (   8/  14) : 000*0*****
+Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman
+
+0.5600000 (  14/  25) : ***1*1****
+Go West , when  and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman
+
+0.5106383 (  24/  47) : ***0***1*1
+Go South , when  and Not Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   4/   8) : *1**0*0**1
+Go North , when  and Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : 1*1*******
+Go South , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman
+
+0.3500000 (  21/  60) : *1**10**00
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : 1******1**
+Go North , when Ghost_isNear_Pacman and ClosestFood_atWestOf_Pacman
+
+0.6666667 (   4/   6) : 1***1***0*
+Go East , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.6666667 (   4/   6) : 1***0****0
+Go South , when Ghost_isNear_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.6666667 (   4/   6) : *1*1**0**1
+Go North , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6666667 (   2/   3) : ******00*1
+Go South , when  and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6363636 (   7/  11) : *1***00**0
+Go East , when  and Ghost_atEastOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.6000000 (   3/   5) : 11********
+Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman
+
+0.5400000 (  27/  50) : **1****000
+Go East , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5384615 (   7/  13) : 000*0*****
+Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman
+
+0.3508772 (  20/  57) : *0**0*1**1
+Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   2/   2) : 1**1******
+Go South , when Ghost_isNear_Pacman and Ghost_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : ****1*0*1*
+Go North , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : 1*1*******
+Go South , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman
+
+0.7500000 (   3/   4) : 11********
+Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman
+
+0.6666667 (   2/   3) : ******00*1
+Go South , when  and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6666667 (   2/   3) : ****100*00
+Go South , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.6000000 (   6/  10) : **0*00*10*
+Go North , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.6000000 (   3/   5) : 1000******
+Go East , when Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman
+
+0.6000000 (   3/   5) : **0***0*1*
+Go East , when  and Not Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5555556 (   5/   9) : ***1***11*
+Go North , when  and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5217391 (  12/  23) : *****1****
+Go East , when  and ClosestFood_isNear_Pacman
+
+0.4651163 (  20/  43) : **1*0**1*1
+Go South , when  and Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3846154 (   5/  13) : *0*00*1*1*
+Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   2/   2) : ****0*00**
+Go East , when  and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman
+
+1.0000000 (   1/   1) : *1*0**0*00
+Go North , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : ****1**11*
+Go North , when  and Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : *00*0*1**1
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.8571429 (   6/   7) : *****1*0**
+Go East , when  and ClosestFood_isNear_Pacman and Not ClosestFood_atWestOf_Pacman
+
+0.8181818 (   9/  11) : *****1*1**
+Go West , when  and ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+
+0.7500000 (   3/   4) : *1*****11*
+Go East , when  and Ghost_atEastOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.7500000 (   3/   4) : 11********
+Go North , when Ghost_isNear_Pacman and Ghost_atEastOf_Pacman
+
+0.6666667 (   2/   3) : 1***1****1
+Go East , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6000000 (   3/   5) : *00***0***
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman
+
+0.5714286 (   4/   7) : **11*01*00
+Go West , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   3/   6) : ***00*0*0*
+Go North , when  and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.3620690 (  21/  58) : *1*1**1**1
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3518519 (  19/  54) : *1**1*1*00
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.3454545 (  19/  55) : *******1*1
+Go South , when  and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : ****1*0*1*
+Go North , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : *1*1***1*1
+Go North , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : 1*1*******
+Go South , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman
+
+1.0000000 (   1/   1) : 1***1***1*
+Go West , when Ghost_isNear_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : **11*11***
+Go South , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+
+0.6666667 (   2/   3) : 1*******0*
+Go East , when Ghost_isNear_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.6666667 (   2/   3) : 1*0*0*****
+Go North , when Ghost_isNear_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman
+
+0.6250000 (   5/   8) : *1***0*1**
+Go East , when  and Ghost_atEastOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+
+0.6000000 (   3/   5) : **1*1*0**0
+Go West , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5217391 (  12/  23) : ****100*0*
+Go South , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.5135135 (  19/  37) : *0*****000
+Go East , when  and Not Ghost_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   5/  10) : *001*****0
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.4042553 (  19/  47) : *1*1***0*1
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3275862 (  38/ 116) : *1**1***1*
+Go North , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.3216374 (  55/ 171) : *1*0***0*1
+Go West , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : 1*1*******
+Go South , when Ghost_isNear_Pacman and Ghost_atWestOf_Pacman
+
+0.7500000 (   3/   4) : **0****11*
+Go East , when  and Not Ghost_atWestOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.6666667 (   2/   3) : 1***0*****
+Go North , when Ghost_isNear_Pacman and Not Ghost_atSouthOf_Pacman
+
+0.6666667 (   2/   3) : *00***0***
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman
+
+0.6250000 (   5/   8) : *****1****
+Go West , when  and ClosestFood_isNear_Pacman
+
+0.5238095 (  11/  21) : ****100***
+Go South , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atEastOf_Pacman
+
+0.5000000 (  11/  22) : *0*0***000
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   5/  10) : **1*1***1*
+Go West , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5000000 (   2/   4) : *001****1*
+Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5000000 (   2/   4) : **11***11*
+Go North , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5000000 (   2/   4) : 0000****1*
+Go North , when Not Ghost_isNear_Pacman and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.3823529 (  13/  34) : *1*00****1
+Go West , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3738318 (  40/ 107) : *0*0***0*1
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3548387 (  11/  31) : **11**0*0*
+Go East , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.3287671 (  24/  73) : ***1*****1
+Go South , when  and Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   2/   2) : *1**0*0***
+Go East , when  and Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+
+1.0000000 (   1/   1) : ****10*1*0
+Go South , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : 1*********
+Go North , when Ghost_isNear_Pacman
+
+1.0000000 (   1/   1) : *00***0***
+Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not ClosestFood_atEastOf_Pacman
+
+1.0000000 (   1/   1) : *****11***
+Go East , when  and ClosestFood_isNear_Pacman and ClosestFood_atEastOf_Pacman
+
+0.8000000 (   4/   5) : **1*0*1*00
+Go West , when  and Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.7500000 (   3/   4) : *0***1****
+Go West , when  and Not Ghost_atEastOf_Pacman and ClosestFood_isNear_Pacman
+
+0.5263158 (  10/  19) : **10**1*00
+Go East , when  and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   2/   4) : *000****1*
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5000000 (   2/   4) : *1****0**1
+Go South , when  and Ghost_atEastOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   2/   4) : ***1**0*1*
+Go North , when  and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.4444444 (   4/   9) : *00***1**1
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.4137931 (  24/  58) : *1*0**1*00
+Go South , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.3457944 (  37/ 107) : **1****0*1
+Go East , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3333333 (  29/  87) : ****0**0*1
+Go South , when  and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : **0**0*1**
+Go South , when  and Not Ghost_atWestOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman
+
+1.0000000 (   1/   1) : 1*********
+Go North , when Ghost_isNear_Pacman
+
+0.6666667 (   2/   3) : ***1***11*
+Go South , when  and Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.6666667 (   2/   3) : ***00*0**1
+Go South , when  and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.6666667 (   2/   3) : *00*1***1*
+Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.6000000 (   3/   5) : *****1****
+Go West , when  and ClosestFood_isNear_Pacman
+
+0.5263158 (  10/  19) : *0*0*0**00
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   3/   6) : *00******1
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : *1****0***
+Go North , when  and Ghost_atEastOf_Pacman and Not ClosestFood_atEastOf_Pacman
+
+0.4615385 (   6/  13) : ***1*0*1*0
+Go North , when  and Ghost_atNorthOf_Pacman and Not ClosestFood_isNear_Pacman and ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.4285714 (  12/  28) : **000****1
+Go South , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.4166667 (  10/  24) : *1*1*****1
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3555556 (  32/  90) : **1****0*0
+Go West , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.3478261 (   8/  23) : ******0**1
+Go West , when  and Not ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3303965 (  75/ 227) : *1*1******
+Go North , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : **0****1**
+Go North , when  and Not Ghost_atWestOf_Pacman and ClosestFood_atWestOf_Pacman
+
+0.6666667 (   2/   3) : *00*0*****
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman
+
+0.6666667 (   2/   3) : **1**1****
+Go West , when  and Ghost_atWestOf_Pacman and ClosestFood_isNear_Pacman
+
+0.6000000 (   3/   5) : *00******1
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5454545 (   6/  11) : **1***1*00
+Go East , when  and Ghost_atWestOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : ******0*1*
+Go North , when  and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.4333333 (  13/  30) : *1*1****0*
+Go North , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.4285714 (   3/   7) : *0*00***0*
+Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.4090909 (   9/  22) : *1*00****1
+Go South , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3178808 (  48/ 151) : *1**1*****
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman
+
+0.3057851 (  74/ 242) : *1******1*
+Go North , when  and Ghost_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : *001******
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : ******0*1*
+Go East , when  and Not ClosestFood_atEastOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.6666667 (   2/   3) : ****1*0***
+Go West , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_atEastOf_Pacman
+
+0.6250000 (   5/   8) : *1*1*****1
+Go North , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5555556 (   5/   9) : ***00***00
+Go East , when  and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   6/  12) : **1*1****0
+Go West , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   5/  10) : *0****1*00
+Go East , when  and Not Ghost_atEastOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   2/   4) : ***1**0**1
+Go North , when  and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : *00******1
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : *****1****
+Go East , when  and ClosestFood_isNear_Pacman
+
+0.4074074 (  11/  27) : *1*00***1*
+Go North , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.4000000 (   4/  10) : **100*****
+Go West , when  and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman
+
+0.3804348 (  35/  92) : *1*0****0*
+Go South , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.3773585 (  20/  53) : *0*****0*1
+Go East , when  and Not Ghost_atEastOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.7500000 (   3/   4) : ***0***1**
+Go West , when  and Not Ghost_atNorthOf_Pacman and ClosestFood_atWestOf_Pacman
+
+0.6000000 (   3/   5) : *0*1**1*0*
+Go West , when  and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.5714286 (   4/   7) : **10****1*
+Go West , when  and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5000000 (   2/   4) : ***1**0**1
+Go North , when  and Ghost_atNorthOf_Pacman and Not ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : *******1*0
+Go South , when  and ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : *00******0
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : *00******1
+Go North , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.4871795 (  19/  39) : **10***00*
+Go East , when  and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.4166667 (  15/  36) : *1**1****1
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.4000000 (   2/   5) : **01*****1
+Go North , when  and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3636364 (   8/  22) : *1*00***1*
+Go North , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : ****1**1**
+Go North , when  and Ghost_atSouthOf_Pacman and ClosestFood_atWestOf_Pacman
+
+1.0000000 (   1/   1) : *******1*0
+Go East , when  and ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : *00******1
+Go South , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5357143 (  15/  28) : **1***1**1
+Go East , when  and Ghost_atWestOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   7/  14) : ***00****1
+Go West , when  and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : ***00***00
+Go North , when  and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.4545455 (  10/  22) : ****1***00
+Go East , when  and Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.4545455 (   5/  11) : *1*1****0*
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.4482759 (  13/  29) : *1**1****1
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3422819 (  51/ 149) : **0*****1*
+Go North , when  and Not Ghost_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : *******1*0
+Go East , when  and ClosestFood_atWestOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : ***00***00
+Go North , when  and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.6666667 (   2/   3) : *0*00*****
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman
+
+0.6000000 (   3/   5) : ***1**1*00
+Go South , when  and Ghost_atNorthOf_Pacman and ClosestFood_atEastOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.6000000 (   3/   5) : **1****000
+Go West , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : **1*1***1*
+Go South , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5000000 (   1/   2) : *******1*1
+Go North , when  and ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : *0*1***0*1
+Go East , when  and Not Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and Not ClosestFood_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : *1*1*****1
+Go North , when  and Ghost_atEastOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : *00*******
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman
+
+0.4444444 (   4/   9) : **0*0****1
+Go South , when  and Not Ghost_atWestOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : **100***1*
+Go East , when  and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : **100***0*
+Go West , when  and Ghost_atWestOf_Pacman and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.5000000 (   4/   8) : *0**1****0
+Go West , when  and Not Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   4/   8) : ***1****0*
+Go South , when  and Ghost_atNorthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.5000000 (   2/   4) : **1*****00
+Go East , when  and Ghost_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : *******1**
+Go North , when  and ClosestFood_atWestOf_Pacman
+
+0.5000000 (   1/   2) : **1*1***1*
+Go South , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.5000000 (   1/   2) : *00*******
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman
+
+0.3600000 (   9/  25) : *1*0****1*
+Go West , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.3387097 (  21/  62) : *1*0******
+Go South , when  and Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : **1*1***1*
+Go South , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : *00*******
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atWestOf_Pacman
+
+0.6666667 (   2/   3) : ***1*****1
+Go North , when  and Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.4375000 (   7/  16) : *1**1****1
+Go South , when  and Ghost_atEastOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.4285714 (   6/  14) : **0*****00
+Go South , when  and Not Ghost_atWestOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.4285714 (   3/   7) : ***00***1*
+Go East , when  and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.4000000 (   2/   5) : **1*1****0
+Go East , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.2916667 (   7/  24) : **11****1*
+Go East , when  and Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : *******1**
+Go South , when  and ClosestFood_atWestOf_Pacman
+
+0.5000000 (   6/  12) : **0*1****1
+Go West , when  and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   3/   6) : **0*1***00
+Go East , when  and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   2/   4) : ****0***00
+Go South , when  and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   2/   4) : ***00****0
+Go South , when  and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.4000000 (   4/  10) : *0*0*****1
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.4000000 (   2/   5) : ****0*1**1
+Go West , when  and Not Ghost_atSouthOf_Pacman and ClosestFood_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3018868 (  16/  53) : **01****1*
+Go West , when  and Not Ghost_atWestOf_Pacman and Ghost_atNorthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.6666667 (   2/   3) : **1*1****0
+Go West , when  and Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   2/   4) : ****0***00
+Go South , when  and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : ***00***1*
+Go North , when  and Not Ghost_atNorthOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.4444444 (   4/   9) : **0*1***0*
+Go East , when  and Not Ghost_atWestOf_Pacman and Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.3529412 (   6/  17) : **1*****1*
+Go South , when  and Ghost_atWestOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.3333333 (   6/  18) : *********1
+Go South , when  and ClosestFood_atSouthOf_Pacman
+
+1.0000000 (   1/   1) : *0*0*****0
+Go East , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   1/   2) : ****0***00
+Go North , when  and Not Ghost_atSouthOf_Pacman and Not ClosestFood_atNorthOf_Pacman and Not ClosestFood_atSouthOf_Pacman
+
+0.3333333 (   5/  15) : *********1
+Go East , when  and ClosestFood_atSouthOf_Pacman
+
+0.3225806 (  10/  31) : *1**0***1*
+Go South , when  and Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+1.0000000 (   1/   1) : ***1****0*
+Go West , when  and Ghost_atNorthOf_Pacman and Not ClosestFood_atNorthOf_Pacman
+
+0.3750000 (   3/   8) : ****1***1*
+Go East , when  and Ghost_atSouthOf_Pacman and ClosestFood_atNorthOf_Pacman
+
+0.3333333 (   2/   6) : **1******1
+Go East , when  and Ghost_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3333333 (   2/   6) : *1*******1
+Go North , when  and Ghost_atEastOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.3055556 (  11/  36) : ***1******
+Go East , when  and Ghost_atNorthOf_Pacman
+
+0.5000000 (   2/   4) : **0******1
+Go South , when  and Not Ghost_atWestOf_Pacman and ClosestFood_atSouthOf_Pacman
+
+0.5000000 (   2/   4) : *0*0******
+Go West , when  and Not Ghost_atEastOf_Pacman and Not Ghost_atNorthOf_Pacman
+
+0.3157895 (   6/  19) : *1**0*****
+Go North , when  and Ghost_atEastOf_Pacman and Not Ghost_atSouthOf_Pacman
+
+0.3103448 (   9/  29) : ****0*****
+Go West , when  and Not Ghost_atSouthOf_Pacman
+
+1.0000000 (   2/   2) : ********0*
+Go East , when  and Not ClosestFood_atNorthOf_Pacman
+
+0.3333333 (   1/   3) : ****1*****
+Go South , when  and Ghost_atSouthOf_Pacman
+
+0.2941176 (   5/  17) : **0*******
+Go East , when  and Not Ghost_atWestOf_Pacman
+
+1.0000000 (   1/   1) : ****1*****
+Go West , when  and Ghost_atSouthOf_Pacman
+
+0.4000000 (   4/  10) : **0*******
+Go North , when  and Not Ghost_atWestOf_Pacman
+
+0.6666667 (   4/   6) : **0*******
+Go West , when  and Not Ghost_atWestOf_Pacman
+
+1.0000000 (   2/   2) : **0*******
+Go South , when  and Not Ghost_atWestOf_Pacman
+
+0.2500000 (   1/   4) : **********
+Go North , when 
+
+0.3333333 (   1/   3) : **********
+Go South , when 
+
+0.5000000 (   1/   2) : **********
+Go East , when 
+
+1.0000000 (   1/   1) : **********
+Go West , when 
+
