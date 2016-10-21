@@ -99,7 +99,8 @@ def generateTable(features, observations, actions):
                 table3D[i][j][k] = 1
             else:
                 table3D[i][j][k] = -1
-            print('generating table ... %d/%d\r'%(j*f+k,f*o)),
+        print('generating table ... %d/%d\r'%(j*f,f*o)),
+    print ''
     #plot3D(table3D)
     return table3D, tableFeatureState, tableStateAction
 
@@ -215,20 +216,7 @@ def hillClimbing(gl, doPrint=False):
     return sorted(nextResponses, key = lambda response: (response['accuracy'],response['dataNum']), reverse=True)
 
 
-def printKnowledge(knowledge, features):
-    # knowledge = {'prior':str, 'responses': [response], 'dataNum': int, 'totalDataNum':int, 'accuracy':float}
-    # response  = {'chormosome':str, 'action':str, 'totalDataNum':int, 'dataNum':int, 'accuracy':float, 'matchList':list }
-    #print '\nKnowledge:'
-    prior = knowledge['prior']
-    accuracy = knowledge['accuracy']
-    dataNum = knowledge['dataNum']
-    totalDataNum = knowledge['totalDataNum']
-    #print ('%8.7f (%4d/%4d)' % (accuracy, dataNum, totalDataNum)), ':', prior 
-    #print 'Given', chromosome2feature(prior, features)
-    for response in knowledge['responses']:
-        printResponse(response, features)
-
-def deleteUsedObservations(gl, responses):
+def findIndependentResponses(gl, responses):
     table = gl['table']
     lists = np.array([ response['matchList'] for response in responses ])
     remain_data_location = range(table.shape[1])
@@ -239,7 +227,9 @@ def deleteUsedObservations(gl, responses):
         independent_responses.append(responses[i]) 
         l = lists[i]
         location = np.where(l>0)[0]
-        remain_data_location = np.delete(remain_data_location, location, 0)
+        for d in location:
+            remain_data_location.remove(d)
+        #remain_data_location = np.delete(remain_data_location, location, 0)
         for j in xrange(i+1,len(responses)):
             if sum(lists[j]*l) > 0 :
                 d_list.append(j)
@@ -247,30 +237,123 @@ def deleteUsedObservations(gl, responses):
     return independent_responses, remain_data_location
 
 
-def generateKnowledge(gl, responses, doPrint = False):
+def printKnowledge(knowledge, features):
     # knowledge = {'prior':str, 'responses': [response], 'dataNum': int, 'totalDataNum':int, 'accuracy':float}
     # response  = {'chormosome':str, 'action':str, 'totalDataNum':int, 'dataNum':int, 'accuracy':float, 'matchList':list }
+    prior = knowledge['prior']
+    accuracy = knowledge['accuracy']
+    dataNum = knowledge['dataNum']
+    totalDataNum = knowledge['totalDataNum']
+    #print '\nKnowledge:'
+    print ('%8.7f (%4d/%4d)' % (accuracy, dataNum, totalDataNum)), ':', prior 
+    print 'Given', chromosome2feature(prior, features)
+    print 'responses'
+    for response in knowledge['responses']:
+        printResponse(response, features)
+
+
+def findCommonString(str1, str2):
+    ch1 = list(str1)
+    ch2 = list(str2)
+    commonString = ['*']*len(str1)
+    for i in xrange(len(str1)):
+        if str1[i] == '*' or str2[i] == '*': continue
+        elif str1[i] != str2[i]:
+            return None, ''.join(ch1), ''.join(ch2)
+        elif str1[i] == str2[i]:
+            commonString[i] = str1[i]
+            ch1[i] = '*'
+            ch2[i] = '*'
+
+    if commonString == '*'*len(str1):
+        return None, ''.join(ch1), ''.join(ch2)
+    return ''.join(commonString), ''.join(ch1), ''.join(ch2)
+
+
+def mergeChromosome(ch1, ch2):
+    c1 = list(ch1)
+    c2 = list(ch2)
+    commonString = c1
+    for i in xrange(len(ch1)):
+        if c1[i] == '*' and c2[i] != '*':
+            commonString[i] = c2[i]
+    return ''.join(commonString)
+
+def insertIntoKD(gl, response):
     knowledgeList = []
+    table = gl['table']
+    KD = gl['knowledgeDict']
+    priorList = KD.keys()
     features = gl['features']
-    independent_responses, remain_data_location = deleteUsedObservations(gl, responses)
-    if doPrint: 
-        print '\nIndependent Response Accuracy:'
-        for response in independent_responses:
-            printResponse(response, features)
-            print ''
-    
-    for response in independent_responses:
-        prior = response['chromosome'] 
+    print response['chromosome'], response['action']
+    print 'inserIntoKD: num', len(KD)
+    FitInKD = False
+    for p in priorList: 
+        k = KD[p]
+        
+        prior, ch1, ch2 = findCommonString(k['prior'], response['chromosome'])
+        #print k['prior'], response['chromosome']
+        #print ch1, ch2, prior
+        if prior is None: continue # No common string
+        FitInKD = True 
+         
+        responses = []
+        responses.extend(k['responses'])
+        for r in responses:
+            r['chromosome'] = mergeChromosome(ch1, r['chromosome'])
+        r = response.copy()
+        r['chromosome'] = ch2
+        responses.append(r)
+        #if r not in responses:
+        #    responses.append(r)
+
+        m, d, totalDataNum = matchData(prior, table)
+        matchList = np.logical_or(k['matchList'],response['matchList'])
+        dataNum = sum(matchList)                                
+        accuracy = dataNum/totalDataNum 
+
+        newKnowledge = {
+            'prior':prior,
+            'responses': responses,
+            'dataNum': dataNum,
+            'totalDataNum': totalDataNum,
+            'accuracy':accuracy,
+            'matchList':matchList
+        } 
+        #print '\nknowledge', printKnowledge(knowledge, features)
+        #print '\nk', printKnowledge(k, features)
+        if prior not in gl['knowledgeDict'] or accuracy > gl['knowledgeDict'][prior]['accuracy']:
+            print '\nadd knowledge\n', printKnowledge(newKnowledge, features)
+            gl['knowledgeDict'][prior] = newKnowledge
+        raw_input()
+
+    if not FitInKD: 
+        prior = response['chromosome']
+        response['chromosome'] = '*'*len(features)
         responses = [response]
-        totalDataNum = response['totalDataNum']     #TODO
-        dataNum = response['dataNum']                                
-        accuracy = response['accuracy'] 
-        knowledge = {'prior':prior, 'responses': responses, 'dataNum': dataNum, 'totalDataNum': totalDataNum, 'accuracy':accuracy} 
-        knowledgeList.append(knowledge) 
-
-    gl['table'] = gl['table'][:,remain_data_location,:] 
-
+        t = response['totalDataNum']     #TODO
+        d = response['dataNum']                                
+        a = response['accuracy']
+        m = response['matchList']
+        knowledge = {'prior':prior, 'responses': responses, 'dataNum': d, 'totalDataNum': t, 'accuracy':a, 'matchList':m} 
+        if prior not in gl['knowledgeDict'] or accuracy > gl['knowledgeDict'][prior]['accuracy']:
+            print '\nadd knowledge\n', printKnowledge(knowledge, features)
+            gl['knowledgeDict'][prior] = knowledge
+        raw_input()
     return knowledgeList
+
+
+def generateKnowledge(gl, independentResponses, doPrint = False):
+    # knowledge = {'prior':str, 'responses': [response], 'dataNum': int, 'totalDataNum':int, 'accuracy':float, 'matchList':list}
+    # response  = {'chromosome':str, 'action':str, 'totalDataNum':int, 'dataNum':int, 'accuracy':float, 'matchList':list }
+    newKnowledgeList = []
+    features = gl['features']
+    
+    for response in independentResponses:
+        knowledgeList = insertIntoKD(gl, response) 
+        newKnowledgeList.extend(knowledgeList)
+    return sorted(newKnowledgeList, key = lambda k: (k['accuracy'],k['dataNum']), reverse=True)
+
 
 def oneRun(gl):
     observations = gl['observations']
@@ -278,20 +361,27 @@ def oneRun(gl):
     
     doPrint = True 
     #nextResponses = hillClimbing(gl, doPrint)
-    nextResponses = hillClimbing(gl)
-
+    responses = hillClimbing(gl)
     #print '\nResponse Accuracy:'
     #for response  in nextResponses:
     #    printResponse(response, features)
     
-    knowledgeList = generateKnowledge(gl, nextResponses, doPrint)
-    #print '\nKB:'
-    #for k in knowledgeList:
-    #    printKnowledge(knowledge, features)
+    independentResponses, remain_data_location = findIndependentResponses(gl, responses)
+    #print '\nIndependent Response Accuracy:'
+    #for response in independent_responses:
+    #    printResponse(response, features)
     
+    newKnowledgeList = generateKnowledge(gl, independentResponses, doPrint)
+    print '\nKD:'
+    for k in newKnowledgeList:
+        printKnowledge(k, features)
+        print ''
+    
+    gl['table'] = gl['table'][:,remain_data_location,:] 
     
     print '\nNumber of gameStates:', gl['table'].shape[1] 
-    return observations, nextResponses, knowledgeList
+    raw_input("\nPress <Enter> to continue...\n")
+    return responses
     
     ''' 
     matMI = findMutualInformation(sorted_nextGeneration, bestResponse)
@@ -338,27 +428,32 @@ def findFeatures(observations): # observations = [ {'gameState': gameState, 'act
     from featureGenerator import generateFeatures
     features = generateFeatures()
     population = generateInitialPopulation(features, 50)
-    #population = ['11*0*']
     table3D, tableFeatureState, tableStateAction = generateTable(features, observations, actions)
-    gl = {'features':features, 'population':population, 'observations':observations, 'actions': actions, 'table':table3D}
+    knowledgeBase = [] 
+    knowledgeDict = {}
+    gl = {
+        'features':features, 
+        'population':population, 
+        'observations':observations,
+        'actions': actions,
+        'table':table3D,
+        'knowledgeDict':knowledgeDict
+    }
 
-    responses = []
-    knowledgeBase = []
     # knowledge = {'prior':str, 'responses': [response], 'dataNum': int, 'totalDataNum':int, 'accuracy':float}
     
-    while(True):
-        observations, nextResponses, knowledgeList = oneRun(gl)
-        knowledgeBase.extend(knowledgeList)
-        #gl['population'] = [ response['chromosome'] for response in nextResponses ]
-        gl['population'] = generateInitialPopulation(features, 50)
+    while(False):
+        nextResponses = oneRun(gl)
+        gl['population'] = [ response['chromosome'] for response in nextResponses ]
+        #gl['population'] = generateInitialPopulation(features, 50)
         if gl['table'].shape[1] < 1: break
         
-        #raw_input("\nPress <Enter> to continue...\n")
-
-    #sorted_knowledgeBase = sorted(knowledgeBase, key=lambda k: ((k['accuracy']),k['dataNum']), reverse=True)
+    nextResponses = oneRun(gl)
+    knowledgeBase = knowledgeDict.values()
+    sorted_knowledgeBase = sorted(knowledgeBase, key=lambda k: ((k['accuracy']),k['dataNum']), reverse=True)
     filename = 'KnowledgeBase.p'
     with open(filename, 'wb') as outfile:
-        pickle.dump(knowledgeBase, outfile)
+        pickle.dump(sorted_knowledgeBase, outfile)
     
 
 def run(filename):
